@@ -184,6 +184,12 @@
     <Compile Include="Admin\Employee.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Admin\Feedback.Designer.vb">
+      <DependentUpon>Feedback.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Feedback.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Admin\FormAddNewmenuItem.Designer.vb">
       <DependentUpon>FormAddNewmenuItem.vb</DependentUpon>
     </Compile>
@@ -386,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Employee.resx">
       <DependentUpon>Employee.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Feedback.resx">
+      <DependentUpon>Feedback.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\FormAddNewmenuItem.resx">
       <DependentUpon>FormAddNewmenuItem.vb</DependentUpon>
