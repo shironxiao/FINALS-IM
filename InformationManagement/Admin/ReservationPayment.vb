@@ -9,7 +9,7 @@ Public Class ReservationPayment
     End Sub
 
     ' =============================================================
-    ' LOAD RESERVATION PAYMENTS INTO DATAGRIDVIEW
+    ' LOAD RESERVATION PAYMENTS
     ' =============================================================
     Private Sub LoadReservationPayments(Optional condition As String = "")
         Try
@@ -33,11 +33,17 @@ Public Class ReservationPayment
                 query &= " WHERE " & condition
             End If
 
-            LoadToDGV(query, Reservation)
+            ' FIXED — use modDB loader
+            LoadToDGV(query, Reservation, "")
 
         Catch ex As Exception
             MessageBox.Show("Error loading reservation payments: " & ex.Message)
         End Try
+    End Sub
+
+    ' Dummy wrapper to call modDB.LoadToDGV
+    Private Sub LoadToDGV(query As String, dgv As DataGridView, filter As String)
+        modDB.LoadToDGV(query, dgv, filter)
     End Sub
 
     ' =============================================================
@@ -65,7 +71,7 @@ Public Class ReservationPayment
     End Sub
 
     ' =============================================================
-    ' UPDATE TOTAL ROW COUNT
+    ' UPDATE TOTAL
     ' =============================================================
     Private Sub UpdateTotal()
         lblTotalRecords.Text = "Total: " & Reservation.Rows.Count.ToString()

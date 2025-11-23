@@ -62,7 +62,7 @@ Module modDB
     End Sub
 
     ' ✔ Load to DGV
-    Function LoadToDGV(query As String, dgv As DataGridView) As Integer
+    Function LoadToDGV(query As String, dgv As DataGridView, filter As String) As Integer
         Try
             readQuery(query)
             Dim dt As New DataTable

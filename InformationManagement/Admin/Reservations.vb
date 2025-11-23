@@ -38,12 +38,35 @@ Public Class Reservations
                 query &= " WHERE " & condition
             End If
 
+            ' 🟢 LOAD RESULTS INTO DGV
             LoadToDGV(query, Reservation)
 
+            ' 🟢 UPDATE COUNT LABEL
             lblTotalReservations.Text = "Total: " & Reservation.Rows.Count.ToString()
 
         Catch ex As Exception
             MessageBox.Show("Error loading reservations: " & ex.Message)
+        End Try
+    End Sub
+
+    ' ==========================================
+    ' GENERIC LOAD FUNCTION
+    ' ==========================================
+    Private Sub LoadToDGV(query As String, dgv As DataGridView)
+        Try
+            openConn()
+
+            Dim cmd As New MySqlCommand(query, conn)
+            Dim adapter As New MySqlDataAdapter(cmd)
+            Dim dt As New DataTable()
+
+            adapter.Fill(dt)
+            dgv.DataSource = dt
+
+            closeConn()
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading data: " & ex.Message)
         End Try
     End Sub
 

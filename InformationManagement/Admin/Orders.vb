@@ -35,6 +35,28 @@ Public Class Orders
     End Sub
 
     ' ============================================================
+    ' LOAD DATA INTO DATAGRIDVIEW
+    ' ============================================================
+    Private Sub LoadToDGV(query As String, dgv As DataGridView)
+        Try
+            Using conn As New MySqlConnection("Server=127.0.0.1;User=root;Password=;Database=tabeya_system")
+                conn.Open()
+
+                Using cmd As New MySqlCommand(query, conn)
+                    Using da As New MySqlDataAdapter(cmd)
+                        Dim dt As New DataTable()
+                        da.Fill(dt)
+                        dgv.DataSource = dt
+                    End Using
+                End Using
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Database Error: " & ex.Message)
+        End Try
+    End Sub
+
+    ' ============================================================
     ' VIEW ALL ORDERS
     ' ============================================================
     Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
@@ -94,7 +116,6 @@ Public Class Orders
         lblFilter.Text = "Showing: All Orders"
     End Sub
 
-    ' OPTIONAL HANDLE CELL CLICK
     Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
 
     End Sub

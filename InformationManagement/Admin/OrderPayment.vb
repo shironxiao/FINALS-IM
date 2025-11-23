@@ -30,18 +30,32 @@ Public Class OrderPayment
                 query &= " WHERE " & condition
             End If
 
-            LoadToDGV(query, Order)
+            ' FIXED — Use modDB loader
+            LoadToDGV(query, Order, "")
 
         Catch ex As Exception
             MessageBox.Show("Error loading payments: " & ex.Message)
         End Try
     End Sub
 
+    ' Dummy loader required for call compatibility
+    Private Sub LoadToDGV(query As String, dgv As DataGridView, filter As String)
+        modDB.LoadToDGV(query, dgv, filter)
+    End Sub
+
     ' =================================================
     ' SEARCH
     ' =================================================
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        Dim keyword As String = txtSearch.Text.Trim()
 
+        If keyword = "" Then
+            LoadPayments()
+        Else
+            LoadPayments($"OrderID LIKE '%{keyword}%' OR PaymentID LIKE '%{keyword}%'")
+        End If
+
+        UpdateTotal()
     End Sub
 
     ' =================================================

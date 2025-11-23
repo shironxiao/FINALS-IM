@@ -12,7 +12,7 @@ Public Class Employee
     '====================================
     Private Sub LoadEmployees(Optional condition As String = "")
         Try
-            Dim query As String = "SELECT * FROM Employee"
+            Dim query As String = "SELECT * FROM employee"
 
             If condition <> "" Then
                 query &= " WHERE " & condition
@@ -28,6 +28,27 @@ Public Class Employee
     End Sub
 
     '====================================
+    ' UNIVERSAL LOADER FOR DATAGRIDVIEW
+    '====================================
+    Private Sub LoadToDGV(query As String, dgv As DataGridView)
+        Try
+            openConn()
+
+            Dim cmd As New MySqlCommand(query, conn)
+            Dim adapter As New MySqlDataAdapter(cmd)
+            Dim table As New DataTable()
+
+            adapter.Fill(table)
+            dgv.DataSource = table
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading table: " & ex.Message)
+        Finally
+            closeConn()
+        End Try
+    End Sub
+
+    '====================================
     ' ADD EMPLOYEE
     '====================================
     Private Sub AddEmployee_Click(sender As Object, e As EventArgs) Handles AddEmployee.Click
@@ -39,7 +60,7 @@ Public Class Employee
     End Sub
 
     '====================================
-    ' EDIT EMPLOYEE (FIXED)
+    ' EDIT EMPLOYEE
     '====================================
     Private Sub EditEmployee_Click(sender As Object, e As EventArgs) Handles EditEmployee.Click
 
@@ -48,12 +69,10 @@ Public Class Employee
             Exit Sub
         End If
 
-        ' Get the selected EmployeeID
         Dim empID As Integer = DataGridView1.SelectedRows(0).Cells("EmployeeID").Value
 
-        ' Open EditEmployee form + pass employee ID
         Dim frm As New EditEmployee()
-        frm.EmployeeIDValue = empID   ' <<< PASS THE ID HERE
+        frm.EmployeeIDValue = empID     ' pass ID to edit form
         frm.StartPosition = FormStartPosition.CenterScreen
         frm.Show()
         frm.BringToFront()
@@ -61,31 +80,25 @@ Public Class Employee
     End Sub
 
     '====================================
-    ' VIEW ALL EMPLOYEES
+    ' FILTER BUTTONS
     '====================================
     Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
         LoadEmployees()
         lblFilter.Text = "Showing: All Employees"
     End Sub
 
-    '====================================
-    ' VIEW ACTIVE EMPLOYEES
-    '====================================
     Private Sub btnViewActive_Click(sender As Object, e As EventArgs) Handles btnViewActive.Click
         LoadEmployees("EmploymentStatus = 'Active'")
         lblFilter.Text = "Showing: Active Employees"
     End Sub
 
-    '====================================
-    ' VIEW INACTIVE EMPLOYEES
-    '====================================
     Private Sub btnViewInactive_Click(sender As Object, e As EventArgs) Handles btnViewInactive.Click
         LoadEmployees("EmploymentStatus = 'Resigned'")
         lblFilter.Text = "Showing: Inactive Employees"
     End Sub
 
     '====================================
-    ' REFRESH BUTTON
+    ' REFRESH LIST
     '====================================
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadEmployees()
@@ -111,7 +124,7 @@ Public Class Employee
         Try
             openConn()
 
-            Dim cmd As New MySqlCommand("DELETE FROM Employee WHERE EmployeeID=@id", conn)
+            Dim cmd As New MySqlCommand("DELETE FROM employee WHERE EmployeeID=@id", conn)
             cmd.Parameters.AddWithValue("@id", empID)
             cmd.ExecuteNonQuery()
 
