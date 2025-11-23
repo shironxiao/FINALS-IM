@@ -44,7 +44,7 @@ Public Class RoundedTextBox
     ' Properties to access TextBox
     <Category("Appearance")>
     <Description("The text content of the textbox")>
-    Public Property Text As String
+    Public Overrides Property Text As String
         Get
             Return txt.Text
         End Get
@@ -165,6 +165,27 @@ Public Class RoundedTextBox
         End Set
     End Property
 
+    <Category("Behavior")>
+    <Description("Whether the textbox is read-only")>
+    Public Property [ReadOnly] As Boolean
+        Get
+            Return txt.ReadOnly
+        End Get
+        Set(value As Boolean)
+            txt.ReadOnly = value
+        End Set
+    End Property
+
+    ' Add Clear method
+    Public Sub Clear()
+        txt.Clear()
+    End Sub
+
+    ' Focus method
+    Public Shadows Sub Focus()
+        txt.Focus()
+    End Sub
+
     Private Sub UpdateTextBoxPosition()
         ' Calculate vertical centering
         Dim textBoxHeight As Integer = txt.PreferredHeight
@@ -236,6 +257,11 @@ Public Class RoundedTextBox
     Private Sub txt_Leave(sender As Object, e As EventArgs) Handles txt.Leave
         isFocused = False
         Me.Invalidate()
+    End Sub
+
+    Private Sub txt_TextChanged(sender As Object, e As EventArgs) Handles txt.TextChanged
+        ' Raise the TextChanged event for the parent control
+        OnTextChanged(e)
     End Sub
 
     Protected Overrides Sub OnResize(e As EventArgs)
