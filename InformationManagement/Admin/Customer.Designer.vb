@@ -18,274 +18,209 @@ Partial Class Customer
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the code editor.
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.lblSearch = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.CustomerID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ContactNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CustomerType = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FeedbackCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalOrdersCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReservationCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LastTransactionDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LastLoginDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CreatedDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AccountStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SatisfactionRating = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DeleteBtn = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.SuspendBtn = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.lblTotalCustomers = New System.Windows.Forms.Label()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Label2
+        'Panel1
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label2.Location = New System.Drawing.Point(14, 61)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(296, 20)
-        Me.Label2.TabIndex = 37
-        Me.Label2.Text = "Track and manage customer accounts"
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.lblTitle)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1371, 64)
+        Me.Panel1.TabIndex = 0
         '
-        'Label1
+        'lblTitle
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 25)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(175, 36)
-        Me.Label1.TabIndex = 35
-        Me.Label1.Text = "Customers"
+        Me.lblTitle.AutoSize = True
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.ForeColor = System.Drawing.Color.White
+        Me.lblTitle.Location = New System.Drawing.Point(14, 13)
+        Me.lblTitle.Name = "lblTitle"
+        Me.lblTitle.Size = New System.Drawing.Size(348, 41)
+        Me.lblTitle.TabIndex = 0
+        Me.lblTitle.Text = "Customer Management"
         '
-        'Splitter1
+        'Panel2
         '
-        Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter1.Location = New System.Drawing.Point(0, 0)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(1453, 105)
-        Me.Splitter1.TabIndex = 36
-        Me.Splitter1.TabStop = False
+        Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel2.Controls.Add(Me.btnDelete)
+        Me.Panel2.Controls.Add(Me.btnRefresh)
+        Me.Panel2.Controls.Add(Me.txtSearch)
+        Me.Panel2.Controls.Add(Me.lblSearch)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 64)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(11)
+        Me.Panel2.Size = New System.Drawing.Size(1371, 64)
+        Me.Panel2.TabIndex = 1
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(69, Byte), Integer))
+        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnDelete.ForeColor = System.Drawing.Color.White
+        Me.btnDelete.Location = New System.Drawing.Point(956, 16)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(114, 32)
+        Me.btnDelete.TabIndex = 5
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.UseVisualStyleBackColor = False
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
+        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnRefresh.ForeColor = System.Drawing.Color.White
+        Me.btnRefresh.Location = New System.Drawing.Point(825, 16)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(114, 32)
+        Me.btnRefresh.TabIndex = 3
+        Me.btnRefresh.Text = "Refresh"
+        Me.btnRefresh.UseVisualStyleBackColor = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.txtSearch.Location = New System.Drawing.Point(91, 18)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(701, 30)
+        Me.txtSearch.TabIndex = 1
+        '
+        'lblSearch
+        '
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSearch.Location = New System.Drawing.Point(15, 21)
+        Me.lblSearch.Name = "lblSearch"
+        Me.lblSearch.Size = New System.Drawing.Size(68, 23)
+        Me.lblSearch.TabIndex = 0
+        Me.lblSearch.Text = "Search:"
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.White
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 128)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(11)
+        Me.Panel3.Size = New System.Drawing.Size(1371, 10)
+        Me.Panel3.TabIndex = 2
         '
         'DataGridView1
         '
-        Me.DataGridView1.AllowUserToResizeColumns = True
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.ColumnHeadersHeight = 40
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CustomerID, Me.FirstName, Me.LastName, Me.Email, Me.ContactNumber, Me.CustomerType, Me.FeedbackCount, Me.TotalOrdersCount, Me.ReservationCount, Me.LastTransactionDate, Me.LastLoginDate, Me.CreatedDate, Me.AccountStatus, Me.SatisfactionRating, Me.DeleteBtn, Me.SuspendBtn})
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.EnableHeadersVisualStyles = False
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 105)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 138)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(240, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.TabIndex = 42
+        Me.DataGridView1.RowTemplate.Height = 35
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.Size = New System.Drawing.Size(1371, 534)
+        Me.DataGridView1.TabIndex = 3
         '
-        'CustomerID
+        'Panel4
         '
-        Me.CustomerID.DataPropertyName = "CustomerID"
-        Me.CustomerID.Frozen = True
-        Me.CustomerID.HeaderText = "ID"
-        Me.CustomerID.MinimumWidth = 50
-        Me.CustomerID.Name = "CustomerID"
-        Me.CustomerID.ReadOnly = True
-        Me.CustomerID.Width = 50
+        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel4.Controls.Add(Me.lblTotalCustomers)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel4.Location = New System.Drawing.Point(0, 672)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(1371, 32)
+        Me.Panel4.TabIndex = 4
         '
-        'FirstName
+        'lblTotalCustomers
         '
-        Me.FirstName.DataPropertyName = "FirstName"
-        Me.FirstName.HeaderText = "First Name"
-        Me.FirstName.MinimumWidth = 100
-        Me.FirstName.Name = "FirstName"
-        Me.FirstName.ReadOnly = True
-        '
-        'LastName
-        '
-        Me.LastName.DataPropertyName = "LastName"
-        Me.LastName.HeaderText = "Last Name"
-        Me.LastName.MinimumWidth = 100
-        Me.LastName.Name = "LastName"
-        Me.LastName.ReadOnly = True
-        '
-        'Email
-        '
-        Me.Email.DataPropertyName = "Email"
-        Me.Email.HeaderText = "Email"
-        Me.Email.MinimumWidth = 150
-        Me.Email.Name = "Email"
-        Me.Email.ReadOnly = True
-        '
-        'ContactNumber
-        '
-        Me.ContactNumber.DataPropertyName = "ContactNumber"
-        Me.ContactNumber.HeaderText = "Contact"
-        Me.ContactNumber.MinimumWidth = 110
-        Me.ContactNumber.Name = "ContactNumber"
-        Me.ContactNumber.ReadOnly = True
-        '
-        'CustomerType
-        '
-        Me.CustomerType.DataPropertyName = "CustomerType"
-        Me.CustomerType.HeaderText = "Type"
-        Me.CustomerType.MinimumWidth = 90
-        Me.CustomerType.Name = "CustomerType"
-        Me.CustomerType.ReadOnly = True
-        '
-        'FeedbackCount
-        '
-        Me.FeedbackCount.DataPropertyName = "FeedbackCount"
-        Me.FeedbackCount.HeaderText = "Feedback"
-        Me.FeedbackCount.MinimumWidth = 80
-        Me.FeedbackCount.Name = "FeedbackCount"
-        Me.FeedbackCount.ReadOnly = True
-        '
-        'TotalOrdersCount
-        '
-        Me.TotalOrdersCount.DataPropertyName = "TotalOrdersCount"
-        Me.TotalOrdersCount.HeaderText = "Orders"
-        Me.TotalOrdersCount.MinimumWidth = 70
-        Me.TotalOrdersCount.Name = "TotalOrdersCount"
-        Me.TotalOrdersCount.ReadOnly = True
-        '
-        'ReservationCount
-        '
-        Me.ReservationCount.DataPropertyName = "ReservationCount"
-        Me.ReservationCount.HeaderText = "Reservations"
-        Me.ReservationCount.MinimumWidth = 100
-        Me.ReservationCount.Name = "ReservationCount"
-        Me.ReservationCount.ReadOnly = True
-        '
-        'LastTransactionDate
-        '
-        Me.LastTransactionDate.DataPropertyName = "LastTransactionDate"
-        Me.LastTransactionDate.HeaderText = "Last Transaction"
-        Me.LastTransactionDate.MinimumWidth = 130
-        Me.LastTransactionDate.Name = "LastTransactionDate"
-        Me.LastTransactionDate.ReadOnly = True
-        '
-        'LastLoginDate
-        '
-        Me.LastLoginDate.DataPropertyName = "LastLoginDate"
-        Me.LastLoginDate.HeaderText = "Last Login"
-        Me.LastLoginDate.MinimumWidth = 130
-        Me.LastLoginDate.Name = "LastLoginDate"
-        Me.LastLoginDate.ReadOnly = True
-        '
-        'CreatedDate
-        '
-        Me.CreatedDate.DataPropertyName = "CreatedDate"
-        Me.CreatedDate.HeaderText = "Created"
-        Me.CreatedDate.MinimumWidth = 130
-        Me.CreatedDate.Name = "CreatedDate"
-        Me.CreatedDate.ReadOnly = True
-        '
-        'AccountStatus
-        '
-        Me.AccountStatus.DataPropertyName = "AccountStatus"
-        Me.AccountStatus.HeaderText = "Status"
-        Me.AccountStatus.MinimumWidth = 90
-        Me.AccountStatus.Name = "AccountStatus"
-        Me.AccountStatus.ReadOnly = True
-        '
-        'SatisfactionRating
-        '
-        Me.SatisfactionRating.DataPropertyName = "SatisfactionRating"
-        Me.SatisfactionRating.HeaderText = "Rating"
-        Me.SatisfactionRating.MinimumWidth = 70
-        Me.SatisfactionRating.Name = "SatisfactionRating"
-        Me.SatisfactionRating.ReadOnly = True
-        '
-        'DeleteBtn
-        '
-        Me.DeleteBtn.HeaderText = "Delete"
-        Me.DeleteBtn.MinimumWidth = 70
-        Me.DeleteBtn.Name = "DeleteBtn"
-        Me.DeleteBtn.ReadOnly = True
-        Me.DeleteBtn.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DeleteBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DeleteBtn.Text = "Delete"
-        Me.DeleteBtn.UseColumnTextForButtonValue = True
-        Me.DeleteBtn.Width = 70
-        '
-        'SuspendBtn
-        '
-        Me.SuspendBtn.HeaderText = "Suspend"
-        Me.SuspendBtn.MinimumWidth = 80
-        Me.SuspendBtn.Name = "SuspendBtn"
-        Me.SuspendBtn.ReadOnly = True
-        Me.SuspendBtn.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.SuspendBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.SuspendBtn.Text = "Suspend"
-        Me.SuspendBtn.UseColumnTextForButtonValue = True
-        Me.SuspendBtn.Width = 80
+        Me.lblTotalCustomers.AutoSize = True
+        Me.lblTotalCustomers.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTotalCustomers.Location = New System.Drawing.Point(14, 7)
+        Me.lblTotalCustomers.Name = "lblTotalCustomers"
+        Me.lblTotalCustomers.Size = New System.Drawing.Size(140, 20)
+        Me.lblTotalCustomers.TabIndex = 0
+        Me.lblTotalCustomers.Text = "Total Customers: 0"
         '
         'Customer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1453, 864)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(1371, 704)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Splitter1)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Panel1)
+        Me.MinimumSize = New System.Drawing.Size(912, 637)
         Me.Name = "Customer"
-        Me.Text = "Customer Management"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Customer Management - Tabeya"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Splitter1 As Splitter
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents lblTitle As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents lblSearch As Label
+    Friend WithEvents btnRefresh As Button
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents Panel3 As Panel
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents CustomerID As DataGridViewTextBoxColumn
-    Friend WithEvents FirstName As DataGridViewTextBoxColumn
-    Friend WithEvents LastName As DataGridViewTextBoxColumn
-    Friend WithEvents Email As DataGridViewTextBoxColumn
-    Friend WithEvents ContactNumber As DataGridViewTextBoxColumn
-    Friend WithEvents CustomerType As DataGridViewTextBoxColumn
-    Friend WithEvents FeedbackCount As DataGridViewTextBoxColumn
-    Friend WithEvents TotalOrdersCount As DataGridViewTextBoxColumn
-    Friend WithEvents ReservationCount As DataGridViewTextBoxColumn
-    Friend WithEvents LastTransactionDate As DataGridViewTextBoxColumn
-    Friend WithEvents LastLoginDate As DataGridViewTextBoxColumn
-    Friend WithEvents CreatedDate As DataGridViewTextBoxColumn
-    Friend WithEvents AccountStatus As DataGridViewTextBoxColumn
-    Friend WithEvents SatisfactionRating As DataGridViewTextBoxColumn
-    Friend WithEvents DeleteBtn As DataGridViewButtonColumn
-    Friend WithEvents SuspendBtn As DataGridViewButtonColumn
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents lblTotalCustomers As Label
 End Class
