@@ -12,6 +12,7 @@ Public Class FormOrders
     ' =======================================================================
     Private Sub FormOrders_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            EnsureOrderItemPriceSnapshotInfrastructure()
             ' Initialize controls
             InitializeDataGridView()
             InitializeFilters()

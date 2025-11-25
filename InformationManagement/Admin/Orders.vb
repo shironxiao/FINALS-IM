@@ -4,6 +4,7 @@ Imports System.Data
 Public Class Orders
 
     Private Sub Orders_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        EnsureOrderItemPriceSnapshotInfrastructure()
         LoadOrders()
         lblFilter.Text = "Showing: All Orders"
     End Sub

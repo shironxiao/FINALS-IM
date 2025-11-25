@@ -73,7 +73,8 @@ Public Class FormReservationStatus
             ' Configure series
             .Series("ReservationStatus").ChartType = SeriesChartType.Pie
             .Series("ReservationStatus").IsValueShownAsLabel = True
-            .Series("ReservationStatus")("PieLabelStyle") = "Outside"
+            .Series("ReservationStatus")("PieLabelStyle") = "Inside"
+            .Series("ReservationStatus")("PieLineColor") = "Gray"
             .Series("ReservationStatus").Font = New Font("Segoe UI", 10, FontStyle.Bold)
 
             ' Enable 3D effect
@@ -239,7 +240,8 @@ Public Class FormReservationStatus
             If pending > 0 Then
                 Dim point1 As New DataPoint(0, pending)
                 point1.AxisLabel = "Pending"
-                point1.Label = pending.ToString()
+                point1.Label = $"Pending ({pending})"
+                point1.LegendText = $"Pending ({pending})"
                 point1.Color = Color.FromArgb(255, 165, 0) ' Orange
                 point1.LabelForeColor = Color.White
                 Chart1.Series("ReservationStatus").Points.Add(point1)
@@ -248,7 +250,8 @@ Public Class FormReservationStatus
             If confirmed > 0 Then
                 Dim point2 As New DataPoint(0, confirmed)
                 point2.AxisLabel = "Confirmed"
-                point2.Label = confirmed.ToString()
+                point2.Label = $"Confirmed ({confirmed})"
+                point2.LegendText = $"Confirmed ({confirmed})"
                 point2.Color = Color.FromArgb(34, 197, 94) ' Green
                 point2.LabelForeColor = Color.White
                 Chart1.Series("ReservationStatus").Points.Add(point2)
@@ -257,7 +260,8 @@ Public Class FormReservationStatus
             If cancelled > 0 Then
                 Dim point3 As New DataPoint(0, cancelled)
                 point3.AxisLabel = "Cancelled"
-                point3.Label = cancelled.ToString()
+                point3.Label = $"Cancelled ({cancelled})"
+                point3.LegendText = $"Cancelled ({cancelled})"
                 point3.Color = Color.FromArgb(239, 68, 68) ' Red
                 point3.LabelForeColor = Color.White
                 Chart1.Series("ReservationStatus").Points.Add(point3)

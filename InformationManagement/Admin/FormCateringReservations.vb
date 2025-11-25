@@ -30,16 +30,20 @@ Public Class FormCateringReservations
                 Dim totalEvents As Integer = Convert.ToInt32(cmdTotalEvents.ExecuteScalar())
                 Label6.Text = totalEvents.ToString()
 
-                ' Calculate Average Event Value
-                ' This assumes you have a price/amount column or we can calculate based on guests
-                ' For now, using a sample calculation: Total guests * average price per guest
-                Dim cmdAvgValue As New MySqlCommand("SELECT AVG(NumberOfGuests * 1500) FROM reservations WHERE ReservationStatus = 'Confirmed'", conn)
+                ' Calculate Average Event Value from actual payments
+                Dim cmdAvgValue As New MySqlCommand("
+                    SELECT AVG(TotalPaid) 
+                    FROM (
+                        SELECT ReservationID, SUM(AmountPaid) AS TotalPaid
+                        FROM reservation_payments
+                        GROUP BY ReservationID
+                    ) AS totals
+                ", conn)
+
                 Dim avgValue As Object = cmdAvgValue.ExecuteScalar()
-                If avgValue IsNot Nothing AndAlso Not IsDBNull(avgValue) Then
-                    Label7.Text = "₱" & Convert.ToDecimal(avgValue).ToString("N2")
-                Else
-                    Label7.Text = "₱0.00"
-                End If
+                Label7.Text = If(avgValue IsNot Nothing AndAlso Not IsDBNull(avgValue),
+                                 "₱" & Convert.ToDecimal(avgValue).ToString("N2"),
+                                 "₱0.00")
 
             End Using
         Catch ex As Exception
@@ -61,15 +65,57 @@ Public Class FormCateringReservations
                 Select Case selectedFilter
                     Case "Daily"
                         ' Group by day
-                        query = "SELECT DATE(EventDate) as Period, COUNT(*) as ReservationCount, SUM(NumberOfGuests) as TotalGuests, SUM(NumberOfGuests * 1500) as TotalAmount FROM reservations GROUP BY DATE(EventDate) ORDER BY Period DESC LIMIT 10"
+                        query = "
+                            SELECT 
+                                DATE(r.EventDate) AS Period, 
+                                COUNT(*) AS ReservationCount, 
+                                SUM(r.NumberOfGuests) AS TotalGuests, 
+                                COALESCE(SUM(p.TotalPaid), 0) AS TotalAmount 
+                            FROM reservations r
+                            LEFT JOIN (
+                                SELECT ReservationID, SUM(AmountPaid) AS TotalPaid
+                                FROM reservation_payments
+                                GROUP BY ReservationID
+                            ) AS p ON p.ReservationID = r.ReservationID
+                            GROUP BY DATE(r.EventDate)
+                            ORDER BY Period DESC 
+                            LIMIT 10"
 
                     Case "Weekly"
                         ' Group by week
-                        query = "SELECT CONCAT(YEAR(EventDate), '-W', WEEK(EventDate)) as Period, COUNT(*) as ReservationCount, SUM(NumberOfGuests) as TotalGuests, SUM(NumberOfGuests * 1500) as TotalAmount FROM reservations GROUP BY YEAR(EventDate), WEEK(EventDate) ORDER BY YEAR(EventDate) DESC, WEEK(EventDate) DESC LIMIT 10"
+                        query = "
+                            SELECT 
+                                CONCAT(YEAR(r.EventDate), '-W', LPAD(WEEK(r.EventDate), 2, '0')) AS Period, 
+                                COUNT(*) AS ReservationCount, 
+                                SUM(r.NumberOfGuests) AS TotalGuests, 
+                                COALESCE(SUM(p.TotalPaid), 0) AS TotalAmount
+                            FROM reservations r
+                            LEFT JOIN (
+                                SELECT ReservationID, SUM(AmountPaid) AS TotalPaid
+                                FROM reservation_payments
+                                GROUP BY ReservationID
+                            ) AS p ON p.ReservationID = r.ReservationID
+                            GROUP BY YEAR(r.EventDate), WEEK(r.EventDate)
+                            ORDER BY YEAR(r.EventDate) DESC, WEEK(r.EventDate) DESC 
+                            LIMIT 10"
 
                     Case "Monthly"
                         ' Group by month
-                        query = "SELECT DATE_FORMAT(EventDate, '%Y-%m') as Period, COUNT(*) as ReservationCount, SUM(NumberOfGuests) as TotalGuests, SUM(NumberOfGuests * 1500) as TotalAmount FROM reservations GROUP BY YEAR(EventDate), MONTH(EventDate) ORDER BY Period DESC LIMIT 10"
+                        query = "
+                            SELECT 
+                                DATE_FORMAT(r.EventDate, '%Y-%m') AS Period, 
+                                COUNT(*) AS ReservationCount, 
+                                SUM(r.NumberOfGuests) AS TotalGuests, 
+                                COALESCE(SUM(p.TotalPaid), 0) AS TotalAmount
+                            FROM reservations r
+                            LEFT JOIN (
+                                SELECT ReservationID, SUM(AmountPaid) AS TotalPaid
+                                FROM reservation_payments
+                                GROUP BY ReservationID
+                            ) AS p ON p.ReservationID = r.ReservationID
+                            GROUP BY YEAR(r.EventDate), MONTH(r.EventDate)
+                            ORDER BY Period DESC 
+                            LIMIT 10"
                 End Select
 
                 Dim cmd As New MySqlCommand(query, conn)
@@ -79,7 +125,7 @@ Public Class FormCateringReservations
                     Dim period As String = reader("Period").ToString()
                     Dim reservationCount As Integer = Convert.ToInt32(reader("ReservationCount"))
                     Dim totalGuests As Integer = Convert.ToInt32(reader("TotalGuests"))
-                    Dim totalAmount As Decimal = Convert.ToDecimal(reader("TotalAmount"))
+                    Dim totalAmount As Decimal = If(IsDBNull(reader("TotalAmount")), 0D, Convert.ToDecimal(reader("TotalAmount")))
 
                     DataGridView1.Rows.Add(period, reservationCount, totalGuests, "₱" & totalAmount.ToString("N2"))
                 End While

@@ -25,6 +25,7 @@ Public Class FormSales
 
             ' Configure and load
             ConfigureChart()
+            EnsureOrderItemPriceSnapshotInfrastructure()
             LoadAndDisplaySalesData()
             UpdateSummaryCards()
 
@@ -151,21 +152,7 @@ Public Class FormSales
     ' CHECK IF REQUIRED TABLES EXIST
     ' =======================================================================
     Private Function TablesExist() As Boolean
-        Try
-            Dim sql As String = "
-                SELECT COUNT(*) AS TableCount
-                FROM information_schema.tables 
-                WHERE table_schema = DATABASE()
-                  AND table_name IN ('payments', 'reservation_payments')
-            "
-
-            Using cmd As New MySqlCommand(sql, conn)
-                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                Return count > 0
-            End Using
-        Catch ex As Exception
-            Return False
-        End Try
+        Return TableExists("payments") OrElse TableExists("reservation_payments")
     End Function
 
     ' =======================================================================
@@ -182,7 +169,7 @@ Public Class FormSales
                     AmountPaid AS Amount, 
                     'Revenue' AS Type
                 FROM payments 
-                WHERE PaymentStatus = 'Completed' 
+                WHERE PaymentStatus IN ('Completed', 'Paid')
                   AND YEAR(PaymentDate) = {currentYear}
                   AND AmountPaid IS NOT NULL
                   AND AmountPaid > 0
@@ -197,7 +184,7 @@ Public Class FormSales
                     AmountPaid AS Amount, 
                     'Revenue' AS Type
                 FROM reservation_payments
-                WHERE PaymentStatus = 'Completed'
+                WHERE PaymentStatus IN ('Completed', 'Paid')
                   AND YEAR(PaymentDate) = {currentYear}
                   AND AmountPaid IS NOT NULL
                   AND AmountPaid > 0
@@ -253,16 +240,20 @@ Public Class FormSales
     ' CHECK IF TABLE EXISTS
     ' =======================================================================
     Private Function TableExists(tableName As String) As Boolean
-        Try
-            Dim sql As String = $"
-                SELECT COUNT(*) 
-                FROM information_schema.tables 
-                WHERE table_schema = DATABASE()
-                  AND table_name = '{tableName}'
-            "
+        If String.IsNullOrWhiteSpace(tableName) Then Return False
 
+        Const sql As String = "
+            SELECT COUNT(*) 
+            FROM information_schema.tables 
+            WHERE table_schema = DATABASE()
+              AND LOWER(table_name) = LOWER(@TableName)
+        "
+
+        Try
             Using cmd As New MySqlCommand(sql, conn)
-                Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
+                cmd.Parameters.AddWithValue("@TableName", tableName)
+                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                Return count > 0
             End Using
         Catch
             Return False
