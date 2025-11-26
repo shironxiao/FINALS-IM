@@ -1,5 +1,6 @@
 ﻿Imports MySqlConnector
 Imports System.IO
+Imports System.Drawing.Imaging
 
 Public Class FormAddNewmenuItem
 
@@ -11,52 +12,45 @@ Public Class FormAddNewmenuItem
     ' INITIALIZE FORM
     ' =======================================================
     Private Sub InitializeForm()
-        ' Clear and load Availability options
         Availability.Items.Clear()
         Availability.Items.Add("Available")
         Availability.Items.Add("Unavailable")
         Availability.SelectedIndex = 0
 
-        ' Clear and load Category options
         cmbCategory.Items.Clear()
-        cmbCategory.Items.Add("SPAGHETTI MEAL")
-        cmbCategory.Items.Add("DESSERT")
-        cmbCategory.Items.Add("DRINKS & BEVERAGES")
-        cmbCategory.Items.Add("PLATTER")
-        cmbCategory.Items.Add("RICE MEAL")
-        cmbCategory.Items.Add("RICE")
-        cmbCategory.Items.Add("Bilao")
-        cmbCategory.Items.Add("Snacks")
+        cmbCategory.Items.AddRange({
+            "SPAGHETTI MEAL",
+            "DESSERT",
+            "DRINKS & BEVERAGES",
+            "PLATTER",
+            "RICE MEAL",
+            "RICE",
+            "Bilao",
+            "Snacks"
+        })
         cmbCategory.SelectedIndex = -1
 
-        ' Clear and load MealTime options
         cmbMealTime.Items.Clear()
-        cmbMealTime.Items.Add("All Day")
-        cmbMealTime.Items.Add("Breakfast")
-        cmbMealTime.Items.Add("Lunch")
-        cmbMealTime.Items.Add("Dinner")
-        cmbMealTime.SelectedIndex = 0  ' Default to "All Day"
+        cmbMealTime.Items.AddRange({"All Day", "Breakfast", "Lunch", "Dinner"})
+        cmbMealTime.SelectedIndex = 0
 
-        ' Set default values
         numericPrice.Value = 0
         numericPrice.DecimalPlaces = 2
         numericPrice.Maximum = 999999
 
-        ' Generate next Product ID
         ProductID.Text = GenerateNextProductID()
         ProductID.ReadOnly = True
         ProductID.BackColor = Color.LightGray
-        ProductID.ForeColor = Color.Gray
 
-        ' Set date picker to today
         DateTimePicker1.Value = DateTime.Now
         DateTimePicker1.Enabled = False
 
-        ' Set default order count
         OrderCount.Text = "0"
         OrderCount.ReadOnly = True
         OrderCount.BackColor = Color.LightGray
-        OrderCount.ForeColor = Color.Gray
+
+        PictureBox1.Image = Nothing
+        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
     End Sub
 
     ' =======================================================
@@ -67,9 +61,8 @@ Public Class FormAddNewmenuItem
             openConn()
             Dim query As String = "SELECT COALESCE(MAX(ProductID), 0) + 1 AS NextID FROM products"
             Dim cmd As New MySqlCommand(query, conn)
-            Dim result = cmd.ExecuteScalar()
-            Return result.ToString()
-        Catch ex As Exception
+            Return cmd.ExecuteScalar().ToString()
+        Catch
             Return "1"
         Finally
             conn.Close()
@@ -77,127 +70,67 @@ Public Class FormAddNewmenuItem
     End Function
 
     ' =======================================================
-    ' VALIDATE FORM - Product Code is OPTIONAL
+    ' VALIDATION
     ' =======================================================
     Private Function ValidateForm() As Boolean
-        If String.IsNullOrWhiteSpace(txtProductName.Text) Then
-            MessageBox.Show("Please enter a product name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtProductName.Focus()
-            Return False
-        End If
-
-        If cmbCategory.SelectedIndex = -1 OrElse String.IsNullOrWhiteSpace(cmbCategory.Text) Then
-            MessageBox.Show("Please select a category.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            cmbCategory.Focus()
-            Return False
-        End If
-
-        If String.IsNullOrWhiteSpace(Description.Text) Then
-            MessageBox.Show("Please enter a description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Description.Focus()
-            Return False
-        End If
-
-        If numericPrice.Value <= 0 Then
-            MessageBox.Show("Please enter a valid price greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            numericPrice.Focus()
-            Return False
-        End If
-
-        If Availability.SelectedIndex = -1 Then
-            MessageBox.Show("Please select availability status.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Availability.Focus()
-            Return False
-        End If
-
-        If String.IsNullOrWhiteSpace(ServingSize.Text) Then
-            MessageBox.Show("Please enter serving size.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ServingSize.Focus()
-            Return False
-        End If
-
-        ' Product Code is OPTIONAL - no validation
-
-        If String.IsNullOrWhiteSpace(PrepTime.Text) Then
-            MessageBox.Show("Please enter preparation time.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            PrepTime.Focus()
-            Return False
-        End If
-
-        If cmbMealTime.SelectedIndex = -1 Then
-            MessageBox.Show("Please select a meal time.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            cmbMealTime.Focus()
-            Return False
-        End If
+        If txtProductName.Text.Trim() = "" Then Return ShowError(txtProductName, "Please enter a product name.")
+        If cmbCategory.SelectedIndex = -1 Then Return ShowError(cmbCategory, "Please select a category.")
+        If Description.Text.Trim() = "" Then Return ShowError(Description, "Please enter a description.")
+        If numericPrice.Value <= 0 Then Return ShowError(numericPrice, "Price must be greater than 0.")
+        If Availability.SelectedIndex = -1 Then Return ShowError(Availability, "Please select availability.")
+        If ServingSize.Text.Trim() = "" Then Return ShowError(ServingSize, "Please enter serving size.")
+        If PrepTime.Text.Trim() = "" Then Return ShowError(PrepTime, "Please enter preparation time.")
+        If cmbMealTime.SelectedIndex = -1 Then Return ShowError(cmbMealTime, "Please select meal time.")
 
         Return True
     End Function
 
-    ' =======================================================
-    ' CHECK DUPLICATE PRODUCT CODE
-    ' =======================================================
-    Private Function IsDuplicateProductCode(code As String) As Boolean
-        Try
-            openConn()
-            Dim query As String = "SELECT COUNT(*) FROM products WHERE ProductCode = @code"
-            Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@code", code)
-            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-            Return count > 0
-        Catch ex As Exception
-            Return False
-        Finally
-            conn.Close()
-        End Try
+    Private Function ShowError(ctrl As Control, msg As String) As Boolean
+        MessageBox.Show(msg, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ctrl.Focus()
+        Return False
     End Function
 
     ' =======================================================
-    ' LOAD IMAGE FROM URL OR FILE PATH
+    ' PICTUREBOX IMAGE LOADING
     ' =======================================================
-    Private Function LoadImageAsBytes(imagePath As String) As Byte()
-        Try
-            If imagePath.StartsWith("http://") OrElse imagePath.StartsWith("https://") Then
-                Using client As New System.Net.WebClient()
-                    Return client.DownloadData(imagePath)
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        BrowseAndLoadImage()
+    End Sub
+
+    Private Sub BrowseAndLoadImage()
+        Dim ofd As New OpenFileDialog()
+        ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+
+        If ofd.ShowDialog() = DialogResult.OK Then
+            Try
+                Using fs As New FileStream(ofd.FileName, FileMode.Open, FileAccess.Read)
+                    PictureBox1.Image = Image.FromStream(fs)
                 End Using
-            ElseIf File.Exists(imagePath) Then
-                Return File.ReadAllBytes(imagePath)
-            Else
-                Return Nothing
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error loading image: " & ex.Message, "Image Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
-        End Try
-    End Function
-
-    ' =======================================================
-    ' MAP CATEGORY - "Bilao" saves as "NOODLES & PASTA"
-    ' =======================================================
-    Private Function GetDatabaseCategory(displayCategory As String) As String
-        If displayCategory = "Bilao" Then
-            Return "NOODLES & PASTA"
+            Catch ex As Exception
+                MessageBox.Show("Error loading image: " & ex.Message)
+            End Try
         End If
-        Return displayCategory
+    End Sub
+
+    ' =======================================================
+    ' IMAGE → BYTE()
+    ' =======================================================
+    Private Function PictureBoxImageToBytes() As Byte()
+        If PictureBox1.Image Is Nothing Then Return Nothing
+
+        Using ms As New MemoryStream()
+            PictureBox1.Image.Save(ms, ImageFormat.Jpeg)
+            Return ms.ToArray()
+        End Using
     End Function
 
     ' =======================================================
-    ' ADD ITEM BUTTON
+    ' ADD ITEM BUTTON CLICK
     ' =======================================================
     Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
 
-        If Not ValidateForm() Then
-            Exit Sub
-        End If
-
-        ' Check duplicate only if product code is provided
-        If Not String.IsNullOrWhiteSpace(ProductCode.Text.Trim()) Then
-            If IsDuplicateProductCode(ProductCode.Text.Trim()) Then
-                MessageBox.Show("Product code already exists. Please use a different code.", "Duplicate Code", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                ProductCode.Focus()
-                Exit Sub
-            End If
-        End If
+        If Not ValidateForm() Then Exit Sub
 
         Try
             openConn()
@@ -219,8 +152,7 @@ Public Class FormAddNewmenuItem
             cmd.Parameters.AddWithValue("@Availability", Availability.Text)
             cmd.Parameters.AddWithValue("@ServingSize", ServingSize.Text.Trim())
 
-            ' Product Code is OPTIONAL
-            If String.IsNullOrWhiteSpace(ProductCode.Text.Trim()) Then
+            If ProductCode.Text.Trim() = "" Then
                 cmd.Parameters.AddWithValue("@ProductCode", DBNull.Value)
             Else
                 cmd.Parameters.AddWithValue("@ProductCode", ProductCode.Text.Trim())
@@ -229,41 +161,34 @@ Public Class FormAddNewmenuItem
             cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
             cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
 
-            ' Handle image
-            If Not String.IsNullOrWhiteSpace(txtImageUrl.Text) Then
-                Dim imageBytes As Byte() = LoadImageAsBytes(txtImageUrl.Text.Trim())
-                If imageBytes IsNot Nothing Then
-                    cmd.Parameters.AddWithValue("@Image", imageBytes)
-                Else
-                    cmd.Parameters.AddWithValue("@Image", DBNull.Value)
-                End If
+            Dim imageBytes As Byte() = PictureBoxImageToBytes()
+
+            If imageBytes IsNot Nothing Then
+                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = imageBytes
             Else
-                cmd.Parameters.AddWithValue("@Image", DBNull.Value)
+                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = DBNull.Value
             End If
 
             cmd.ExecuteNonQuery()
 
-            MessageBox.Show("Menu item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Menu item added successfully!", "Success")
 
-            Dim result As DialogResult = MessageBox.Show(
-                "Do you want to add another menu item?",
-                "Add Another?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question)
-
-            If result = DialogResult.Yes Then
-                ClearForm()
-            Else
-                Me.DialogResult = DialogResult.OK
-                Me.Close()
-            End If
+            ClearForm()
 
         Catch ex As Exception
-            MessageBox.Show("Error adding item: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error adding item: " & ex.Message)
         Finally
             conn.Close()
         End Try
     End Sub
+
+    ' =======================================================
+    ' MAP DISPLAY CATEGORY TO DB CATEGORY
+    ' =======================================================
+    Private Function GetDatabaseCategory(displayCategory As String) As String
+        If displayCategory = "Bilao" Then Return "NOODLES & PASTA"
+        Return displayCategory
+    End Function
 
     ' =======================================================
     ' CLEAR FORM
@@ -276,27 +201,11 @@ Public Class FormAddNewmenuItem
         Availability.SelectedIndex = 0
         ServingSize.Text = ""
         ProductCode.Text = ""
-        txtImageUrl.Text = ""
         PrepTime.Text = ""
-        cmbMealTime.SelectedIndex = 0  ' Reset to "All Day"
+        cmbMealTime.SelectedIndex = 0
+        PictureBox1.Image = Nothing
         ProductID.Text = GenerateNextProductID()
         txtProductName.Focus()
-    End Sub
-
-    ' =======================================================
-    ' CLOSE BUTTON
-    ' =======================================================
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Dim result As DialogResult = MessageBox.Show(
-            "Are you sure you want to close? Unsaved data will be lost.",
-            "Confirm Close",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question)
-
-        If result = DialogResult.Yes Then
-            Me.DialogResult = DialogResult.Cancel
-            Me.Close()
-        End If
     End Sub
 
 End Class

@@ -14,9 +14,6 @@ Public Class Reservations
         Try
             Dim query As String =
                 "SELECT 
-                    ReservationID,
-                    CustomerID,
-                    AssignedStaffID,
                     ReservationType,
                     EventType,
                     EventDate,
@@ -26,9 +23,7 @@ Public Class Reservations
                     SpecialRequests,
                     ReservationStatus,
                     ReservationDate,
-                    Address,
                     DeliveryAddress,
-                    ServiceType,
                     DeliveryOption,
                     ContactNumber,
                     UpdatedDate
