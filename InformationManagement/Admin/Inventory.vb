@@ -180,6 +180,14 @@ Public Class Inventory
                 If InventoryGrid.Columns.Contains("ViewBatches") Then
                     InventoryGrid.Columns("ViewBatches").Width = 120
                 End If
+
+                If InventoryGrid.Columns.Contains("EditItem") Then
+                    InventoryGrid.Columns("EditItem").Width = 80
+                End If
+
+                If InventoryGrid.Columns.Contains("DeleteItem") Then
+                    InventoryGrid.Columns("DeleteItem").Width = 80
+                End If
             End If
         Catch ex As Exception
             ' Silent fail
@@ -296,9 +304,11 @@ Public Class Inventory
                     .Columns("Status").ReadOnly = True
                 End If
 
-                ' Make all columns read-only except view batches button
+                ' Make all columns read-only except action buttons
                 For Each col As DataGridViewColumn In .Columns
-                    If col.Name <> "ViewBatches" Then
+                    If col.Name <> "ViewBatches" AndAlso
+                       col.Name <> "EditItem" AndAlso
+                       col.Name <> "DeleteItem" Then
                         col.ReadOnly = True
                     End If
                 Next
@@ -308,12 +318,36 @@ Public Class Inventory
             If Not InventoryGrid.Columns.Contains("ViewBatches") Then
                 Dim btnView As New DataGridViewButtonColumn()
                 btnView.Name = "ViewBatches"
-                btnView.HeaderText = "Actions"
+                btnView.HeaderText = "Batches"
                 btnView.Text = "View Batches"
                 btnView.UseColumnTextForButtonValue = True
                 btnView.Width = 120
                 btnView.FlatStyle = FlatStyle.Flat
                 InventoryGrid.Columns.Add(btnView)
+            End If
+
+            ' Add Edit button
+            If Not InventoryGrid.Columns.Contains("EditItem") Then
+                Dim btnEdit As New DataGridViewButtonColumn()
+                btnEdit.Name = "EditItem"
+                btnEdit.HeaderText = "Edit"
+                btnEdit.Text = "Edit"
+                btnEdit.UseColumnTextForButtonValue = True
+                btnEdit.Width = 80
+                btnEdit.FlatStyle = FlatStyle.Flat
+                InventoryGrid.Columns.Add(btnEdit)
+            End If
+
+            ' Add Delete button
+            If Not InventoryGrid.Columns.Contains("DeleteItem") Then
+                Dim btnDelete As New DataGridViewButtonColumn()
+                btnDelete.Name = "DeleteItem"
+                btnDelete.HeaderText = "Delete"
+                btnDelete.Text = "Delete"
+                btnDelete.UseColumnTextForButtonValue = True
+                btnDelete.Width = 80
+                btnDelete.FlatStyle = FlatStyle.Flat
+                InventoryGrid.Columns.Add(btnDelete)
             End If
 
             AdjustGridColumns()
@@ -418,26 +452,123 @@ Public Class Inventory
     ' Handle View Batches button click
     Private Sub InventoryGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles InventoryGrid.CellContentClick
         Try
-            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 AndAlso
-               InventoryGrid.Columns(e.ColumnIndex).Name = "ViewBatches" Then
+            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+                Dim columnName As String = InventoryGrid.Columns(e.ColumnIndex).Name
 
-                Dim ingredientID As Integer = Convert.ToInt32(InventoryGrid.Rows(e.RowIndex).Cells("Ingredient ID").Value)
-                Dim ingredientName As String = InventoryGrid.Rows(e.RowIndex).Cells("Item Name").Value.ToString()
+                If columnName = "ViewBatches" Then
+                    Dim ingredientID As Integer = Convert.ToInt32(InventoryGrid.Rows(e.RowIndex).Cells("Ingredient ID").Value)
+                    Dim ingredientName As String = InventoryGrid.Rows(e.RowIndex).Cells("Item Name").Value.ToString()
 
-                ' Open Batch Management form
-                Dim batchForm As New BatchManagement(ingredientID, ingredientName)
-                batchForm.StartPosition = FormStartPosition.CenterScreen
-                batchForm.ShowDialog()
+                    ' Open Batch Management form
+                    Dim batchForm As New BatchManagement(ingredientID, ingredientName)
+                    batchForm.StartPosition = FormStartPosition.CenterScreen
+                    batchForm.ShowDialog()
 
-                ' Refresh after closing
-                LoadInventorySummary()
-                LoadInventoryStatistics()
+                    ' Refresh after closing
+                    LoadInventorySummary()
+                    LoadInventoryStatistics()
+
+                ElseIf columnName = "EditItem" Then
+                    HandleEditItem(e.RowIndex)
+
+                ElseIf columnName = "DeleteItem" Then
+                    HandleDeleteItem(e.RowIndex)
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show("Error opening batch details: " & ex.Message,
                           "Error",
                           MessageBoxButtons.OK,
                           MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' Handle editing an inventory item (unit and stock levels)
+    Private Sub HandleEditItem(rowIndex As Integer)
+        Try
+            Dim row As DataGridViewRow = InventoryGrid.Rows(rowIndex)
+            Dim ingredientID As Integer = Convert.ToInt32(row.Cells("Ingredient ID").Value)
+            Dim editForm As New AddNewItems(ingredientID)
+            editForm.StartPosition = FormStartPosition.CenterScreen
+
+            If editForm.ShowDialog() = DialogResult.OK Then
+                LoadInventorySummary()
+                LoadInventoryStatistics()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error editing item: " & ex.Message,
+                          "Edit Error",
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' Handle deleting (archiving) an inventory item
+    Private Sub HandleDeleteItem(rowIndex As Integer)
+        Try
+            Dim row As DataGridViewRow = InventoryGrid.Rows(rowIndex)
+            Dim ingredientID As Integer = Convert.ToInt32(row.Cells("Ingredient ID").Value)
+            Dim ingredientName As String = row.Cells("Item Name").Value.ToString()
+
+            Dim result As DialogResult = MessageBox.Show(
+                "Are you sure you want to delete this item?" & vbCrLf & vbCrLf &
+                "Item: " & ingredientName & vbCrLf &
+                "This will remove it from the active inventory list." & vbCrLf &
+                "Existing batch history will be kept.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning)
+
+            If result <> DialogResult.Yes Then
+                Return
+            End If
+
+            openConn()
+            Dim transaction As MySqlTransaction = conn.BeginTransaction()
+
+            Try
+                ' Mark ingredient as inactive
+                Dim sqlIngredient As String = "
+                    UPDATE ingredients
+                    SET IsActive = 0
+                    WHERE IngredientID = @id
+                "
+                Dim cmdIngredient As New MySqlCommand(sqlIngredient, conn, transaction)
+                cmdIngredient.Parameters.AddWithValue("@id", ingredientID)
+                cmdIngredient.ExecuteNonQuery()
+
+                ' Optionally mark active batches as discarded so they no longer count in summaries
+                Dim sqlBatches As String = "
+                    UPDATE inventory_batches
+                    SET BatchStatus = 'Discarded'
+                    WHERE IngredientID = @id AND BatchStatus = 'Active'
+                "
+                Dim cmdBatches As New MySqlCommand(sqlBatches, conn, transaction)
+                cmdBatches.Parameters.AddWithValue("@id", ingredientID)
+                cmdBatches.ExecuteNonQuery()
+
+                transaction.Commit()
+
+                MessageBox.Show("Item deleted (archived) successfully.",
+                                "Delete Item",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+
+                LoadInventorySummary()
+                LoadInventoryStatistics()
+
+            Catch ex As Exception
+                transaction.Rollback()
+                Throw
+            End Try
+
+        Catch ex As Exception
+            MessageBox.Show("Error deleting item: " & ex.Message,
+                          "Delete Error",
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Error)
+        Finally
+            closeConn()
         End Try
     End Sub
 
