@@ -8,43 +8,6 @@ Public Class FormPayroll
     Private Sub FormPayroll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPayrollData()
         LoadPayrollChart()
-        LoadEmployeeGrid()
-    End Sub
-
-    Private Sub LoadEmployeeGrid()
-        Try
-            Using conn As New MySqlConnection(connectionString)
-                conn.Open()
-
-                Dim query As String = "SELECT EmployeeID, CONCAT(FirstName, ' ', LastName) as FullName, Position, EmploymentType, Salary, HireDate, EmploymentStatus FROM employee WHERE EmploymentStatus = 'Active' ORDER BY EmployeeID"
-
-                Dim adapter As New MySqlDataAdapter(query, conn)
-                Dim dt As New DataTable()
-                adapter.Fill(dt)
-
-                ' Check if DataGridView exists on the form
-                ' If you have a DataGridView control named DataGridView1, uncomment below:
-                ' DataGridView1.DataSource = dt
-                ' DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-
-                ' Alternative: Create and add DataGridView programmatically
-                If Me.Controls.Find("dgvPayroll", True).Length = 0 Then
-                    Dim dgv As New DataGridView()
-                    dgv.Name = "dgvPayroll"
-                    dgv.Location = New Point(30, 610)
-                    dgv.Size = New Size(1045, 250)
-                    dgv.DataSource = dt
-                    dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                    dgv.ReadOnly = True
-                    dgv.AllowUserToAddRows = False
-                    dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-                    Me.Controls.Add(dgv)
-                End If
-
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error loading employee grid: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
     End Sub
 
     Private Sub LoadPayrollData()
@@ -52,8 +15,8 @@ Public Class FormPayroll
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
-                ' Get total payroll for this month
-                Dim cmdTotalPayroll As New MySqlCommand("SELECT SUM(Salary) FROM employee WHERE EmploymentStatus = 'Active' AND MONTH(HireDate) = MONTH(CURDATE())", conn)
+                ' Get total payroll for all active employees
+                Dim cmdTotalPayroll As New MySqlCommand("SELECT IFNULL(SUM(Salary), 0) FROM employee WHERE EmploymentStatus = 'Active'", conn)
                 Dim totalPayroll As Object = cmdTotalPayroll.ExecuteScalar()
                 If totalPayroll IsNot Nothing AndAlso Not IsDBNull(totalPayroll) Then
                     Label4.Text = "₱" & Convert.ToDecimal(totalPayroll).ToString("N2")
@@ -98,29 +61,21 @@ Public Class FormPayroll
                 series.ChartType = SeriesChartType.Column
                 series.Color = Color.MediumSlateBlue
 
-                ' Use sample data based on current employee salaries
-                ' Calculate average monthly payroll
-                Dim cmdAvgPayroll As New MySqlCommand("SELECT IFNULL(SUM(Salary), 0) FROM employee WHERE EmploymentStatus = 'Active'", conn)
-                Dim avgPayroll As Decimal = Convert.ToDecimal(cmdAvgPayroll.ExecuteScalar())
+                ' Load actual salary values per employee for the chart
+                Dim cmdPayrollBreakdown As New MySqlCommand("SELECT CONCAT(FirstName, ' ', LastName) AS FullName, Salary FROM employee WHERE EmploymentStatus = 'Active' ORDER BY EmployeeID", conn)
 
-                If avgPayroll > 0 Then
-                    ' Generate 6 months of data with slight variations
-                    Dim rand As New Random()
-                    Dim months() As String = {"Jan", "Feb", "Mar", "Apr", "May", "Jun"}
+                Using reader As MySqlDataReader = cmdPayrollBreakdown.ExecuteReader()
+                    While reader.Read()
+                        Dim salaryValue As Decimal = 0D
+                        If Not reader.IsDBNull(reader.GetOrdinal("Salary")) Then
+                            salaryValue = Convert.ToDecimal(reader("Salary"))
+                        End If
+                        series.Points.AddXY(reader("FullName").ToString(), salaryValue)
+                    End While
+                End Using
 
-                    For Each month As String In months
-                        Dim variation As Decimal = (rand.NextDouble() * 0.2 - 0.1) ' -10% to +10% variation
-                        Dim monthlyPayroll As Decimal = avgPayroll * (1 + variation)
-                        series.Points.AddXY(month, monthlyPayroll)
-                    Next
-                Else
-                    ' If no data, use default sample data
-                    series.Points.AddXY("Jan", 2150000)
-                    series.Points.AddXY("Feb", 2280000)
-                    series.Points.AddXY("Mar", 2350000)
-                    series.Points.AddXY("Apr", 2240000)
-                    series.Points.AddXY("May", 2380000)
-                    series.Points.AddXY("Jun", 2450000)
+                If series.Points.Count = 0 Then
+                    series.Points.AddXY("No Data", 0)
                 End If
 
                 Chart1.Series.Add(series)
