@@ -579,5 +579,8 @@
   <ItemGroup>
     <None Include="Resources\fork-and-knife %281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

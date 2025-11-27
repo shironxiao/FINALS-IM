@@ -189,34 +189,39 @@ Public Class Dashboard
     ' TOP MENU ITEMS - FIXED (Using OrderCount from Products table)
     ' ============================================
 
+
     Private Sub LoadTopMenuItems()
         Try
-            ' Clear existing items except the header
-            For i = PanelMenu.Controls.Count - 1 To 0 Step -1
-                If TypeOf PanelMenu.Controls(i) Is RoundedPane2 AndAlso
-                   PanelMenu.Controls(i).Name <> "RoundedPane214" Then
-                    PanelMenu.Controls.RemoveAt(i)
+            ' Clear existing items except the label
+            Dim controlsToRemove As New List(Of Control)
+            For Each ctrl As Control In PanelMenu.Controls
+                If TypeOf ctrl Is RoundedPane2 AndAlso ctrl.Name.StartsWith("itemPanel") Then
+                    controlsToRemove.Add(ctrl)
                 End If
+            Next
+            For Each ctrl In controlsToRemove
+                PanelMenu.Controls.Remove(ctrl)
+                ctrl.Dispose()
             Next
 
             openConn()
-            ' Use OrderCount field from products table and calculate estimated revenue
+            ' Get all products with order count > 0, ordered by popularity
             cmd = New MySqlCommand("
                 SELECT 
                     ProductID,
                     ProductName,
                     OrderCount,
+                    Price,
                     (Price * OrderCount) as TotalRevenue
                 FROM products
                 WHERE OrderCount > 0
-                ORDER BY OrderCount DESC
-                LIMIT 5", conn)
+                ORDER BY OrderCount DESC", conn)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             Dim yPosition As Integer = 61
             Dim itemCount As Integer = 0
 
-            While reader.Read() AndAlso itemCount < 5
+            While reader.Read()
                 Dim itemPanel As New RoundedPane2 With {
                     .BorderColor = Color.LightGray,
                     .BorderThickness = 1,
@@ -246,22 +251,24 @@ Public Class Dashboard
                 }
 
                 ' Order count
+                Dim orderCount As Integer = Convert.ToInt32(reader("OrderCount"))
                 Dim lblOrders As New Label With {
                     .AutoSize = True,
                     .BackColor = Color.Transparent,
                     .Font = New Font("Segoe UI", 9.75!),
                     .ForeColor = SystemColors.ControlDarkDark,
                     .Location = New Point(54, 35),
-                    .Text = reader("OrderCount").ToString() & " orders"
+                    .Text = orderCount.ToString("#,##0") & " orders"
                 }
 
                 ' Revenue
+                Dim revenue As Decimal = Convert.ToDecimal(reader("TotalRevenue"))
                 Dim lblRevenue As New Label With {
                     .AutoSize = True,
                     .BackColor = Color.Transparent,
                     .Font = New Font("Segoe UI", 11.25!, FontStyle.Bold),
                     .Location = New Point(320, 25),
-                    .Text = "₱" & Convert.ToDecimal(reader("TotalRevenue")).ToString("N2")
+                    .Text = "₱" & revenue.ToString("N2")
                 }
 
                 itemPanel.Controls.AddRange({icon, lblName, lblOrders, lblRevenue})
@@ -275,10 +282,13 @@ Public Class Dashboard
             reader.Close()
             closeConn()
 
-            ' If no items found, show a message
-            If itemCount = 0 Then
+            ' Adjust panel height to fit all items
+            If itemCount > 0 Then
+                PanelMenu.Height = yPosition + 30
+            Else
+                ' If no items found, show a message
                 Dim noDataLabel As New Label With {
-                    .Text = "No order data available",
+                    .Text = "No order data available yet",
                     .Font = New Font("Segoe UI", 10),
                     .ForeColor = Color.Gray,
                     .Location = New Point(20, 61),
@@ -286,55 +296,229 @@ Public Class Dashboard
                     .BackColor = Color.Transparent
                 }
                 PanelMenu.Controls.Add(noDataLabel)
+                PanelMenu.Height = 150
             End If
 
         Catch ex As Exception
-            MessageBox.Show("Error loading top menu items: " & ex.Message)
+            MessageBox.Show("Error loading top menu items: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             closeConn()
         End Try
     End Sub
 
     ' ============================================
-    ' RECENT RESERVATIONS - FIXED
+    ' RECENT RESERVATIONS - FIXED TO SHOW ALL DATA
     ' ============================================
 
 
     Private Sub LoadRecentReservations()
         Try
+            ' Clear existing reservation panels except the label
+            Dim controlsToRemove As New List(Of Control)
+            For Each ctrl As Control In PanelReservations.Controls
+                If TypeOf ctrl Is RoundedPane2 AndAlso ctrl.Name.StartsWith("pnlReservation") Then
+                    controlsToRemove.Add(ctrl)
+                End If
+            Next
+            For Each ctrl In controlsToRemove
+                PanelReservations.Controls.Remove(ctrl)
+                ctrl.Dispose()
+            Next
+
             openConn()
+            ' FIXED: Show all reservations, ordered by most recent first
             cmd = New MySqlCommand("
                 SELECT 
+                    r.ReservationID,
                     r.EventType,
                     r.EventDate,
                     r.NumberOfGuests,
-                    r.ReservationStatus
+                    r.ReservationStatus,
+                    r.ReservationType,
+                    r.DeliveryOption,
+                    c.FirstName,
+                    c.LastName
                 FROM reservations r
-                WHERE r.ReservationStatus IN ('Pending', 'Confirmed')
-                ORDER BY r.EventDate DESC
-                LIMIT 2", conn)
+                LEFT JOIN customers c ON r.CustomerID = c.CustomerID
+                ORDER BY r.EventDate DESC, r.ReservationID DESC
+                LIMIT 20", conn)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            Dim yPosition As Integer = 61
+            Dim itemCount As Integer = 0
 
-            ' First reservation (Wedding)
-            If reader.Read() Then
-                lblEvent.Text = reader("EventType").ToString()
-                lblDate.Text = Convert.ToDateTime(reader("EventDate")).ToString("yyyy-MM-dd")
-                lblGuests.Text = reader("NumberOfGuests").ToString() & " Guests"
-                lblStatus.Text = reader("ReservationStatus").ToString()
-                lblStatus.BackColor = If(reader("ReservationStatus").ToString() = "Confirmed", Color.Black, Color.LightGray)
-            End If
+            While reader.Read()
+                Dim reservationPanel As New RoundedPane2 With {
+                    .BorderColor = Color.LightGray,
+                    .BorderThickness = 1,
+                    .CornerRadius = 15,
+                    .FillColor = Color.White,
+                    .Size = New Size(456, 67),
+                    .Location = New Point(29, yPosition),
+                    .Name = "pnlReservation" & itemCount
+                }
 
+                ' Icon
+                Dim icon As New PictureBox With {
+                    .BackColor = Color.Transparent,
+                    .Image = My.Resources.calendar_icon,
+                    .Location = New Point(21, 25),
+                    .Size = New Size(20, 17),
+                    .SizeMode = PictureBoxSizeMode.StretchImage
+                }
+
+                ' Event Type (Title)
+                Dim eventType As String = reader("EventType").ToString()
+                Dim lblEvent As New Label With {
+                    .AutoSize = True,
+                    .BackColor = Color.Transparent,
+                    .Font = New Font("Segoe UI Semibold", 11.25!, FontStyle.Bold),
+                    .Location = New Point(53, 15),
+                    .Text = eventType
+                }
+
+                ' Event Date
+                Dim eventDate As DateTime = Convert.ToDateTime(reader("EventDate"))
+                Dim lblDate As New Label With {
+                    .AutoSize = True,
+                    .BackColor = Color.Transparent,
+                    .Font = New Font("Segoe UI", 9.75!),
+                    .ForeColor = SystemColors.ControlDarkDark,
+                    .Location = New Point(54, 35),
+                    .Text = eventDate.ToString("yyyy-MM-dd")
+                }
+
+                ' Number of Guests
+                Dim guests As Integer = Convert.ToInt32(reader("NumberOfGuests"))
+                Dim lblGuests As New Label With {
+                    .AutoSize = True,
+                    .BackColor = Color.Transparent,
+                    .Font = New Font("Segoe UI", 9.75!),
+                    .ForeColor = SystemColors.ControlDarkDark,
+                    .Location = New Point(154, 35),
+                    .Text = " • " & guests.ToString() & " Guests"
+                }
+
+                ' Reservation Status Badge with dynamic colors
+                Dim status As String = reader("ReservationStatus").ToString()
+                Dim statusColor As Color
+
+                Select Case status.ToLower()
+                    Case "confirmed"
+                        statusColor = Color.FromArgb(34, 197, 94) ' Green
+                    Case "pending"
+                        statusColor = Color.FromArgb(251, 146, 60) ' Orange
+                    Case "completed"
+                        statusColor = Color.FromArgb(59, 130, 246) ' Blue
+                    Case "cancelled"
+                        statusColor = Color.FromArgb(239, 68, 68) ' Red
+                    Case Else
+                        statusColor = Color.Gray
+                End Select
+
+                Dim lblStatus As New Label With {
+                    .AutoSize = True,
+                    .BackColor = statusColor,
+                    .FlatStyle = FlatStyle.Flat,
+                    .Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold),
+                    .ForeColor = Color.White,
+                    .Location = New Point(379, 25),
+                    .Text = status,
+                    .Padding = New Padding(8, 4, 8, 4)
+                }
+
+                reservationPanel.Controls.AddRange({icon, lblEvent, lblDate, lblGuests, lblStatus})
+                PanelReservations.Controls.Add(reservationPanel)
+                reservationPanel.BringToFront()
+
+                yPosition += 83
+                itemCount += 1
+            End While
 
             reader.Close()
             closeConn()
 
+            ' Adjust panel height to fit all items
+            If itemCount > 0 Then
+                PanelReservations.Height = yPosition + 30
+                ' FIXED: Adjust Quick Stats position based on reservation panel height
+                AdjustQuickStatsPosition()
+            Else
+                ' If no reservations found
+                Dim noDataLabel As New Label With {
+                    .Text = "No reservations found",
+                    .Font = New Font("Segoe UI", 10),
+                    .ForeColor = Color.Gray,
+                    .Location = New Point(29, 61),
+                    .AutoSize = True,
+                    .BackColor = Color.Transparent
+                }
+                PanelReservations.Controls.Add(noDataLabel)
+                PanelReservations.Height = 150
+                AdjustQuickStatsPosition()
+            End If
+
         Catch ex As Exception
-            MessageBox.Show("Error loading recent reservations: " & ex.Message)
+            MessageBox.Show("Error loading recent reservations: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             closeConn()
         End Try
     End Sub
 
+    ' ============================================
+    ' ADJUST QUICK STATS POSITION
+    ' ============================================
 
+    Private Sub AdjustQuickStatsPosition()
+        Try
+            ' Find the Quick Stats panel - searching more thoroughly
+            Dim quickStatsPanel As Control = Nothing
+
+            ' Method 1: Search in form controls
+            quickStatsPanel = FindControlRecursive(Me, "quickstats")
+
+            ' Method 2: If not found, try common variations
+            If quickStatsPanel Is Nothing Then
+                quickStatsPanel = FindControlRecursive(Me, "pnlquick")
+            End If
+
+            ' Method 3: Search for controls with Label39, Label38, Label37, Label36 (Quick Stats labels)
+            If quickStatsPanel Is Nothing Then
+                For Each ctrl As Control In Me.Controls
+                    If ctrl.Controls.Contains(Label39) OrElse
+                       ctrl.Controls.Contains(Label38) OrElse
+                       ctrl.Controls.Contains(Label37) OrElse
+                       ctrl.Controls.Contains(Label36) Then
+                        quickStatsPanel = ctrl
+                        Exit For
+                    End If
+                Next
+            End If
+
+            ' If Quick Stats panel is found, adjust its position
+            If quickStatsPanel IsNot Nothing Then
+                Dim newY As Integer = PanelReservations.Location.Y + PanelReservations.Height + 20
+                quickStatsPanel.Location = New Point(quickStatsPanel.Location.X, newY)
+            End If
+
+        Catch ex As Exception
+            ' Silently fail - this is just a positioning adjustment
+        End Try
+    End Sub
+
+    ' Helper function to search for controls recursively
+    Private Function FindControlRecursive(parent As Control, searchText As String) As Control
+        For Each ctrl As Control In parent.Controls
+            If ctrl.Name.ToLower().Contains(searchText.ToLower()) Then
+                Return ctrl
+            End If
+
+            ' Search in child controls
+            Dim found As Control = FindControlRecursive(ctrl, searchText)
+            If found IsNot Nothing Then
+                Return found
+            End If
+        Next
+        Return Nothing
+    End Function
     ' ============================================
     ' PENDING ORDERS - FIXED
     ' ============================================
