@@ -22,6 +22,7 @@ Partial Class AddNewItems
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AddNewItems))
         Me.AddItem = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
@@ -51,23 +52,30 @@ Partial Class AddNewItems
         'AddItem
         '
         Me.AddItem.BackColor = System.Drawing.Color.DarkRed
+        Me.AddItem.FlatAppearance.BorderSize = 0
+        Me.AddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AddItem.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AddItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.AddItem.Location = New System.Drawing.Point(446, 499)
-        Me.AddItem.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.AddItem.Image = CType(resources.GetObject("AddItem.Image"), System.Drawing.Image)
+        Me.AddItem.Location = New System.Drawing.Point(393, 499)
+        Me.AddItem.Margin = New System.Windows.Forms.Padding(2)
         Me.AddItem.Name = "AddItem"
-        Me.AddItem.Size = New System.Drawing.Size(91, 38)
+        Me.AddItem.Size = New System.Drawing.Size(129, 38)
         Me.AddItem.TabIndex = 61
-        Me.AddItem.Text = "Add Item"
+        Me.AddItem.Text = " Add Item"
+        Me.AddItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.AddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.AddItem.UseVisualStyleBackColor = False
         '
         'Cancel
         '
         Me.Cancel.BackColor = System.Drawing.SystemColors.Highlight
+        Me.Cancel.FlatAppearance.BorderSize = 0
+        Me.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Cancel.Location = New System.Drawing.Point(352, 499)
-        Me.Cancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cancel.Location = New System.Drawing.Point(296, 499)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(2)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(88, 38)
         Me.Cancel.TabIndex = 60
@@ -77,7 +85,7 @@ Partial Class AddNewItems
         'DateTimePicker1
         '
         Me.DateTimePicker1.Location = New System.Drawing.Point(296, 364)
-        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(2)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(204, 20)
         Me.DateTimePicker1.TabIndex = 54
@@ -129,7 +137,7 @@ Partial Class AddNewItems
         Me.Unit.FormattingEnabled = True
         Me.Unit.Items.AddRange(New Object() {"kg", "liters", "pieces", "boxes", "grams", "bottles"})
         Me.Unit.Location = New System.Drawing.Point(296, 211)
-        Me.Unit.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Unit.Margin = New System.Windows.Forms.Padding(2)
         Me.Unit.Name = "Unit"
         Me.Unit.Size = New System.Drawing.Size(188, 21)
         Me.Unit.TabIndex = 51
@@ -233,7 +241,7 @@ Partial Class AddNewItems
         'DateTimePicker2
         '
         Me.DateTimePicker2.Location = New System.Drawing.Point(296, 444)
-        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(2)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(204, 20)
         Me.DateTimePicker2.TabIndex = 63
@@ -313,7 +321,7 @@ Partial Class AddNewItems
         Me.Category.FormattingEnabled = True
         Me.Category.Items.AddRange(New Object() {"Meat & Poultry", "Vegetables", "Dairy", "Dry Goods", "Oils & Condiments", "Herbs & Spices", "Beverages", "Seafood"})
         Me.Category.Location = New System.Drawing.Point(296, 132)
-        Me.Category.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Category.Margin = New System.Windows.Forms.Padding(2)
         Me.Category.Name = "Category"
         Me.Category.Size = New System.Drawing.Size(188, 21)
         Me.Category.TabIndex = 47
@@ -348,7 +356,7 @@ Partial Class AddNewItems
         Me.Controls.Add(Me.Label1)
         Me.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "AddNewItems"
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()

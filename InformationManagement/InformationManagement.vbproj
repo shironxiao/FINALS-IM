@@ -425,6 +425,9 @@
     <EmbeddedResource Include="Admin\Adminlogin.resx">
       <DependentUpon>Adminlogin.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\BatchManagement.resx">
+      <DependentUpon>BatchManagement.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\Customer.resx">
       <DependentUpon>Customer.vb</DependentUpon>
     </EmbeddedResource>
@@ -578,6 +581,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fork-and-knife %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
