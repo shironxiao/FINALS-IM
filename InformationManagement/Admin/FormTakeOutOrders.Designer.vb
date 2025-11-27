@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormTakeOutOrders
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,17 +20,12 @@ Partial Class FormTakeOutOrders
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormTakeOutOrders))
         Me.RoundedPane21 = New InformationManagement.RoundedPane2()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.OrderId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Items = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.RoundedPane21.SuspendLayout()
@@ -46,9 +41,10 @@ Partial Class FormTakeOutOrders
         Me.RoundedPane21.Controls.Add(Me.Label1)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
-        Me.RoundedPane21.Location = New System.Drawing.Point(25, 24)
+        Me.RoundedPane21.Location = New System.Drawing.Point(33, 30)
+        Me.RoundedPane21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RoundedPane21.Name = "RoundedPane21"
-        Me.RoundedPane21.Size = New System.Drawing.Size(1045, 451)
+        Me.RoundedPane21.Size = New System.Drawing.Size(1393, 555)
         Me.RoundedPane21.TabIndex = 0
         '
         'DataGridView1
@@ -66,51 +62,23 @@ Partial Class FormTakeOutOrders
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeight = 40
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OrderId, Me.Customer, Me.Items, Me.Amount, Me.Status})
-        Me.DataGridView1.Location = New System.Drawing.Point(36, 76)
+        Me.DataGridView1.Location = New System.Drawing.Point(48, 94)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.Size = New System.Drawing.Size(1032, 178)
+        Me.DataGridView1.RowHeadersWidth = 51
+        Me.DataGridView1.Size = New System.Drawing.Size(1376, 219)
         Me.DataGridView1.TabIndex = 9
-        '
-        'OrderId
-        '
-        Me.OrderId.HeaderText = "Order Id"
-        Me.OrderId.Name = "OrderId"
-        Me.OrderId.Width = 150
-        '
-        'Customer
-        '
-        Me.Customer.HeaderText = "Customer"
-        Me.Customer.Name = "Customer"
-        Me.Customer.Width = 180
-        '
-        'Items
-        '
-        Me.Items.HeaderText = "Items"
-        Me.Items.Name = "Items"
-        Me.Items.Width = 300
-        '
-        'Amount
-        '
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        Me.Amount.Width = 150
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.Width = 150
         '
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(922, 17)
+        Me.Button1.Location = New System.Drawing.Point(1229, 21)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(104, 30)
+        Me.Button1.Size = New System.Drawing.Size(139, 37)
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "   Export"
         Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -122,19 +90,21 @@ Partial Class FormTakeOutOrders
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        Me.Label1.Location = New System.Drawing.Point(32, 26)
+        Me.Label1.Location = New System.Drawing.Point(43, 32)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(159, 21)
+        Me.Label1.Size = New System.Drawing.Size(200, 28)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Takeout Order Report"
         '
         'FormTakeOutOrders
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1151, 749)
+        Me.ClientSize = New System.Drawing.Size(1535, 922)
         Me.Controls.Add(Me.RoundedPane21)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormTakeOutOrders"
         Me.Text = "FormTakeOutOrders"
         Me.RoundedPane21.ResumeLayout(False)
@@ -148,9 +118,4 @@ Partial Class FormTakeOutOrders
     Friend WithEvents Label1 As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents OrderId As DataGridViewTextBoxColumn
-    Friend WithEvents Customer As DataGridViewTextBoxColumn
-    Friend WithEvents Items As DataGridViewTextBoxColumn
-    Friend WithEvents Amount As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
 End Class

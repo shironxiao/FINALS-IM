@@ -51,15 +51,30 @@ Public Class Customer
     End Sub
 
     ' ==============================
-    ' FORMAT GRID
+    ' FORMAT GRID (Hide ID here ✅)
     ' ==============================
     Private Sub FormatDataGridView()
+
+        ' ✅ HIDE CUSTOMER ID COLUMN
+        If DataGridView1.Columns.Contains("CustomerID") Then
+            DataGridView1.Columns("CustomerID").Visible = False
+        End If
+
+        ' ✅ FORMAT DATES AND NUMBERS
         For Each col As DataGridViewColumn In DataGridView1.Columns
-            If col.Name.Contains("Date") Then col.DefaultCellStyle.Format = "yyyy-MM-dd HH:mm"
-            If col.Name = "SatisfactionRating" Then col.DefaultCellStyle.Format = "0.00"
+            If col.Name.Contains("Date") Then
+                col.DefaultCellStyle.Format = "yyyy-MM-dd HH:mm"
+            End If
+            If col.Name = "SatisfactionRating" Then
+                col.DefaultCellStyle.Format = "0.00"
+            End If
         Next
 
+        ' ✅ AUTO-SIZE COLUMNS
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DataGridView1.MultiSelect = False
+
     End Sub
 
     ' ==============================
@@ -101,7 +116,7 @@ Public Class Customer
     End Sub
 
     ' ==============================
-    ' SEARCH
+    ' SEARCH LIVE FILTER
     ' ==============================
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         LoadCustomerData(txtSearch.Text)

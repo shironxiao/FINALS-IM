@@ -14,26 +14,27 @@ Public Class ReservationPayment
     Private Sub LoadReservationPayments(Optional condition As String = "")
         Try
             Dim query As String =
-                "SELECT 
-                    ReservationPaymentID,
-                    ReservationID,
-                    PaymentDate,
-                    PaymentMethod,
-                    PaymentStatus,
-                    AmountPaid,
-                    PaymentSource,
-                    ProofOfPayment,
-                    ReceiptFileName,
-                    TransactionID,
-                    UpdatedDate
-                FROM reservation_payments"
+            "SELECT 
+                ReservationPaymentID,
+                ReservationID,
+                PaymentDate,
+                PaymentMethod,
+                PaymentStatus,
+                AmountPaid,
+                PaymentSource,
+                ProofOfPayment,
+                ReceiptFileName,
+                TransactionID,
+                UpdatedDate
+            FROM reservation_payments"
 
             If condition <> "" Then
                 query &= " WHERE " & condition
             End If
 
-            ' FIXED — use modDB loader
             LoadToDGV(query, Reservation, "")
+
+            FormatGrid()
 
         Catch ex As Exception
             MessageBox.Show("Error loading reservation payments: " & ex.Message)
@@ -46,6 +47,49 @@ Public Class ReservationPayment
     End Sub
 
     ' =============================================================
+    ' FORMAT GRID + HIDE COLUMNS
+    ' =============================================================
+    Private Sub FormatGrid()
+        If Reservation.Columns.Count = 0 Then Exit Sub
+
+        Dim hideCols() As String = {
+            "ReservationPaymentID",
+            "ReservationID",
+            "ProofOfPayment",
+            "ReceiptFileName",
+            "TransactionID"
+        }
+
+        For Each colName In hideCols
+            If Reservation.Columns.Contains(colName) Then
+                Reservation.Columns(colName).Visible = False
+            End If
+        Next
+
+        ' Optional formatting
+        Reservation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        Reservation.RowHeadersVisible = False
+        Reservation.DefaultCellStyle.Font = New Font("Segoe UI", 10)
+        Reservation.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI Semibold", 10)
+        Reservation.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 60, 85)
+        Reservation.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+        Reservation.EnableHeadersVisualStyles = False
+
+        ' Format AmountPaid to Peso
+        If Reservation.Columns.Contains("AmountPaid") Then
+            Reservation.Columns("AmountPaid").DefaultCellStyle.Format = "₱ #,##0.00"
+            Reservation.Columns("AmountPaid").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+    End Sub
+
+    ' =============================================================
+    ' DATA BIND COMPLETE (ensures hidden columns stay hidden)
+    ' =============================================================
+    Private Sub Reservation_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles Reservation.DataBindingComplete
+        FormatGrid()
+    End Sub
+
+    ' =============================================================
     ' SEARCH
     ' =============================================================
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
@@ -54,7 +98,10 @@ Public Class ReservationPayment
         If keyword = "" Then
             LoadReservationPayments()
         Else
-            LoadReservationPayments($"ReservationID LIKE '%{keyword}%' OR ReservationPaymentID LIKE '%{keyword}%'")
+            LoadReservationPayments(
+                $"ReservationID LIKE '%{keyword}%' 
+                  OR ReservationPaymentID LIKE '%{keyword}%' 
+                  OR PaymentStatus LIKE '%{keyword}%'")
         End If
 
         UpdateTotal()
@@ -70,7 +117,7 @@ Public Class ReservationPayment
     End Sub
 
     ' =============================================================
-    ' UPDATE TOTAL
+    ' UPDATE TOTAL COUNT
     ' =============================================================
     Private Sub UpdateTotal()
         lblTotalRecords.Text = "Total: " & Reservation.Rows.Count.ToString()

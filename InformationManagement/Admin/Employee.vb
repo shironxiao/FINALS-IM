@@ -12,7 +12,8 @@ Public Class Employee
     '====================================
     Private Sub LoadEmployees(Optional condition As String = "")
         Try
-            Dim query As String = "SELECT * FROM employee"
+            Dim query As String =
+                "SELECT EmployeeID, FirstName, LastName, Gender, DateOfBirth, ContactNumber, Email, Address, HireDate, Position, MaritalStatus, EmploymentStatus, EmploymentType, EmergencyContact, WorkShift, Salary FROM employee"
 
             If condition <> "" Then
                 query &= " WHERE " & condition
@@ -40,6 +41,11 @@ Public Class Employee
 
             adapter.Fill(table)
             dgv.DataSource = table
+
+            ' ✅ HIDE EMPLOYEE ID COLUMN
+            If dgv.Columns.Contains("EmployeeID") Then
+                dgv.Columns("EmployeeID").Visible = False
+            End If
 
         Catch ex As Exception
             MessageBox.Show("Error loading table: " & ex.Message)

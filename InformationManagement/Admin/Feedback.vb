@@ -112,8 +112,12 @@ Public Class Feedback
     ' Format DataGridView Columns
     Private Sub FormatColumns()
         With DataGridView1
-            If .Columns.Contains("ReviewID") Then .Columns("ReviewID").HeaderText = "Review ID"
+
+            ' ✅ HIDE INTERNAL IDS
+            If .Columns.Contains("ReviewID") Then .Columns("ReviewID").Visible = False
             If .Columns.Contains("CustomerID") Then .Columns("CustomerID").Visible = False
+
+            ' ✅ RENAME HEADERS
             If .Columns.Contains("CustomerName") Then .Columns("CustomerName").HeaderText = "Customer Name"
             If .Columns.Contains("OverallRating") Then .Columns("OverallRating").HeaderText = "Overall Rating"
             If .Columns.Contains("FoodTasteRating") Then .Columns("FoodTasteRating").HeaderText = "Food"
@@ -125,6 +129,17 @@ Public Class Feedback
             If .Columns.Contains("Status") Then .Columns("Status").HeaderText = "Status"
             If .Columns.Contains("CreatedDate") Then .Columns("CreatedDate").HeaderText = "Date Created"
             If .Columns.Contains("ApprovedDate") Then .Columns("ApprovedDate").HeaderText = "Date Approved"
+
+            ' ✅ OPTIONAL FORMATTING
+            If .Columns.Contains("CreatedDate") Then .Columns("CreatedDate").DefaultCellStyle.Format = "yyyy-MM-dd HH:mm"
+            If .Columns.Contains("ApprovedDate") Then .Columns("ApprovedDate").DefaultCellStyle.Format = "yyyy-MM-dd HH:mm"
+
+            ' ✅ GRID BEHAVIOR
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+            .ReadOnly = True
+
         End With
     End Sub
 

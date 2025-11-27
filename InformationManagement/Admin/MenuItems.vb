@@ -462,4 +462,11 @@ Public Class MenuItems
         End Try
     End Sub
 
+    Private Sub DataGridMenu_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataGridMenu.DataBindingComplete
+        If DataGridMenu.Columns.Contains("ProductID") Then
+            DataGridMenu.Columns("ProductID").Visible = False
+            DataGridMenu.Columns("ProductID").Width = 0
+        End If
+    End Sub
+
 End Class
