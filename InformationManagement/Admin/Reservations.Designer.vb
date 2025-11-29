@@ -21,6 +21,7 @@ Partial Class Reservations
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnUpdateStatus = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
@@ -65,6 +66,7 @@ Partial Class Reservations
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel2.Controls.Add(Me.btnUpdateStatus)
         Me.Panel2.Controls.Add(Me.btnDelete)
         Me.Panel2.Controls.Add(Me.btnRefresh)
         Me.Panel2.Controls.Add(Me.txtSearch)
@@ -72,9 +74,23 @@ Partial Class Reservations
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 64)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(11, 11, 11, 11)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(11)
         Me.Panel2.Size = New System.Drawing.Size(1371, 64)
         Me.Panel2.TabIndex = 1
+        '
+        'btnUpdateStatus
+        '
+        Me.btnUpdateStatus.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnUpdateStatus.BackColor = System.Drawing.Color.Green
+        Me.btnUpdateStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnUpdateStatus.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
+        Me.btnUpdateStatus.Location = New System.Drawing.Point(931, 16)
+        Me.btnUpdateStatus.Name = "btnUpdateStatus"
+        Me.btnUpdateStatus.Size = New System.Drawing.Size(118, 32)
+        Me.btnUpdateStatus.TabIndex = 9
+        Me.btnUpdateStatus.Text = "Update Status"
+        Me.btnUpdateStatus.UseVisualStyleBackColor = False
         '
         'btnDelete
         '
@@ -83,7 +99,7 @@ Partial Class Reservations
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(932, 17)
+        Me.btnDelete.Location = New System.Drawing.Point(1073, 17)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(114, 32)
         Me.btnDelete.TabIndex = 4
@@ -135,7 +151,7 @@ Partial Class Reservations
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 128)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Padding = New System.Windows.Forms.Padding(11, 11, 11, 11)
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(11)
         Me.Panel3.Size = New System.Drawing.Size(1371, 53)
         Me.Panel3.TabIndex = 2
         '
@@ -297,4 +313,5 @@ Partial Class Reservations
     Friend WithEvents Reservation As DataGridView
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblTotalReservations As Label
+    Friend WithEvents btnUpdateStatus As Button
 End Class

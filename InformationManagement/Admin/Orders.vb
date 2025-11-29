@@ -9,7 +9,6 @@ Public Class Orders
         LoadOrders()
         lblFilter.Text = "Showing: All Orders"
 
-        ' Optional enhanced UI
         With DataGridView2
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .ReadOnly = True
@@ -37,7 +36,7 @@ Public Class Orders
 
             LoadToDGV(query, DataGridView2)
 
-            ' ✅ FORMAT + HIDE COLUMNS + FIX SIZES
+            ' FORMAT
             With DataGridView2
 
                 .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -48,52 +47,26 @@ Public Class Orders
                 If .Columns.Contains("CustomerID") Then .Columns("CustomerID").Visible = False
                 If .Columns.Contains("EmployeeID") Then .Columns("EmployeeID").Visible = False
 
-                If .Columns.Contains("OrderType") Then
-                    .Columns("OrderType").HeaderText = "Type"
-                    .Columns("OrderType").Width = 90
-                End If
-
-                If .Columns.Contains("OrderSource") Then
-                    .Columns("OrderSource").HeaderText = "Source"
-                    .Columns("OrderSource").Width = 110
-                End If
-
-                If .Columns.Contains("ItemsOrderedCount") Then
-                    .Columns("ItemsOrderedCount").HeaderText = "Items"
-                    .Columns("ItemsOrderedCount").Width = 70
-                End If
-
-                If .Columns.Contains("TotalAmount") Then
-                    .Columns("TotalAmount").HeaderText = "Total ₱"
-                    .Columns("TotalAmount").DefaultCellStyle.Format = "₱#,##0.00"
-                    .Columns("TotalAmount").Width = 110
-                End If
-
-                If .Columns.Contains("OrderDate") Then
-                    .Columns("OrderDate").DefaultCellStyle.Format = "yyyy-MM-dd"
-                    .Columns("OrderDate").Width = 120
-                End If
-
-                If .Columns.Contains("OrderTime") Then
-                    .Columns("OrderTime").Width = 90
-                End If
-
-                If .Columns.Contains("OrderStatus") Then
-                    .Columns("OrderStatus").Width = 110
-                End If
-
-                If .Columns.Contains("Remarks") Then
-                    .Columns("Remarks").Width = 150
-                End If
+                If .Columns.Contains("OrderType") Then .Columns("OrderType").Width = 100
+                If .Columns.Contains("OrderSource") Then .Columns("OrderSource").Width = 120
+                If .Columns.Contains("ItemsOrderedCount") Then .Columns("ItemsOrderedCount").Width = 80
+                If .Columns.Contains("TotalAmount") Then .Columns("TotalAmount").Width = 120
+                If .Columns.Contains("OrderDate") Then .Columns("OrderDate").Width = 120
+                If .Columns.Contains("OrderTime") Then .Columns("OrderTime").Width = 100
+                If .Columns.Contains("OrderStatus") Then .Columns("OrderStatus").Width = 120
+                If .Columns.Contains("Remarks") Then .Columns("Remarks").Width = 160
 
                 .RowTemplate.Height = 35
                 .ColumnHeadersHeight = 40
                 .AllowUserToResizeColumns = False
                 .AllowUserToResizeRows = False
+
             End With
 
-            ' ✅ ADD BUTTONS ONLY ONCE
+            ' ADD BUTTONS ONCE
             If Not ButtonsAdded Then
+
+                ' Confirm Button
                 Dim btnConfirm As New DataGridViewButtonColumn()
                 btnConfirm.HeaderText = ""
                 btnConfirm.Text = "Confirm"
@@ -102,6 +75,7 @@ Public Class Orders
                 btnConfirm.Width = 90
                 DataGridView2.Columns.Add(btnConfirm)
 
+                ' Cancel Button
                 Dim btnCancel As New DataGridViewButtonColumn()
                 btnCancel.HeaderText = ""
                 btnCancel.Text = "Cancel"
@@ -110,10 +84,19 @@ Public Class Orders
                 btnCancel.Width = 90
                 DataGridView2.Columns.Add(btnCancel)
 
+                ' NEW: DELETE BUTTON
+                Dim btnDelete As New DataGridViewButtonColumn()
+                btnDelete.HeaderText = ""
+                btnDelete.Text = "Delete"
+                btnDelete.UseColumnTextForButtonValue = True
+                btnDelete.Name = "DeleteBtn"
+                btnDelete.Width = 90
+                DataGridView2.Columns.Add(btnDelete)
+
                 ButtonsAdded = True
             End If
 
-            ' ✅ BUTTON VISUAL LOGIC
+            ' BUTTON LOGIC (color for pending)
             For Each row As DataGridViewRow In DataGridView2.Rows
                 Dim status As String = row.Cells("OrderStatus").Value.ToString()
 
@@ -121,11 +104,13 @@ Public Class Orders
                     row.Cells("ConfirmBtn").Style.BackColor = Color.LightGreen
                     row.Cells("CancelBtn").Style.BackColor = Color.LightCoral
                 Else
-                    row.Cells("ConfirmBtn").Style.ForeColor = Color.Gray
-                    row.Cells("CancelBtn").Style.ForeColor = Color.Gray
                     row.Cells("ConfirmBtn").Style.BackColor = Color.LightGray
                     row.Cells("CancelBtn").Style.BackColor = Color.LightGray
                 End If
+
+                ' DELETE always active
+                row.Cells("DeleteBtn").Style.BackColor = Color.IndianRed
+                row.Cells("DeleteBtn").Style.ForeColor = Color.White
             Next
 
             lblTotalOrders.Text = "Total Orders: " & DataGridView2.Rows.Count
@@ -135,10 +120,6 @@ Public Class Orders
         End Try
     End Sub
 
-
-    ' ============================================================
-    ' LOAD DATA INTO DATAGRIDVIEW
-    ' ============================================================
     Private Sub LoadToDGV(query As String, dgv As DataGridView)
         Try
             Using conn As New MySqlConnection("Server=127.0.0.1;User=root;Password=;Database=tabeya_system")
@@ -157,7 +138,6 @@ Public Class Orders
             MessageBox.Show("Database Error: " & ex.Message)
         End Try
     End Sub
-
 
     ' ============================================================
     ' UPDATE ORDER STATUS
@@ -183,9 +163,36 @@ Public Class Orders
         End Try
     End Sub
 
+    ' ============================================================
+    ' DELETE ORDER
+    ' ============================================================
+    Private Sub DeleteOrder(orderID As Integer)
+        Try
+            If MessageBox.Show("Are you sure you want to DELETE this order?",
+                               "Confirm Delete", MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Warning) = DialogResult.No Then Exit Sub
+
+            Using conn As New MySqlConnection("Server=127.0.0.1;User=root;Password=;Database=tabeya_system")
+                conn.Open()
+
+                Dim query As String = "DELETE FROM orders WHERE OrderID = @orderID"
+
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@orderID", orderID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("Order deleted successfully!", "Deleted")
+            LoadOrders()
+
+        Catch ex As Exception
+            MessageBox.Show("Delete Error: " & ex.Message)
+        End Try
+    End Sub
 
     ' ============================================================
-    ' HANDLE CONFIRM / CANCEL BUTTON CLICKS
+    ' HANDLE CONFIRM / CANCEL / DELETE CLICKS
     ' ============================================================
     Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
         If e.RowIndex < 0 Then Exit Sub
@@ -194,22 +201,30 @@ Public Class Orders
         Dim orderID As Integer = row.Cells("OrderID").Value
         Dim status As String = row.Cells("OrderStatus").Value.ToString()
 
-        If status <> "Pending" Then Exit Sub
-
+        ' Confirm
         If DataGridView2.Columns(e.ColumnIndex).Name = "ConfirmBtn" Then
-            UpdateOrderStatus(orderID, "Completed")
-            LoadOrders()
-
-        ElseIf DataGridView2.Columns(e.ColumnIndex).Name = "CancelBtn" Then
-            UpdateOrderStatus(orderID, "Cancelled")
-            LoadOrders()
+            If status = "Pending" Then
+                UpdateOrderStatus(orderID, "Completed")
+                LoadOrders()
+            End If
         End If
+
+        ' Cancel
+        If DataGridView2.Columns(e.ColumnIndex).Name = "CancelBtn" Then
+            If status = "Pending" Then
+                UpdateOrderStatus(orderID, "Cancelled")
+                LoadOrders()
+            End If
+        End If
+
+        ' DELETE
+        If DataGridView2.Columns(e.ColumnIndex).Name = "DeleteBtn" Then
+            DeleteOrder(orderID)
+        End If
+
     End Sub
 
-
-    ' ============================================================
     ' FILTER BUTTONS
-    ' ============================================================
     Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
         LoadOrders()
         lblFilter.Text = "Showing: All Orders"
@@ -230,10 +245,7 @@ Public Class Orders
         lblFilter.Text = "Showing: Cancelled Orders"
     End Sub
 
-
-    ' ============================================================
     ' SEARCH
-    ' ============================================================
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Dim search As String = txtSearch.Text.Trim()
 
@@ -250,10 +262,7 @@ Public Class Orders
         lblFilter.Text = "Search Results"
     End Sub
 
-
-    ' ============================================================
     ' REFRESH
-    ' ============================================================
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadOrders()
         txtSearch.Text = ""

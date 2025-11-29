@@ -276,7 +276,7 @@ Public Class Inventory
 
                 ' Format columns
                 If .Columns.Contains("Total Value") Then
-                    .Columns("Total Value").DefaultCellStyle.Format = "₱#,##0.00"
+                    .Columns("Total Value").DefaultCellStyle.Format = "#,##0.00"
                     .Columns("Total Value").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     .Columns("Total Value").ReadOnly = True
                 End If

@@ -33,6 +33,7 @@ Partial Class Orders
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalOrders = New System.Windows.Forms.Label()
+        Me.btnDelete = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -66,6 +67,7 @@ Partial Class Orders
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel2.Controls.Add(Me.btnDelete)
         Me.Panel2.Controls.Add(Me.btnRefresh)
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
@@ -252,6 +254,20 @@ Partial Class Orders
         Me.lblTotalOrders.TabIndex = 0
         Me.lblTotalOrders.Text = "Total Orders: 0"
         '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(69, Byte), Integer))
+        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnDelete.ForeColor = System.Drawing.Color.White
+        Me.btnDelete.Location = New System.Drawing.Point(1073, 20)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(114, 32)
+        Me.btnDelete.TabIndex = 5
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.UseVisualStyleBackColor = False
+        '
         'Orders
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -295,4 +311,5 @@ Partial Class Orders
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblTotalOrders As Label
+    Friend WithEvents btnDelete As Button
 End Class

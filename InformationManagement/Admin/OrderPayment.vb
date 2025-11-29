@@ -116,4 +116,18 @@ Public Class OrderPayment
         lblTotalRecords.Text = "Total: " & Order.Rows.Count.ToString()
     End Sub
 
+    ' =============================================================
+    ' UPDATE PAYMENT STATUS - Allows changing status to Completed, Refunded, or Failed
+    ' =============================================================
+    Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+
+    End Sub
+
+    ' =============================================================
+    ' DELETE PAYMENT - Removes payment record from database
+    ' =============================================================
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+
+    End Sub
+
 End Class

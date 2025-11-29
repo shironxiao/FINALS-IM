@@ -5,100 +5,157 @@ Public Class Reservations
 
     Private Sub Reservations_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadReservations()
-        AddActionButtons()
     End Sub
 
     ' ==========================================
-    ' ADD ACTION BUTTONS TO DATAGRIDVIEW
+    ' UPDATE STATUS BUTTON (Form Button)
     ' ==========================================
-    Private Sub AddActionButtons()
-        ' Check if buttons already exist
-        If Reservation.Columns.Contains("btnConfirm") Then
-            Exit Sub
-        End If
-
-        ' Add Confirm Button Column
-        Dim btnConfirm As New DataGridViewButtonColumn()
-        btnConfirm.Name = "btnConfirm"
-        btnConfirm.HeaderText = "Action"
-        btnConfirm.Text = "Confirm"
-        btnConfirm.UseColumnTextForButtonValue = True
-        btnConfirm.Width = 80
-        Reservation.Columns.Add(btnConfirm)
-
-        ' Add Cancel Button Column
-        Dim btnCancel As New DataGridViewButtonColumn()
-        btnCancel.Name = "btnCancel"
-        btnCancel.HeaderText = ""
-        btnCancel.Text = "Cancel"
-        btnCancel.UseColumnTextForButtonValue = True
-        btnCancel.Width = 80
-        Reservation.Columns.Add(btnCancel)
-    End Sub
-
-    ' ==========================================
-    ' HANDLE BUTTON CLICKS IN DATAGRIDVIEW
-    ' ==========================================
-    Private Sub Reservation_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Reservation.CellContentClick
-        ' Check if click is on a button column and not on header
-        If e.RowIndex < 0 Then Exit Sub
-
-        Dim columnName As String = Reservation.Columns(e.ColumnIndex).Name
-        Dim reservationID As Integer = Reservation.Rows(e.RowIndex).Cells("ReservationID").Value
-        Dim currentStatus As String = Reservation.Rows(e.RowIndex).Cells("ReservationStatus").Value.ToString()
-
-        ' CONFIRM BUTTON CLICKED
-        If columnName = "btnConfirm" Then
-            If currentStatus = "Confirmed" Then
-                MessageBox.Show("This reservation is already confirmed.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Exit Sub
+    Private Sub btnUpdateStatus_Click(sender As Object, e As EventArgs) Handles btnUpdateStatus.Click
+        Try
+            ' Check if a row is selected
+            If Reservation.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a reservation to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
             End If
 
-            If MessageBox.Show("Confirm Reservation #" & reservationID & "?",
-                               "Confirm Reservation",
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Question) = DialogResult.Yes Then
-                UpdateReservationStatus(reservationID, "Confirmed")
-            End If
-        End If
+            ' Get selected reservation details
+            Dim selectedRow As DataGridViewRow = Reservation.SelectedRows(0)
+            Dim reservationID As Integer = Convert.ToInt32(selectedRow.Cells("ReservationID").Value)
+            Dim currentStatus As String = selectedRow.Cells("ReservationStatus").Value.ToString().Trim()
 
-        ' CANCEL BUTTON CLICKED
-        If columnName = "btnCancel" Then
-            If currentStatus = "Cancelled" Then
-                MessageBox.Show("This reservation is already cancelled.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Exit Sub
+            ' Show dialog to select new status
+            Dim statusForm As New Form()
+            statusForm.Text = "Update Reservation Status"
+            statusForm.Size = New Size(400, 250)
+            statusForm.StartPosition = FormStartPosition.CenterParent
+            statusForm.FormBorderStyle = FormBorderStyle.FixedDialog
+            statusForm.MaximizeBox = False
+            statusForm.MinimizeBox = False
+
+            ' Label
+            Dim lblInfo As New Label()
+            lblInfo.Text = $"Reservation ID: {reservationID}" & vbCrLf &
+                          $"Current Status: {currentStatus}" & vbCrLf & vbCrLf &
+                          "Select new status:"
+            lblInfo.Location = New Point(20, 20)
+            lblInfo.Size = New Size(350, 70)
+            lblInfo.Font = New Font("Segoe UI", 10)
+            statusForm.Controls.Add(lblInfo)
+
+            ' Radio buttons for status options
+            Dim rbPending As New RadioButton()
+            rbPending.Text = "Pending"
+            rbPending.Location = New Point(30, 100)
+            rbPending.Size = New Size(100, 25)
+            rbPending.Font = New Font("Segoe UI", 10)
+            rbPending.Checked = (currentStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase))
+            statusForm.Controls.Add(rbPending)
+
+            Dim rbConfirmed As New RadioButton()
+            rbConfirmed.Text = "Confirmed"
+            rbConfirmed.Location = New Point(140, 100)
+            rbConfirmed.Size = New Size(110, 25)
+            rbConfirmed.Font = New Font("Segoe UI", 10)
+            rbConfirmed.Checked = (currentStatus.Equals("Confirmed", StringComparison.OrdinalIgnoreCase))
+            statusForm.Controls.Add(rbConfirmed)
+
+            Dim rbCancelled As New RadioButton()
+            rbCancelled.Text = "Cancelled"
+            rbCancelled.Location = New Point(260, 100)
+            rbCancelled.Size = New Size(110, 25)
+            rbCancelled.Font = New Font("Segoe UI", 10)
+            rbCancelled.Checked = (currentStatus.Equals("Cancelled", StringComparison.OrdinalIgnoreCase))
+            statusForm.Controls.Add(rbCancelled)
+
+            ' Ensure at least one is checked if none match
+            If Not (rbPending.Checked Or rbConfirmed.Checked Or rbCancelled.Checked) Then
+                rbPending.Checked = True
             End If
 
-            If MessageBox.Show("Cancel Reservation #" & reservationID & "?",
-                               "Cancel Reservation",
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Warning) = DialogResult.Yes Then
-                UpdateReservationStatus(reservationID, "Cancelled")
+            ' Buttons
+            Dim btnOK As New Button()
+            btnOK.Text = "Update"
+            btnOK.Location = New Point(200, 160)
+            btnOK.Size = New Size(80, 35)
+            btnOK.DialogResult = DialogResult.OK
+            btnOK.Font = New Font("Segoe UI", 9)
+            statusForm.Controls.Add(btnOK)
+
+            Dim btnCancel As New Button()
+            btnCancel.Text = "Cancel"
+            btnCancel.Location = New Point(290, 160)
+            btnCancel.Size = New Size(80, 35)
+            btnCancel.DialogResult = DialogResult.Cancel
+            btnCancel.Font = New Font("Segoe UI", 9)
+            statusForm.Controls.Add(btnCancel)
+
+            statusForm.AcceptButton = btnOK
+            statusForm.CancelButton = btnCancel
+
+            ' Show the dialog
+            If statusForm.ShowDialog() = DialogResult.OK Then
+                Dim newStatus As String = ""
+
+                If rbPending.Checked Then
+                    newStatus = "Pending"
+                ElseIf rbConfirmed.Checked Then
+                    newStatus = "Confirmed"
+                ElseIf rbCancelled.Checked Then
+                    newStatus = "Cancelled"
+                End If
+
+                ' Check if status is actually changing (case-insensitive comparison)
+                If newStatus.Equals(currentStatus, StringComparison.OrdinalIgnoreCase) Then
+                    MessageBox.Show($"Reservation status is already '{currentStatus}'.", "No Change", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+
+                ' Update the reservation status
+                UpdateReservationStatus(reservationID, newStatus)
             End If
-        End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error updating reservation status: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' ==========================================
     ' UPDATE RESERVATION STATUS
     ' ==========================================
     Private Sub UpdateReservationStatus(reservationID As Integer, newStatus As String)
+        Dim connection As MySqlConnection = Nothing
+
         Try
-            openConn()
+            connection = New MySqlConnection(strConnection)
+            connection.Open()
 
+            ' Use parameterized query to prevent SQL injection
             Dim query As String = "UPDATE reservations SET ReservationStatus = @status, UpdatedDate = @updated WHERE ReservationID = @id"
-            Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@status", newStatus)
-            cmd.Parameters.AddWithValue("@updated", DateTime.Now)
-            cmd.Parameters.AddWithValue("@id", reservationID)
 
-            cmd.ExecuteNonQuery()
-            closeConn()
+            Using cmd As New MySqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@status", newStatus)
+                cmd.Parameters.AddWithValue("@updated", DateTime.Now)
+                cmd.Parameters.AddWithValue("@id", reservationID)
 
-            MessageBox.Show($"Reservation #{reservationID} has been {newStatus.ToLower()}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            LoadReservations()
+                Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
+                If rowsAffected = 0 Then
+                    MessageBox.Show("No reservation was updated. Please check if the reservation exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return
+                End If
+            End Using
+
+            MessageBox.Show($"Reservation #{reservationID} has been updated to '{newStatus}'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As MySqlException
+            MessageBox.Show("Database error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             MessageBox.Show("Error updating reservation: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+                connection.Close()
+            End If
+            LoadReservations()
         End Try
     End Sub
 
@@ -135,47 +192,12 @@ Public Class Reservations
             ' Load results into DGV
             LoadToDGV(query, Reservation)
 
-            ' Re-add buttons after loading data
-            AddActionButtons()
-
             ' Update count label
             lblTotalReservations.Text = "Total: " & Reservation.Rows.Count.ToString()
-
-            ' Style the buttons based on status
-            StyleActionButtons()
 
         Catch ex As Exception
             MessageBox.Show("Error loading reservations: " & ex.Message)
         End Try
-    End Sub
-
-    ' ==========================================
-    ' STYLE ACTION BUTTONS BASED ON STATUS
-    ' ==========================================
-    Private Sub StyleActionButtons()
-        For Each row As DataGridViewRow In Reservation.Rows
-            If row.Cells("ReservationStatus") IsNot Nothing Then
-                Dim status As String = row.Cells("ReservationStatus").Value.ToString()
-
-                ' Disable Confirm button if already confirmed
-                If status = "Confirmed" Then
-                    row.Cells("btnConfirm").Style.BackColor = Color.LightGray
-                    row.Cells("btnConfirm").Style.ForeColor = Color.Gray
-                Else
-                    row.Cells("btnConfirm").Style.BackColor = Color.FromArgb(40, 167, 69)
-                    row.Cells("btnConfirm").Style.ForeColor = Color.White
-                End If
-
-                ' Disable Cancel button if already cancelled
-                If status = "Cancelled" Then
-                    row.Cells("btnCancel").Style.BackColor = Color.LightGray
-                    row.Cells("btnCancel").Style.ForeColor = Color.Gray
-                Else
-                    row.Cells("btnCancel").Style.BackColor = Color.FromArgb(220, 53, 69)
-                    row.Cells("btnCancel").Style.ForeColor = Color.White
-                End If
-            End If
-        Next
     End Sub
 
     ' ==========================================
@@ -262,7 +284,7 @@ Public Class Reservations
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
 
         If Reservation.SelectedRows.Count = 0 Then
-            MessageBox.Show("Select a reservation to delete.")
+            MessageBox.Show("Select a reservation to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 

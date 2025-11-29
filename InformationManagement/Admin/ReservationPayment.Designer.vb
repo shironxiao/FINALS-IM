@@ -27,6 +27,8 @@ Partial Class ReservationPayment
         Me.Reservation = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalRecords = New System.Windows.Forms.Label()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnConfirm = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Reservation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,6 +61,8 @@ Partial Class ReservationPayment
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel2.Controls.Add(Me.btnConfirm)
+        Me.Panel2.Controls.Add(Me.btnDelete)
         Me.Panel2.Controls.Add(Me.btnRefresh)
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
@@ -77,7 +81,7 @@ Partial Class ReservationPayment
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Location = New System.Drawing.Point(1253, 19)
+        Me.btnRefresh.Location = New System.Drawing.Point(1203, 21)
         Me.btnRefresh.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(133, 37)
@@ -93,7 +97,7 @@ Partial Class ReservationPayment
         Me.txtSearch.Location = New System.Drawing.Point(107, 21)
         Me.txtSearch.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(1120, 30)
+        Me.txtSearch.Size = New System.Drawing.Size(1068, 30)
         Me.txtSearch.TabIndex = 1
         '
         'lblSearch
@@ -162,6 +166,34 @@ Partial Class ReservationPayment
         Me.lblTotalRecords.TabIndex = 0
         Me.lblTotalRecords.Text = "Total Records: 0"
         '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(69, Byte), Integer))
+        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnDelete.ForeColor = System.Drawing.Color.White
+        Me.btnDelete.Location = New System.Drawing.Point(1461, 24)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(114, 32)
+        Me.btnDelete.TabIndex = 6
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.UseVisualStyleBackColor = False
+        '
+        'btnConfirm
+        '
+        Me.btnConfirm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnConfirm.BackColor = System.Drawing.Color.Green
+        Me.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnConfirm.ForeColor = System.Drawing.Color.White
+        Me.btnConfirm.Location = New System.Drawing.Point(1341, 24)
+        Me.btnConfirm.Name = "btnConfirm"
+        Me.btnConfirm.Size = New System.Drawing.Size(114, 32)
+        Me.btnConfirm.TabIndex = 7
+        Me.btnConfirm.Text = "Confirm"
+        Me.btnConfirm.UseVisualStyleBackColor = False
+        '
         'ReservationPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -196,4 +228,6 @@ Partial Class ReservationPayment
     Friend WithEvents Reservation As DataGridView
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblTotalRecords As Label
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents btnConfirm As Button
 End Class
