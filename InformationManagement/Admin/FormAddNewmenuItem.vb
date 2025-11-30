@@ -4,6 +4,9 @@ Imports System.Drawing.Imaging
 
 Public Class FormAddNewmenuItem
 
+    ' Store the selected image bytes
+    Private SelectedImageBytes As Byte() = Nothing
+
     Private Sub FormAddNewmenuItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeForm()
     End Sub
@@ -51,6 +54,8 @@ Public Class FormAddNewmenuItem
 
         PictureBox1.Image = Nothing
         PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+
+        SelectedImageBytes = Nothing
     End Sub
 
     ' =======================================================
@@ -106,9 +111,12 @@ Public Class FormAddNewmenuItem
             Try
                 Using fs As New FileStream(ofd.FileName, FileMode.Open, FileAccess.Read)
                     PictureBox1.Image = Image.FromStream(fs)
+                    ' Store the image bytes when loaded
+                    SelectedImageBytes = PictureBoxImageToBytes()
                 End Using
             Catch ex As Exception
                 MessageBox.Show("Error loading image: " & ex.Message)
+                SelectedImageBytes = Nothing
             End Try
         End If
     End Sub
@@ -161,13 +169,14 @@ Public Class FormAddNewmenuItem
             cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
             cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
 
-            Dim imageBytes As Byte() = PictureBoxImageToBytes()
-
-            If imageBytes IsNot Nothing Then
-                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = imageBytes
+            ' ===================== IMAGE SAVE LOGIC =====================
+            ' Use stored image bytes if available
+            If SelectedImageBytes IsNot Nothing Then
+                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = SelectedImageBytes
             Else
                 cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = DBNull.Value
             End If
+            ' ============================================================
 
             cmd.ExecuteNonQuery()
 
@@ -204,6 +213,7 @@ Public Class FormAddNewmenuItem
         PrepTime.Text = ""
         cmbMealTime.SelectedIndex = 0
         PictureBox1.Image = Nothing
+        SelectedImageBytes = Nothing ' Clear stored image bytes
         ProductID.Text = GenerateNextProductID()
         txtProductName.Focus()
     End Sub

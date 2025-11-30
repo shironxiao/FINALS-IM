@@ -135,7 +135,7 @@ Public Class FormEditMenu
             openConn()
 
             Dim sql As String =
-                "UPDATE products SET 
+            "UPDATE products SET 
                 ProductName=@ProductName,
                 Category=@Category,
                 Description=@Description,
@@ -147,7 +147,7 @@ Public Class FormEditMenu
                 MealTime=@MealTime,
                 LastUpdated=NOW(),
                 Image=@Image
-                WHERE ProductID=@id"
+             WHERE ProductID=@id"
 
             Dim cmd As New MySqlCommand(sql, conn)
 
@@ -157,16 +157,28 @@ Public Class FormEditMenu
             cmd.Parameters.AddWithValue("@Price", numericPrice.Value)
             cmd.Parameters.AddWithValue("@Availability", Availability.Text)
             cmd.Parameters.AddWithValue("@ServingSize", ServingSize.Text.Trim())
+            cmd.Parameters.AddWithValue("@ProductCode", ProductCode.Text.Trim())
             cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
             cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
             cmd.Parameters.AddWithValue("@id", SelectedProductID)
 
-            ' ============= FIXED IMAGE SAVING =============
+            ' ===================== IMAGE SAVE LOGIC =====================
+            ' If user did not browse new image → re-save existing BLOB
             If SelectedImageBytes IsNot Nothing Then
-                cmd.Parameters.Add("@Image", MySqlDbType.Blob).Value = SelectedImageBytes
+                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = SelectedImageBytes
             Else
-                cmd.Parameters.Add("@Image", MySqlDbType.Blob).Value = DBNull.Value
+                ' Load original image from database instead of NULL
+                Dim getImgCmd As New MySqlCommand("SELECT Image FROM products WHERE ProductID=@id", conn)
+                getImgCmd.Parameters.AddWithValue("@id", SelectedProductID)
+                Dim originalBytes = getImgCmd.ExecuteScalar()
+
+                If Not IsDBNull(originalBytes) Then
+                    cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = originalBytes
+                Else
+                    cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = DBNull.Value
+                End If
             End If
+            ' ============================================================
 
             cmd.ExecuteNonQuery()
 
