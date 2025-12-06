@@ -17,7 +17,7 @@ Partial Class Orders
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -50,17 +50,17 @@ Partial Class Orders
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 61)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.White
-        Me.lblTitle.Location = New System.Drawing.Point(12, 12)
+        Me.lblTitle.Location = New System.Drawing.Point(17, 19)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(190, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(230, 40)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Manage Orders"
         '
@@ -74,9 +74,9 @@ Partial Class Orders
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 61)
+        Me.Panel2.Location = New System.Drawing.Point(0, 72)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 10)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
         Me.Panel2.Size = New System.Drawing.Size(1028, 61)
         Me.Panel2.TabIndex = 1
         '
@@ -89,7 +89,7 @@ Partial Class Orders
         Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnConfirm.ForeColor = System.Drawing.Color.White
         Me.btnConfirm.Location = New System.Drawing.Point(638, 15)
-        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(101, 30)
         Me.btnConfirm.TabIndex = 9
@@ -119,7 +119,7 @@ Partial Class Orders
         Me.Button1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Button1.ForeColor = System.Drawing.Color.White
         Me.Button1.Location = New System.Drawing.Point(748, 16)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(101, 30)
         Me.Button1.TabIndex = 8
@@ -170,9 +170,9 @@ Partial Class Orders
         Me.Panel3.Controls.Add(Me.btnViewPending)
         Me.Panel3.Controls.Add(Me.lblFilter)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(0, 122)
+        Me.Panel3.Location = New System.Drawing.Point(0, 133)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Padding = New System.Windows.Forms.Padding(10, 10, 10, 10)
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(10)
         Me.Panel3.Size = New System.Drawing.Size(1028, 50)
         Me.Panel3.TabIndex = 2
         '
@@ -252,26 +252,26 @@ Partial Class Orders
         Me.DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.DataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView2.ColumnHeadersHeight = 40
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView2.EnableHeadersVisualStyles = False
-        Me.DataGridView2.Location = New System.Drawing.Point(0, 172)
+        Me.DataGridView2.Location = New System.Drawing.Point(0, 183)
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowHeadersWidth = 51
         Me.DataGridView2.RowTemplate.Height = 35
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(1028, 366)
+        Me.DataGridView2.Size = New System.Drawing.Size(1028, 355)
         Me.DataGridView2.TabIndex = 3
         '
         'Panel4
@@ -304,7 +304,7 @@ Partial Class Orders
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(804, 590)
         Me.Name = "Orders"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

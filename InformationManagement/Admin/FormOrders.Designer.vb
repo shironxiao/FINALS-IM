@@ -54,14 +54,17 @@ Partial Class FormOrders
         '
         'MonthlyChartOrder
         '
+        ChartArea1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         ChartArea1.Name = "ChartArea1"
         Me.MonthlyChartOrder.ChartAreas.Add(ChartArea1)
+        Legend1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Legend1.Name = "Legend1"
         Me.MonthlyChartOrder.Legends.Add(Legend1)
         Me.MonthlyChartOrder.Location = New System.Drawing.Point(32, 63)
         Me.MonthlyChartOrder.Name = "MonthlyChartOrder"
         Series1.ChartArea = "ChartArea1"
         Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline
+        Series1.LabelForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         DataPoint1.AxisLabel = "Jan"
@@ -110,6 +113,7 @@ Partial Class FormOrders
         '
         ChartArea2.Name = "ChartArea1"
         Me.OrderCategoriesGraph.ChartAreas.Add(ChartArea2)
+        Legend2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Legend2.Name = "Legend1"
         Me.OrderCategoriesGraph.Legends.Add(Legend2)
         Me.OrderCategoriesGraph.Location = New System.Drawing.Point(33, 72)
@@ -150,6 +154,7 @@ Partial Class FormOrders
         Me.RoundedPane22.Controls.Add(Me.MonthlyChartOrder)
         Me.RoundedPane22.CornerRadius = 15
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
+        Me.RoundedPane22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane22.Location = New System.Drawing.Point(32, 60)
         Me.RoundedPane22.Name = "RoundedPane22"
         Me.RoundedPane22.Size = New System.Drawing.Size(524, 386)
@@ -178,6 +183,7 @@ Partial Class FormOrders
         Me.Controls.Add(Me.RoundedPane22)
         Me.Controls.Add(Me.RoundedPane21)
         Me.DoubleBuffered = True
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Name = "FormOrders"
         Me.Text = "FormOrders"
         CType(Me.MonthlyChartOrder, System.ComponentModel.ISupportInitialize).EndInit()

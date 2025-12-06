@@ -56,8 +56,7 @@ Partial Class FormDineInOrders
         Me.DataGridView1.ColumnHeadersHeight = 40
         Me.DataGridView1.EnableHeadersVisualStyles = False
         Me.DataGridView1.GridColor = System.Drawing.Color.White
-        Me.DataGridView1.Location = New System.Drawing.Point(31, 96)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
+        Me.DataGridView1.Location = New System.Drawing.Point(23, 78)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
@@ -71,7 +70,7 @@ Partial Class FormDineInOrders
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 40
         Me.DataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.Size = New System.Drawing.Size(1359, 251)
+        Me.DataGridView1.Size = New System.Drawing.Size(1019, 204)
         Me.DataGridView1.TabIndex = 0
         '
         'Label2
@@ -80,10 +79,9 @@ Partial Class FormDineInOrders
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label2.Location = New System.Drawing.Point(27, 26)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(20, 21)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(189, 25)
+        Me.Label2.Size = New System.Drawing.Size(149, 20)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Dine-in Order Report"
         '
@@ -91,10 +89,9 @@ Partial Class FormDineInOrders
         '
         Me.Export.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Export.Image = CType(resources.GetObject("Export.Image"), System.Drawing.Image)
-        Me.Export.Location = New System.Drawing.Point(1219, 21)
-        Me.Export.Margin = New System.Windows.Forms.Padding(4)
+        Me.Export.Location = New System.Drawing.Point(914, 17)
         Me.Export.Name = "Export"
-        Me.Export.Size = New System.Drawing.Size(139, 37)
+        Me.Export.Size = New System.Drawing.Size(104, 30)
         Me.Export.TabIndex = 10
         Me.Export.Text = "   Export"
         Me.Export.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -110,20 +107,19 @@ Partial Class FormDineInOrders
         Me.RoundedPane21.Controls.Add(Me.Label2)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
-        Me.RoundedPane21.Location = New System.Drawing.Point(43, 26)
-        Me.RoundedPane21.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane21.Location = New System.Drawing.Point(32, 21)
         Me.RoundedPane21.Name = "RoundedPane21"
-        Me.RoundedPane21.Size = New System.Drawing.Size(1393, 377)
+        Me.RoundedPane21.Size = New System.Drawing.Size(1045, 306)
         Me.RoundedPane21.TabIndex = 2
         '
         'FormDineInOrders
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1535, 922)
+        Me.ClientSize = New System.Drawing.Size(1028, 609)
         Me.Controls.Add(Me.RoundedPane21)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Name = "FormDineInOrders"
         Me.Text = "FormDineInOrders"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

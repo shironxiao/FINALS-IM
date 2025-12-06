@@ -22,7 +22,7 @@ Partial Class Customer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -46,20 +46,20 @@ Partial Class Customer
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 52)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.White
-        Me.lblTitle.Location = New System.Drawing.Point(10, 11)
+        Me.lblTitle.Location = New System.Drawing.Point(20, 19)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(282, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(342, 40)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Customer Management"
         '
@@ -71,8 +71,8 @@ Partial Class Customer
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 52)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Location = New System.Drawing.Point(0, 72)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(8, 9, 8, 9)
         Me.Panel2.Size = New System.Drawing.Size(1028, 52)
@@ -87,7 +87,7 @@ Partial Class Customer
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
         Me.btnDelete.Location = New System.Drawing.Point(717, 13)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(86, 26)
         Me.btnDelete.TabIndex = 5
@@ -103,7 +103,7 @@ Partial Class Customer
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnRefresh.ForeColor = System.Drawing.Color.White
         Me.btnRefresh.Location = New System.Drawing.Point(619, 13)
-        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(86, 26)
         Me.btnRefresh.TabIndex = 3
@@ -116,7 +116,7 @@ Partial Class Customer
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.txtSearch.Location = New System.Drawing.Point(68, 15)
-        Me.txtSearch.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtSearch.Margin = New System.Windows.Forms.Padding(2)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(527, 25)
         Me.txtSearch.TabIndex = 1
@@ -136,8 +136,8 @@ Partial Class Customer
         '
         Me.Panel3.BackColor = System.Drawing.Color.White
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(0, 104)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel3.Location = New System.Drawing.Point(0, 124)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(8, 9, 8, 9)
         Me.Panel3.Size = New System.Drawing.Size(1028, 8)
@@ -153,27 +153,27 @@ Partial Class Customer
         Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.ColumnHeadersHeight = 40
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.EnableHeadersVisualStyles = False
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 112)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 132)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(2)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.RowTemplate.Height = 35
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1028, 434)
+        Me.DataGridView1.Size = New System.Drawing.Size(1028, 414)
         Me.DataGridView1.TabIndex = 3
         '
         'Panel4
@@ -182,7 +182,7 @@ Partial Class Customer
         Me.Panel4.Controls.Add(Me.lblTotalCustomers)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel4.Location = New System.Drawing.Point(0, 546)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1028, 26)
         Me.Panel4.TabIndex = 4
@@ -209,7 +209,7 @@ Partial Class Customer
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 525)
         Me.Name = "Customer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

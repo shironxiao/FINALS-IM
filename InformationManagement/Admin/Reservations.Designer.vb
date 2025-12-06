@@ -17,7 +17,7 @@ Partial Class Reservations
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -48,20 +48,20 @@ Partial Class Reservations
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 52)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.White
-        Me.lblTitle.Location = New System.Drawing.Point(10, 11)
+        Me.lblTitle.Location = New System.Drawing.Point(10, 13)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(318, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(385, 40)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Reservations Management"
         '
@@ -74,10 +74,10 @@ Partial Class Reservations
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 52)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Location = New System.Drawing.Point(0, 72)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(11, 11, 11, 11)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(11)
         Me.Panel2.Size = New System.Drawing.Size(1028, 64)
         Me.Panel2.TabIndex = 1
         '
@@ -120,7 +120,7 @@ Partial Class Reservations
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnRefresh.ForeColor = System.Drawing.Color.White
         Me.btnRefresh.Location = New System.Drawing.Point(257, 13)
-        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 30)
         Me.btnRefresh.TabIndex = 2
@@ -133,7 +133,7 @@ Partial Class Reservations
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.txtSearch.Location = New System.Drawing.Point(68, 15)
-        Me.txtSearch.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtSearch.Margin = New System.Windows.Forms.Padding(2)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(172, 25)
         Me.txtSearch.TabIndex = 1
@@ -158,10 +158,10 @@ Partial Class Reservations
         Me.Panel3.Controls.Add(Me.btnViewPending)
         Me.Panel3.Controls.Add(Me.lblFilter)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(0, 116)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel3.Location = New System.Drawing.Point(0, 136)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Padding = New System.Windows.Forms.Padding(11, 11, 11, 11)
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(11)
         Me.Panel3.Size = New System.Drawing.Size(1028, 53)
         Me.Panel3.TabIndex = 2
         '
@@ -173,7 +173,7 @@ Partial Class Reservations
         Me.btnViewAll.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnViewAll.ForeColor = System.Drawing.Color.White
         Me.btnViewAll.Location = New System.Drawing.Point(495, 10)
-        Me.btnViewAll.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnViewAll.Margin = New System.Windows.Forms.Padding(2)
         Me.btnViewAll.Name = "btnViewAll"
         Me.btnViewAll.Size = New System.Drawing.Size(100, 30)
         Me.btnViewAll.TabIndex = 4
@@ -188,7 +188,7 @@ Partial Class Reservations
         Me.btnViewCancelled.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnViewCancelled.ForeColor = System.Drawing.Color.White
         Me.btnViewCancelled.Location = New System.Drawing.Point(387, 10)
-        Me.btnViewCancelled.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnViewCancelled.Margin = New System.Windows.Forms.Padding(2)
         Me.btnViewCancelled.Name = "btnViewCancelled"
         Me.btnViewCancelled.Size = New System.Drawing.Size(100, 30)
         Me.btnViewCancelled.TabIndex = 3
@@ -203,7 +203,7 @@ Partial Class Reservations
         Me.btnViewConfirmed.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnViewConfirmed.ForeColor = System.Drawing.Color.White
         Me.btnViewConfirmed.Location = New System.Drawing.Point(279, 10)
-        Me.btnViewConfirmed.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnViewConfirmed.Margin = New System.Windows.Forms.Padding(2)
         Me.btnViewConfirmed.Name = "btnViewConfirmed"
         Me.btnViewConfirmed.Size = New System.Drawing.Size(100, 30)
         Me.btnViewConfirmed.TabIndex = 2
@@ -218,7 +218,7 @@ Partial Class Reservations
         Me.btnViewPending.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnViewPending.ForeColor = System.Drawing.Color.White
         Me.btnViewPending.Location = New System.Drawing.Point(171, 10)
-        Me.btnViewPending.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnViewPending.Margin = New System.Windows.Forms.Padding(2)
         Me.btnViewPending.Name = "btnViewPending"
         Me.btnViewPending.Size = New System.Drawing.Size(100, 30)
         Me.btnViewPending.TabIndex = 1
@@ -246,27 +246,27 @@ Partial Class Reservations
         Me.Reservation.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Reservation.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.Reservation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Reservation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Reservation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.Reservation.ColumnHeadersHeight = 40
         Me.Reservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Reservation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Reservation.EnableHeadersVisualStyles = False
-        Me.Reservation.Location = New System.Drawing.Point(0, 169)
-        Me.Reservation.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Reservation.Location = New System.Drawing.Point(0, 189)
+        Me.Reservation.Margin = New System.Windows.Forms.Padding(2)
         Me.Reservation.Name = "Reservation"
         Me.Reservation.ReadOnly = True
         Me.Reservation.RowHeadersVisible = False
         Me.Reservation.RowHeadersWidth = 51
         Me.Reservation.RowTemplate.Height = 35
         Me.Reservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Reservation.Size = New System.Drawing.Size(1028, 377)
+        Me.Reservation.Size = New System.Drawing.Size(1028, 357)
         Me.Reservation.TabIndex = 3
         '
         'Panel4
@@ -275,7 +275,7 @@ Partial Class Reservations
         Me.Panel4.Controls.Add(Me.lblTotalReservations)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel4.Location = New System.Drawing.Point(0, 546)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1028, 26)
         Me.Panel4.TabIndex = 4
@@ -301,7 +301,7 @@ Partial Class Reservations
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(687, 523)
         Me.Name = "Reservations"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

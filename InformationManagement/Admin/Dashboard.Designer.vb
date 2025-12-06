@@ -126,11 +126,11 @@ Partial Class Dashboard
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(34, 34)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(26, 28)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(312, 41)
+        Me.Label1.Size = New System.Drawing.Size(304, 40)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Dashboard Overview"
         '
@@ -142,10 +142,9 @@ Partial Class Dashboard
         Me.RoundedPane28.Controls.Add(Me.Chart2)
         Me.RoundedPane28.CornerRadius = 15
         Me.RoundedPane28.FillColor = System.Drawing.Color.White
-        Me.RoundedPane28.Location = New System.Drawing.Point(80, 333)
-        Me.RoundedPane28.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane28.Location = New System.Drawing.Point(60, 271)
         Me.RoundedPane28.Name = "RoundedPane28"
-        Me.RoundedPane28.Size = New System.Drawing.Size(1492, 439)
+        Me.RoundedPane28.Size = New System.Drawing.Size(1119, 357)
         Me.RoundedPane28.TabIndex = 22
         '
         'FlowLegends
@@ -156,11 +155,10 @@ Partial Class Dashboard
         Me.FlowLegends.Controls.Add(Me.RoundedPane210)
         Me.FlowLegends.Controls.Add(Me.RoundedPane211)
         Me.FlowLegends.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLegends.Location = New System.Drawing.Point(768, 57)
-        Me.FlowLegends.Margin = New System.Windows.Forms.Padding(4)
+        Me.FlowLegends.Location = New System.Drawing.Point(576, 46)
         Me.FlowLegends.Name = "FlowLegends"
-        Me.FlowLegends.Padding = New System.Windows.Forms.Padding(13, 12, 13, 12)
-        Me.FlowLegends.Size = New System.Drawing.Size(673, 321)
+        Me.FlowLegends.Padding = New System.Windows.Forms.Padding(10)
+        Me.FlowLegends.Size = New System.Drawing.Size(505, 261)
         Me.FlowLegends.TabIndex = 23
         Me.FlowLegends.WrapContents = False
         '
@@ -174,10 +172,9 @@ Partial Class Dashboard
         Me.RoundedPane29.Controls.Add(Me.Panel1)
         Me.RoundedPane29.CornerRadius = 15
         Me.RoundedPane29.FillColor = System.Drawing.Color.White
-        Me.RoundedPane29.Location = New System.Drawing.Point(17, 16)
-        Me.RoundedPane29.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane29.Location = New System.Drawing.Point(13, 13)
         Me.RoundedPane29.Name = "RoundedPane29"
-        Me.RoundedPane29.Size = New System.Drawing.Size(624, 90)
+        Me.RoundedPane29.Size = New System.Drawing.Size(468, 73)
         Me.RoundedPane29.TabIndex = 0
         '
         'lblValueDinein
@@ -186,10 +183,9 @@ Partial Class Dashboard
         Me.lblValueDinein.BackColor = System.Drawing.Color.Transparent
         Me.lblValueDinein.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValueDinein.ForeColor = System.Drawing.Color.DimGray
-        Me.lblValueDinein.Location = New System.Drawing.Point(499, 47)
-        Me.lblValueDinein.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblValueDinein.Location = New System.Drawing.Point(374, 38)
         Me.lblValueDinein.Name = "lblValueDinein"
-        Me.lblValueDinein.Size = New System.Drawing.Size(113, 23)
+        Me.lblValueDinein.Size = New System.Drawing.Size(88, 17)
         Me.lblValueDinein.TabIndex = 6
         Me.lblValueDinein.Text = "₱1,950,000.00"
         '
@@ -198,10 +194,9 @@ Partial Class Dashboard
         Me.lblPercentDineIn.AutoSize = True
         Me.lblPercentDineIn.BackColor = System.Drawing.Color.Transparent
         Me.lblPercentDineIn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPercentDineIn.Location = New System.Drawing.Point(552, 22)
-        Me.lblPercentDineIn.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblPercentDineIn.Location = New System.Drawing.Point(414, 18)
         Me.lblPercentDineIn.Name = "lblPercentDineIn"
-        Me.lblPercentDineIn.Size = New System.Drawing.Size(50, 25)
+        Me.lblPercentDineIn.Size = New System.Drawing.Size(38, 20)
         Me.lblPercentDineIn.TabIndex = 2
         Me.lblPercentDineIn.Text = "65%"
         '
@@ -210,20 +205,18 @@ Partial Class Dashboard
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(85, 33)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(64, 27)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(74, 25)
+        Me.Label3.Size = New System.Drawing.Size(58, 20)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "Dine In"
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(149, Byte), Integer), CType(CType(233, Byte), Integer))
-        Me.Panel1.Location = New System.Drawing.Point(33, 33)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel1.Location = New System.Drawing.Point(25, 27)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(32, 27)
+        Me.Panel1.Size = New System.Drawing.Size(24, 22)
         Me.Panel1.TabIndex = 0
         '
         'RoundedPane210
@@ -236,10 +229,9 @@ Partial Class Dashboard
         Me.RoundedPane210.Controls.Add(Me.Panel2)
         Me.RoundedPane210.CornerRadius = 15
         Me.RoundedPane210.FillColor = System.Drawing.Color.White
-        Me.RoundedPane210.Location = New System.Drawing.Point(17, 114)
-        Me.RoundedPane210.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane210.Location = New System.Drawing.Point(13, 92)
         Me.RoundedPane210.Name = "RoundedPane210"
-        Me.RoundedPane210.Size = New System.Drawing.Size(624, 90)
+        Me.RoundedPane210.Size = New System.Drawing.Size(468, 73)
         Me.RoundedPane210.TabIndex = 1
         '
         'lblValueTakeout
@@ -248,10 +240,9 @@ Partial Class Dashboard
         Me.lblValueTakeout.BackColor = System.Drawing.Color.Transparent
         Me.lblValueTakeout.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValueTakeout.ForeColor = System.Drawing.Color.DimGray
-        Me.lblValueTakeout.Location = New System.Drawing.Point(499, 44)
-        Me.lblValueTakeout.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblValueTakeout.Location = New System.Drawing.Point(374, 36)
         Me.lblValueTakeout.Name = "lblValueTakeout"
-        Me.lblValueTakeout.Size = New System.Drawing.Size(100, 23)
+        Me.lblValueTakeout.Size = New System.Drawing.Size(78, 17)
         Me.lblValueTakeout.TabIndex = 6
         Me.lblValueTakeout.Text = "₱750,000.00"
         '
@@ -260,10 +251,9 @@ Partial Class Dashboard
         Me.lblPercentTakeout.AutoSize = True
         Me.lblPercentTakeout.BackColor = System.Drawing.Color.Transparent
         Me.lblPercentTakeout.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPercentTakeout.Location = New System.Drawing.Point(552, 20)
-        Me.lblPercentTakeout.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblPercentTakeout.Location = New System.Drawing.Point(414, 16)
         Me.lblPercentTakeout.Name = "lblPercentTakeout"
-        Me.lblPercentTakeout.Size = New System.Drawing.Size(50, 25)
+        Me.lblPercentTakeout.Size = New System.Drawing.Size(38, 20)
         Me.lblPercentTakeout.TabIndex = 3
         Me.lblPercentTakeout.Text = "25%"
         '
@@ -272,20 +262,18 @@ Partial Class Dashboard
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(85, 34)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(64, 28)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(79, 25)
+        Me.Label4.Size = New System.Drawing.Size(63, 20)
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "Takeout"
         '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(144, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.Panel2.Location = New System.Drawing.Point(33, 32)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel2.Location = New System.Drawing.Point(25, 26)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(32, 27)
+        Me.Panel2.Size = New System.Drawing.Size(24, 22)
         Me.Panel2.TabIndex = 1
         '
         'RoundedPane211
@@ -298,10 +286,9 @@ Partial Class Dashboard
         Me.RoundedPane211.Controls.Add(Me.Panel3)
         Me.RoundedPane211.CornerRadius = 15
         Me.RoundedPane211.FillColor = System.Drawing.Color.White
-        Me.RoundedPane211.Location = New System.Drawing.Point(17, 212)
-        Me.RoundedPane211.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane211.Location = New System.Drawing.Point(13, 171)
         Me.RoundedPane211.Name = "RoundedPane211"
-        Me.RoundedPane211.Size = New System.Drawing.Size(624, 90)
+        Me.RoundedPane211.Size = New System.Drawing.Size(468, 73)
         Me.RoundedPane211.TabIndex = 2
         '
         'lblValueCatering
@@ -310,10 +297,9 @@ Partial Class Dashboard
         Me.lblValueCatering.BackColor = System.Drawing.Color.Transparent
         Me.lblValueCatering.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblValueCatering.ForeColor = System.Drawing.Color.DimGray
-        Me.lblValueCatering.Location = New System.Drawing.Point(499, 44)
-        Me.lblValueCatering.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblValueCatering.Location = New System.Drawing.Point(374, 36)
         Me.lblValueCatering.Name = "lblValueCatering"
-        Me.lblValueCatering.Size = New System.Drawing.Size(100, 23)
+        Me.lblValueCatering.Size = New System.Drawing.Size(78, 17)
         Me.lblValueCatering.TabIndex = 5
         Me.lblValueCatering.Text = "₱300,000.00"
         '
@@ -322,10 +308,9 @@ Partial Class Dashboard
         Me.lblPercentCatering.AutoSize = True
         Me.lblPercentCatering.BackColor = System.Drawing.Color.Transparent
         Me.lblPercentCatering.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPercentCatering.Location = New System.Drawing.Point(555, 20)
-        Me.lblPercentCatering.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblPercentCatering.Location = New System.Drawing.Point(416, 16)
         Me.lblPercentCatering.Name = "lblPercentCatering"
-        Me.lblPercentCatering.Size = New System.Drawing.Size(47, 25)
+        Me.lblPercentCatering.Size = New System.Drawing.Size(36, 20)
         Me.lblPercentCatering.TabIndex = 4
         Me.lblPercentCatering.Text = "10%"
         '
@@ -334,20 +319,18 @@ Partial Class Dashboard
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(85, 34)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(64, 28)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(85, 25)
+        Me.Label12.Size = New System.Drawing.Size(67, 20)
         Me.Label12.TabIndex = 2
         Me.Label12.Text = "Catering"
         '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(251, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(119, Byte), Integer))
-        Me.Panel3.Location = New System.Drawing.Point(33, 32)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel3.Location = New System.Drawing.Point(25, 26)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(32, 27)
+        Me.Panel3.Size = New System.Drawing.Size(24, 22)
         Me.Panel3.TabIndex = 1
         '
         'Chart2
@@ -366,8 +349,7 @@ Partial Class Dashboard
         Legend1.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall
         Legend1.TitleSeparatorColor = System.Drawing.Color.DimGray
         Me.Chart2.Legends.Add(Legend1)
-        Me.Chart2.Location = New System.Drawing.Point(79, 23)
-        Me.Chart2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Chart2.Location = New System.Drawing.Point(59, 19)
         Me.Chart2.Name = "Chart2"
         Series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left
         Series1.ChartArea = "ChartArea1"
@@ -399,7 +381,7 @@ Partial Class Dashboard
         Series1.Points.Add(DataPoint2)
         Series1.Points.Add(DataPoint3)
         Me.Chart2.Series.Add(Series1)
-        Me.Chart2.Size = New System.Drawing.Size(576, 390)
+        Me.Chart2.Size = New System.Drawing.Size(432, 317)
         Me.Chart2.TabIndex = 1
         Me.Chart2.Text = "Chart2"
         Title1.Alignment = System.Drawing.ContentAlignment.TopLeft
@@ -425,10 +407,9 @@ Partial Class Dashboard
         Me.RoundedPane24.Controls.Add(Me.Label9)
         Me.RoundedPane24.CornerRadius = 15
         Me.RoundedPane24.FillColor = System.Drawing.Color.White
-        Me.RoundedPane24.Location = New System.Drawing.Point(879, 1081)
-        Me.RoundedPane24.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane24.Location = New System.Drawing.Point(659, 878)
         Me.RoundedPane24.Name = "RoundedPane24"
-        Me.RoundedPane24.Size = New System.Drawing.Size(693, 231)
+        Me.RoundedPane24.Size = New System.Drawing.Size(520, 188)
         Me.RoundedPane24.TabIndex = 15
         '
         'Label39
@@ -436,10 +417,9 @@ Partial Class Dashboard
         Me.Label39.AutoSize = True
         Me.Label39.BackColor = System.Drawing.Color.Transparent
         Me.Label39.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label39.Location = New System.Drawing.Point(611, 74)
-        Me.Label39.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label39.Location = New System.Drawing.Point(458, 60)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(34, 25)
+        Me.Label39.Size = New System.Drawing.Size(27, 20)
         Me.Label39.TabIndex = 24
         Me.Label39.Text = "18"
         '
@@ -448,10 +428,9 @@ Partial Class Dashboard
         Me.Label38.AutoSize = True
         Me.Label38.BackColor = System.Drawing.Color.Transparent
         Me.Label38.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label38.Location = New System.Drawing.Point(611, 124)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label38.Location = New System.Drawing.Point(458, 101)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(34, 25)
+        Me.Label38.Size = New System.Drawing.Size(27, 20)
         Me.Label38.TabIndex = 23
         Me.Label38.Text = "67"
         '
@@ -460,10 +439,9 @@ Partial Class Dashboard
         Me.Label36.AutoSize = True
         Me.Label36.BackColor = System.Drawing.Color.Transparent
         Me.Label36.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label36.Location = New System.Drawing.Point(580, 171)
-        Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label36.Location = New System.Drawing.Point(435, 139)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(62, 25)
+        Me.Label36.Size = New System.Drawing.Size(50, 20)
         Me.Label36.TabIndex = 21
         Me.Label36.Text = "₱0.00"
         '
@@ -471,10 +449,9 @@ Partial Class Dashboard
         '
         Me.PictureBox13.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox13.Image = CType(resources.GetObject("PictureBox13.Image"), System.Drawing.Image)
-        Me.PictureBox13.Location = New System.Drawing.Point(37, 171)
-        Me.PictureBox13.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox13.Location = New System.Drawing.Point(28, 139)
         Me.PictureBox13.Name = "PictureBox13"
-        Me.PictureBox13.Size = New System.Drawing.Size(27, 21)
+        Me.PictureBox13.Size = New System.Drawing.Size(20, 17)
         Me.PictureBox13.TabIndex = 20
         Me.PictureBox13.TabStop = False
         '
@@ -483,10 +460,9 @@ Partial Class Dashboard
         Me.Label35.AutoSize = True
         Me.Label35.BackColor = System.Drawing.Color.Transparent
         Me.Label35.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label35.Location = New System.Drawing.Point(99, 171)
-        Me.Label35.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label35.Location = New System.Drawing.Point(74, 139)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(139, 23)
+        Me.Label35.Size = New System.Drawing.Size(107, 17)
         Me.Label35.TabIndex = 19
         Me.Label35.Text = "Avg. Order Value"
         '
@@ -494,10 +470,9 @@ Partial Class Dashboard
         '
         Me.PictureBox11.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox11.Image = Global.InformationManagement.My.Resources.Resources.fork_and_knife__1_
-        Me.PictureBox11.Location = New System.Drawing.Point(39, 128)
-        Me.PictureBox11.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox11.Location = New System.Drawing.Point(29, 104)
         Me.PictureBox11.Name = "PictureBox11"
-        Me.PictureBox11.Size = New System.Drawing.Size(27, 21)
+        Me.PictureBox11.Size = New System.Drawing.Size(20, 17)
         Me.PictureBox11.TabIndex = 17
         Me.PictureBox11.TabStop = False
         '
@@ -506,10 +481,9 @@ Partial Class Dashboard
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(33, 25)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Location = New System.Drawing.Point(25, 20)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(104, 25)
+        Me.Label8.Size = New System.Drawing.Size(82, 20)
         Me.Label8.TabIndex = 8
         Me.Label8.Text = "Quick Stats"
         '
@@ -517,10 +491,9 @@ Partial Class Dashboard
         '
         Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
-        Me.PictureBox6.Location = New System.Drawing.Point(39, 78)
-        Me.PictureBox6.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox6.Location = New System.Drawing.Point(29, 63)
         Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(27, 30)
+        Me.PictureBox6.Size = New System.Drawing.Size(20, 24)
         Me.PictureBox6.TabIndex = 14
         Me.PictureBox6.TabStop = False
         '
@@ -529,10 +502,9 @@ Partial Class Dashboard
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(99, 128)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(74, 104)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(101, 23)
+        Me.Label10.Size = New System.Drawing.Size(76, 17)
         Me.Label10.TabIndex = 15
         Me.Label10.Text = "Menu Items"
         '
@@ -541,10 +513,9 @@ Partial Class Dashboard
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(99, 78)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Location = New System.Drawing.Point(74, 63)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(94, 23)
+        Me.Label9.Size = New System.Drawing.Size(72, 17)
         Me.Label9.TabIndex = 10
         Me.Label9.Text = "Active Staff"
         '
@@ -558,10 +529,9 @@ Partial Class Dashboard
         Me.PanelReservations.Controls.Add(Me.Label7)
         Me.PanelReservations.CornerRadius = 15
         Me.PanelReservations.FillColor = System.Drawing.Color.White
-        Me.PanelReservations.Location = New System.Drawing.Point(879, 844)
-        Me.PanelReservations.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelReservations.Location = New System.Drawing.Point(659, 686)
         Me.PanelReservations.Name = "PanelReservations"
-        Me.PanelReservations.Size = New System.Drawing.Size(693, 188)
+        Me.PanelReservations.Size = New System.Drawing.Size(520, 153)
         Me.PanelReservations.TabIndex = 21
         '
         'pnlReservations
@@ -575,20 +545,18 @@ Partial Class Dashboard
         Me.pnlReservations.Controls.Add(Me.lblEvent)
         Me.pnlReservations.CornerRadius = 15
         Me.pnlReservations.FillColor = System.Drawing.Color.White
-        Me.pnlReservations.Location = New System.Drawing.Point(39, 75)
-        Me.pnlReservations.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlReservations.Location = New System.Drawing.Point(29, 61)
         Me.pnlReservations.Name = "pnlReservations"
-        Me.pnlReservations.Size = New System.Drawing.Size(608, 82)
+        Me.pnlReservations.Size = New System.Drawing.Size(456, 67)
         Me.pnlReservations.TabIndex = 10
         '
         'icon
         '
         Me.icon.BackColor = System.Drawing.Color.Transparent
         Me.icon.Image = Global.InformationManagement.My.Resources.Resources.calendar_icon
-        Me.icon.Location = New System.Drawing.Point(28, 31)
-        Me.icon.Margin = New System.Windows.Forms.Padding(4)
+        Me.icon.Location = New System.Drawing.Point(21, 25)
         Me.icon.Name = "icon"
-        Me.icon.Size = New System.Drawing.Size(27, 21)
+        Me.icon.Size = New System.Drawing.Size(20, 17)
         Me.icon.TabIndex = 15
         Me.icon.TabStop = False
         '
@@ -599,10 +567,9 @@ Partial Class Dashboard
         Me.lblStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblStatus.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus.ForeColor = System.Drawing.Color.Transparent
-        Me.lblStatus.Location = New System.Drawing.Point(505, 31)
-        Me.lblStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblStatus.Location = New System.Drawing.Point(379, 25)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(81, 20)
+        Me.lblStatus.Size = New System.Drawing.Size(63, 15)
         Me.lblStatus.TabIndex = 13
         Me.lblStatus.Text = "Confirmed"
         '
@@ -612,10 +579,9 @@ Partial Class Dashboard
         Me.lblGuests.BackColor = System.Drawing.Color.Transparent
         Me.lblGuests.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGuests.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblGuests.Location = New System.Drawing.Point(179, 43)
-        Me.lblGuests.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblGuests.Location = New System.Drawing.Point(134, 35)
         Me.lblGuests.Name = "lblGuests"
-        Me.lblGuests.Size = New System.Drawing.Size(93, 23)
+        Me.lblGuests.Size = New System.Drawing.Size(72, 17)
         Me.lblGuests.TabIndex = 12
         Me.lblGuests.Text = "150 Guests"
         '
@@ -625,10 +591,9 @@ Partial Class Dashboard
         Me.lblDate.BackColor = System.Drawing.Color.Transparent
         Me.lblDate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDate.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblDate.Location = New System.Drawing.Point(72, 43)
-        Me.lblDate.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblDate.Location = New System.Drawing.Point(54, 35)
         Me.lblDate.Name = "lblDate"
-        Me.lblDate.Size = New System.Drawing.Size(96, 23)
+        Me.lblDate.Size = New System.Drawing.Size(74, 17)
         Me.lblDate.TabIndex = 11
         Me.lblDate.Text = "2025-01-25"
         '
@@ -637,10 +602,9 @@ Partial Class Dashboard
         Me.lblEvent.AutoSize = True
         Me.lblEvent.BackColor = System.Drawing.Color.Transparent
         Me.lblEvent.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEvent.Location = New System.Drawing.Point(71, 18)
-        Me.lblEvent.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblEvent.Location = New System.Drawing.Point(53, 15)
         Me.lblEvent.Name = "lblEvent"
-        Me.lblEvent.Size = New System.Drawing.Size(89, 25)
+        Me.lblEvent.Size = New System.Drawing.Size(71, 20)
         Me.lblEvent.TabIndex = 0
         Me.lblEvent.Text = "Wedding"
         '
@@ -649,10 +613,9 @@ Partial Class Dashboard
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(32, 21)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(24, 17)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(178, 25)
+        Me.Label7.Size = New System.Drawing.Size(141, 20)
         Me.Label7.TabIndex = 9
         Me.Label7.Text = "Recent Reservations"
         '
@@ -666,10 +629,9 @@ Partial Class Dashboard
         Me.flpOrders.Controls.Add(Me.Label5)
         Me.flpOrders.CornerRadius = 15
         Me.flpOrders.FillColor = System.Drawing.Color.White
-        Me.flpOrders.Location = New System.Drawing.Point(80, 1081)
-        Me.flpOrders.Margin = New System.Windows.Forms.Padding(4)
+        Me.flpOrders.Location = New System.Drawing.Point(60, 878)
         Me.flpOrders.Name = "flpOrders"
-        Me.flpOrders.Size = New System.Drawing.Size(726, 231)
+        Me.flpOrders.Size = New System.Drawing.Size(544, 188)
         Me.flpOrders.TabIndex = 20
         '
         'pnlOrders
@@ -679,10 +641,9 @@ Partial Class Dashboard
         Me.pnlOrders.Controls.Add(Me.lblOrderTime)
         Me.pnlOrders.Controls.Add(Me.lblOrderType)
         Me.pnlOrders.Controls.Add(Me.lblOrderId)
-        Me.pnlOrders.Location = New System.Drawing.Point(33, 78)
-        Me.pnlOrders.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlOrders.Location = New System.Drawing.Point(25, 63)
         Me.pnlOrders.Name = "pnlOrders"
-        Me.pnlOrders.Size = New System.Drawing.Size(642, 71)
+        Me.pnlOrders.Size = New System.Drawing.Size(482, 58)
         Me.pnlOrders.TabIndex = 10
         '
         'lblprice
@@ -690,10 +651,9 @@ Partial Class Dashboard
         Me.lblprice.AutoSize = True
         Me.lblprice.BackColor = System.Drawing.Color.Transparent
         Me.lblprice.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblprice.Location = New System.Drawing.Point(483, 21)
-        Me.lblprice.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblprice.Location = New System.Drawing.Point(362, 17)
         Me.lblprice.Name = "lblprice"
-        Me.lblprice.Size = New System.Drawing.Size(100, 25)
+        Me.lblprice.Size = New System.Drawing.Size(81, 20)
         Me.lblprice.TabIndex = 18
         Me.lblprice.Text = "₱1,850.00"
         '
@@ -703,10 +663,9 @@ Partial Class Dashboard
         Me.lblOrderTime.BackColor = System.Drawing.Color.Transparent
         Me.lblOrderTime.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOrderTime.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblOrderTime.Location = New System.Drawing.Point(103, 36)
-        Me.lblOrderTime.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblOrderTime.Location = New System.Drawing.Point(77, 29)
         Me.lblOrderTime.Name = "lblOrderTime"
-        Me.lblOrderTime.Size = New System.Drawing.Size(103, 23)
+        Me.lblOrderTime.Size = New System.Drawing.Size(80, 17)
         Me.lblOrderTime.TabIndex = 13
         Me.lblOrderTime.Text = "10 mins ago"
         '
@@ -716,10 +675,9 @@ Partial Class Dashboard
         Me.lblOrderType.BackColor = System.Drawing.Color.Transparent
         Me.lblOrderType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOrderType.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblOrderType.Location = New System.Drawing.Point(27, 36)
-        Me.lblOrderType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblOrderType.Location = New System.Drawing.Point(20, 29)
         Me.lblOrderType.Name = "lblOrderType"
-        Me.lblOrderType.Size = New System.Drawing.Size(77, 23)
+        Me.lblOrderType.Size = New System.Drawing.Size(57, 17)
         Me.lblOrderType.TabIndex = 12
         Me.lblOrderType.Text = "Dine In -"
         '
@@ -728,10 +686,9 @@ Partial Class Dashboard
         Me.lblOrderId.AutoSize = True
         Me.lblOrderId.BackColor = System.Drawing.Color.Transparent
         Me.lblOrderId.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOrderId.Location = New System.Drawing.Point(23, 11)
-        Me.lblOrderId.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblOrderId.Location = New System.Drawing.Point(17, 9)
         Me.lblOrderId.Name = "lblOrderId"
-        Me.lblOrderId.Size = New System.Drawing.Size(82, 25)
+        Me.lblOrderId.Size = New System.Drawing.Size(62, 20)
         Me.lblOrderId.TabIndex = 1
         Me.lblOrderId.Text = "ORD001"
         '
@@ -739,10 +696,9 @@ Partial Class Dashboard
         '
         Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
-        Me.PictureBox5.Location = New System.Drawing.Point(24, 27)
-        Me.PictureBox5.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox5.Location = New System.Drawing.Point(18, 22)
         Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(33, 22)
+        Me.PictureBox5.Size = New System.Drawing.Size(25, 18)
         Me.PictureBox5.TabIndex = 9
         Me.PictureBox5.TabStop = False
         '
@@ -751,10 +707,9 @@ Partial Class Dashboard
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(67, 25)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(50, 20)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(143, 25)
+        Me.Label5.Size = New System.Drawing.Size(110, 20)
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Pending Orders"
         '
@@ -767,10 +722,9 @@ Partial Class Dashboard
         Me.PanelMenu.Controls.Add(Me.Label6)
         Me.PanelMenu.CornerRadius = 15
         Me.PanelMenu.FillColor = System.Drawing.Color.White
-        Me.PanelMenu.Location = New System.Drawing.Point(80, 844)
-        Me.PanelMenu.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelMenu.Location = New System.Drawing.Point(60, 686)
         Me.PanelMenu.Name = "PanelMenu"
-        Me.PanelMenu.Size = New System.Drawing.Size(726, 188)
+        Me.PanelMenu.Size = New System.Drawing.Size(544, 153)
         Me.PanelMenu.TabIndex = 19
         '
         'pnlMenus
@@ -784,10 +738,9 @@ Partial Class Dashboard
         Me.pnlMenus.Controls.Add(Me.lblMenu)
         Me.pnlMenus.CornerRadius = 15
         Me.pnlMenus.FillColor = System.Drawing.Color.White
-        Me.pnlMenus.Location = New System.Drawing.Point(27, 75)
-        Me.pnlMenus.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlMenus.Location = New System.Drawing.Point(20, 61)
         Me.pnlMenus.Name = "pnlMenus"
-        Me.pnlMenus.Size = New System.Drawing.Size(608, 82)
+        Me.pnlMenus.Size = New System.Drawing.Size(456, 67)
         Me.pnlMenus.TabIndex = 11
         '
         'lblTotalOrderPrice
@@ -795,10 +748,9 @@ Partial Class Dashboard
         Me.lblTotalOrderPrice.AutoSize = True
         Me.lblTotalOrderPrice.BackColor = System.Drawing.Color.Transparent
         Me.lblTotalOrderPrice.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalOrderPrice.Location = New System.Drawing.Point(460, 31)
-        Me.lblTotalOrderPrice.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblTotalOrderPrice.Location = New System.Drawing.Point(345, 25)
         Me.lblTotalOrderPrice.Name = "lblTotalOrderPrice"
-        Me.lblTotalOrderPrice.Size = New System.Drawing.Size(122, 25)
+        Me.lblTotalOrderPrice.Size = New System.Drawing.Size(99, 20)
         Me.lblTotalOrderPrice.TabIndex = 16
         Me.lblTotalOrderPrice.Text = "₱290,000.00"
         '
@@ -806,10 +758,9 @@ Partial Class Dashboard
         '
         Me.PictureBox9.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox9.Image = Global.InformationManagement.My.Resources.Resources.fork_and_knife
-        Me.PictureBox9.Location = New System.Drawing.Point(28, 31)
-        Me.PictureBox9.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox9.Location = New System.Drawing.Point(21, 25)
         Me.PictureBox9.Name = "PictureBox9"
-        Me.PictureBox9.Size = New System.Drawing.Size(27, 21)
+        Me.PictureBox9.Size = New System.Drawing.Size(20, 17)
         Me.PictureBox9.TabIndex = 15
         Me.PictureBox9.TabStop = False
         '
@@ -819,10 +770,9 @@ Partial Class Dashboard
         Me.lblTotalOrders.BackColor = System.Drawing.Color.Transparent
         Me.lblTotalOrders.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalOrders.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblTotalOrders.Location = New System.Drawing.Point(72, 43)
-        Me.lblTotalOrders.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblTotalOrders.Location = New System.Drawing.Point(54, 35)
         Me.lblTotalOrders.Name = "lblTotalOrders"
-        Me.lblTotalOrders.Size = New System.Drawing.Size(90, 23)
+        Me.lblTotalOrders.Size = New System.Drawing.Size(72, 17)
         Me.lblTotalOrders.TabIndex = 11
         Me.lblTotalOrders.Text = "145 orders"
         '
@@ -831,10 +781,9 @@ Partial Class Dashboard
         Me.lblMenu.AutoSize = True
         Me.lblMenu.BackColor = System.Drawing.Color.Transparent
         Me.lblMenu.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMenu.Location = New System.Drawing.Point(71, 18)
-        Me.lblMenu.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblMenu.Location = New System.Drawing.Point(53, 15)
         Me.lblMenu.Name = "lblMenu"
-        Me.lblMenu.Size = New System.Drawing.Size(101, 25)
+        Me.lblMenu.Size = New System.Drawing.Size(80, 20)
         Me.lblMenu.TabIndex = 0
         Me.lblMenu.Text = "Beef Steak"
         '
@@ -843,10 +792,9 @@ Partial Class Dashboard
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(19, 21)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(14, 17)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(146, 25)
+        Me.Label6.Size = New System.Drawing.Size(115, 20)
         Me.Label6.TabIndex = 8
         Me.Label6.Text = "Top Menu Items"
         '
@@ -859,20 +807,18 @@ Partial Class Dashboard
         Me.RoundedPane22.Controls.Add(Me.Label14)
         Me.RoundedPane22.CornerRadius = 15
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
-        Me.RoundedPane22.Location = New System.Drawing.Point(591, 118)
-        Me.RoundedPane22.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane22.Location = New System.Drawing.Point(443, 96)
         Me.RoundedPane22.Name = "RoundedPane22"
-        Me.RoundedPane22.Size = New System.Drawing.Size(464, 148)
+        Me.RoundedPane22.Size = New System.Drawing.Size(348, 120)
         Me.RoundedPane22.TabIndex = 16
         '
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(381, 18)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox2.Location = New System.Drawing.Point(286, 15)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(35, 32)
+        Me.PictureBox2.Size = New System.Drawing.Size(26, 26)
         Me.PictureBox2.TabIndex = 1
         Me.PictureBox2.TabStop = False
         '
@@ -882,10 +828,9 @@ Partial Class Dashboard
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         Me.Label13.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label13.Location = New System.Drawing.Point(23, 26)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Location = New System.Drawing.Point(17, 21)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(108, 20)
+        Me.Label13.Size = New System.Drawing.Size(94, 16)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Total Orders"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -895,10 +840,9 @@ Partial Class Dashboard
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        Me.Label14.Location = New System.Drawing.Point(21, 94)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label14.Location = New System.Drawing.Point(16, 76)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(71, 26)
+        Me.Label14.Size = New System.Drawing.Size(60, 22)
         Me.Label14.TabIndex = 3
         Me.Label14.Text = "2,340"
         '
@@ -911,20 +855,18 @@ Partial Class Dashboard
         Me.RoundedPane23.Controls.Add(Me.Label16)
         Me.RoundedPane23.CornerRadius = 15
         Me.RoundedPane23.FillColor = System.Drawing.Color.White
-        Me.RoundedPane23.Location = New System.Drawing.Point(1108, 118)
-        Me.RoundedPane23.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane23.Location = New System.Drawing.Point(831, 96)
         Me.RoundedPane23.Name = "RoundedPane23"
-        Me.RoundedPane23.Size = New System.Drawing.Size(464, 148)
+        Me.RoundedPane23.Size = New System.Drawing.Size(348, 120)
         Me.RoundedPane23.TabIndex = 17
         '
         'PictureBox3
         '
         Me.PictureBox3.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(385, 21)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox3.Location = New System.Drawing.Point(289, 17)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(28, 25)
+        Me.PictureBox3.Size = New System.Drawing.Size(21, 20)
         Me.PictureBox3.TabIndex = 1
         Me.PictureBox3.TabStop = False
         '
@@ -934,10 +876,9 @@ Partial Class Dashboard
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         Me.Label15.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label15.Location = New System.Drawing.Point(23, 26)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Location = New System.Drawing.Point(17, 21)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(168, 20)
+        Me.Label15.Size = New System.Drawing.Size(146, 16)
         Me.Label15.TabIndex = 0
         Me.Label15.Text = "Active Reservations"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -947,10 +888,9 @@ Partial Class Dashboard
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        Me.Label16.Location = New System.Drawing.Point(21, 91)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label16.Location = New System.Drawing.Point(16, 74)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(38, 26)
+        Me.Label16.Size = New System.Drawing.Size(32, 22)
         Me.Label16.TabIndex = 3
         Me.Label16.Text = "28"
         '
@@ -963,20 +903,18 @@ Partial Class Dashboard
         Me.RoundedPane21.Controls.Add(Me.lblTotalRevenue)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
-        Me.RoundedPane21.Location = New System.Drawing.Point(80, 118)
-        Me.RoundedPane21.Margin = New System.Windows.Forms.Padding(4)
+        Me.RoundedPane21.Location = New System.Drawing.Point(60, 96)
         Me.RoundedPane21.Name = "RoundedPane21"
-        Me.RoundedPane21.Size = New System.Drawing.Size(464, 148)
+        Me.RoundedPane21.Size = New System.Drawing.Size(348, 120)
         Me.RoundedPane21.TabIndex = 15
         '
         'PictureBox4
         '
         Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
-        Me.PictureBox4.Location = New System.Drawing.Point(373, 18)
-        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox4.Location = New System.Drawing.Point(280, 15)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(37, 34)
+        Me.PictureBox4.Size = New System.Drawing.Size(28, 28)
         Me.PictureBox4.TabIndex = 4
         Me.PictureBox4.TabStop = False
         '
@@ -986,10 +924,9 @@ Partial Class Dashboard
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label2.Location = New System.Drawing.Point(23, 26)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(17, 21)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(125, 20)
+        Me.Label2.Size = New System.Drawing.Size(109, 16)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Total Revenue" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -999,20 +936,19 @@ Partial Class Dashboard
         Me.lblTotalRevenue.AutoSize = True
         Me.lblTotalRevenue.BackColor = System.Drawing.Color.Transparent
         Me.lblTotalRevenue.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        Me.lblTotalRevenue.Location = New System.Drawing.Point(28, 94)
-        Me.lblTotalRevenue.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblTotalRevenue.Location = New System.Drawing.Point(21, 76)
         Me.lblTotalRevenue.Name = "lblTotalRevenue"
-        Me.lblTotalRevenue.Size = New System.Drawing.Size(164, 26)
+        Me.lblTotalRevenue.Size = New System.Drawing.Size(139, 22)
         Me.lblTotalRevenue.TabIndex = 3
         Me.lblTotalRevenue.Text = "16, 400, 00.00"
         '
         'Dashboard
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1694, 922)
+        Me.ClientSize = New System.Drawing.Size(1079, 660)
         Me.Controls.Add(Me.RoundedPane28)
         Me.Controls.Add(Me.RoundedPane24)
         Me.Controls.Add(Me.PanelReservations)
@@ -1023,7 +959,7 @@ Partial Class Dashboard
         Me.Controls.Add(Me.RoundedPane21)
         Me.Controls.Add(Me.Label1)
         Me.DoubleBuffered = True
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Name = "Dashboard"
         Me.Text = "Dashboard"
         Me.RoundedPane28.ResumeLayout(False)

@@ -95,6 +95,7 @@ Partial Class FormProductPerformance
         Me.RoundedPane21.Controls.Add(Me.Label1)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
+        Me.RoundedPane21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane21.Location = New System.Drawing.Point(29, 12)
         Me.RoundedPane21.Name = "RoundedPane21"
         Me.RoundedPane21.Size = New System.Drawing.Size(1045, 676)
@@ -139,7 +140,7 @@ Partial Class FormProductPerformance
         Series1.BorderWidth = 0
         Series1.ChartArea = "ChartArea1"
         Series1.Color = System.Drawing.Color.MediumSlateBlue
-        Series1.LabelForeColor = System.Drawing.Color.DimGray
+        Series1.LabelForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Series1.Legend = "Legend1"
         Series1.Name = "Revenue"
         DataPoint1.AxisLabel = "Beef Steak"
@@ -164,6 +165,7 @@ Partial Class FormProductPerformance
         Me.Chart1.Text = "Chart1"
         Title1.Alignment = System.Drawing.ContentAlignment.TopLeft
         Title1.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Title1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Title1.Name = "Title1"
         Title1.Text = "Revenue by Product"
         Me.Chart1.Titles.Add(Title1)
@@ -473,10 +475,10 @@ Partial Class FormProductPerformance
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(17, 22)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(16, 17)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(202, 20)
+        Me.Label1.Size = New System.Drawing.Size(258, 25)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Products Performance Report"
         '

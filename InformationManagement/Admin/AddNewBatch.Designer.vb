@@ -276,6 +276,7 @@ Partial Class AddNewBatch
         Me.Controls.Add(Me.lblSubtitle)
         Me.Controls.Add(Me.lblTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False

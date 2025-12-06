@@ -99,12 +99,17 @@ Partial Class FormPayroll
         '
         ChartArea1.Name = "ChartArea1"
         Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Legend1.HeaderSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Legend1.ItemColumnSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Legend1.Name = "Legend1"
+        Legend1.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Chart1.Legends.Add(Legend1)
         Me.Chart1.Location = New System.Drawing.Point(24, 63)
         Me.Chart1.Name = "Chart1"
         Series1.ChartArea = "ChartArea1"
         Series1.Color = System.Drawing.Color.MediumSlateBlue
+        Series1.LabelForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         DataPoint1.AxisLabel = "Jan"
@@ -231,6 +236,7 @@ Partial Class FormPayroll
         Me.RoundedPane21.Controls.Add(Me.Label1)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
+        Me.RoundedPane21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane21.Location = New System.Drawing.Point(30, 21)
         Me.RoundedPane21.Name = "RoundedPane21"
         Me.RoundedPane21.Size = New System.Drawing.Size(337, 149)
@@ -281,6 +287,7 @@ Partial Class FormPayroll
         Me.Controls.Add(Me.RoundedPane23)
         Me.Controls.Add(Me.RoundedPane22)
         Me.Controls.Add(Me.RoundedPane21)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Name = "FormPayroll"
         Me.Text = "FormPayroll"
         Me.RoundedPane24.ResumeLayout(False)

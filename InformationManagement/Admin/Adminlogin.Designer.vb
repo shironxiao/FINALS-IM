@@ -46,7 +46,7 @@ Partial Class Adminlogin
         'RoundedPanel1
         '
         Me.RoundedPanel1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.RoundedPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(139, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.RoundedPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RoundedPanel1.Controls.Add(Me.chkShowPassword)
         Me.RoundedPanel1.Controls.Add(Me.txtPassword)
         Me.RoundedPanel1.Controls.Add(Me.txtUsername)
@@ -55,9 +55,9 @@ Partial Class Adminlogin
         Me.RoundedPanel1.Controls.Add(Me.Label2)
         Me.RoundedPanel1.Controls.Add(Me.Label3)
         Me.RoundedPanel1.CornerRadius = 20
-        Me.RoundedPanel1.Location = New System.Drawing.Point(291, 150)
+        Me.RoundedPanel1.Location = New System.Drawing.Point(283, 157)
         Me.RoundedPanel1.Name = "RoundedPanel1"
-        Me.RoundedPanel1.Size = New System.Drawing.Size(354, 332)
+        Me.RoundedPanel1.Size = New System.Drawing.Size(366, 376)
         Me.RoundedPanel1.TabIndex = 10
         '
         'chkShowPassword
@@ -65,9 +65,9 @@ Partial Class Adminlogin
         Me.chkShowPassword.AutoSize = True
         Me.chkShowPassword.BackColor = System.Drawing.Color.Transparent
         Me.chkShowPassword.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkShowPassword.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkShowPassword.ForeColor = System.Drawing.Color.White
-        Me.chkShowPassword.Location = New System.Drawing.Point(55, 218)
+        Me.chkShowPassword.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkShowPassword.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkShowPassword.Location = New System.Drawing.Point(55, 240)
         Me.chkShowPassword.Margin = New System.Windows.Forms.Padding(2)
         Me.chkShowPassword.Name = "chkShowPassword"
         Me.chkShowPassword.Size = New System.Drawing.Size(119, 21)
@@ -79,8 +79,8 @@ Partial Class Adminlogin
         '
         Me.txtPassword.BackColor = System.Drawing.Color.Transparent
         Me.txtPassword.BorderRadius = 10
-        Me.txtPassword.FocusBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.txtPassword.Location = New System.Drawing.Point(53, 176)
+        Me.txtPassword.FocusBorderColor = System.Drawing.Color.FromArgb(CType(CType(102, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(234, Byte), Integer))
+        Me.txtPassword.Location = New System.Drawing.Point(54, 198)
         Me.txtPassword.MaxLength = 32767
         Me.txtPassword.MinimumSize = New System.Drawing.Size(50, 20)
         Me.txtPassword.Multiline = False
@@ -98,8 +98,8 @@ Partial Class Adminlogin
         '
         Me.txtUsername.BackColor = System.Drawing.Color.Transparent
         Me.txtUsername.BorderRadius = 10
-        Me.txtUsername.FocusBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.txtUsername.Location = New System.Drawing.Point(53, 99)
+        Me.txtUsername.FocusBorderColor = System.Drawing.Color.FromArgb(CType(CType(102, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(234, Byte), Integer))
+        Me.txtUsername.Location = New System.Drawing.Point(54, 124)
         Me.txtUsername.MaxLength = 32767
         Me.txtUsername.MinimumSize = New System.Drawing.Size(50, 20)
         Me.txtUsername.Multiline = False
@@ -121,24 +121,25 @@ Partial Class Adminlogin
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 22.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(70, 14)
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(82, 34)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(199, 41)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Admin Login"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'adminlog
         '
-        Me.adminlog.BackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.adminlog.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
         Me.adminlog.Cursor = System.Windows.Forms.Cursors.Hand
         Me.adminlog.FlatAppearance.BorderSize = 0
-        Me.adminlog.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.adminlog.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue
         Me.adminlog.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.adminlog.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.adminlog.ForeColor = System.Drawing.Color.White
-        Me.adminlog.Location = New System.Drawing.Point(53, 271)
+        Me.adminlog.Location = New System.Drawing.Point(55, 296)
         Me.adminlog.Margin = New System.Windows.Forms.Padding(2)
         Me.adminlog.Name = "adminlog"
         Me.adminlog.Size = New System.Drawing.Size(248, 41)
@@ -150,24 +151,24 @@ Partial Class Adminlogin
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(50, 72)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(56, 101)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(80, 20)
+        Me.Label2.Size = New System.Drawing.Size(78, 20)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Username"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(51, 153)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(56, 175)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(76, 20)
+        Me.Label3.Size = New System.Drawing.Size(73, 20)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Password"
         '
@@ -175,7 +176,7 @@ Partial Class Adminlogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ClientSize = New System.Drawing.Size(895, 705)
         Me.Controls.Add(Me.RoundedPanel1)

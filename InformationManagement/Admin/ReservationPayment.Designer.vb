@@ -42,17 +42,17 @@ Partial Class ReservationPayment
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 61)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.White
-        Me.lblTitle.Location = New System.Drawing.Point(12, 12)
+        Me.lblTitle.Location = New System.Drawing.Point(13, 16)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(255, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(309, 40)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Reservation Payment"
         '
@@ -65,9 +65,9 @@ Partial Class ReservationPayment
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 61)
+        Me.Panel2.Location = New System.Drawing.Point(0, 72)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 10)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
         Me.Panel2.Size = New System.Drawing.Size(1028, 61)
         Me.Panel2.TabIndex = 1
         '
@@ -80,7 +80,7 @@ Partial Class ReservationPayment
         Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnConfirm.ForeColor = System.Drawing.Color.White
         Me.btnConfirm.Location = New System.Drawing.Point(821, 14)
-        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(100, 30)
         Me.btnConfirm.TabIndex = 7
@@ -96,7 +96,7 @@ Partial Class ReservationPayment
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
         Me.btnDelete.Location = New System.Drawing.Point(925, 14)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(100, 30)
         Me.btnDelete.TabIndex = 6
@@ -160,14 +160,14 @@ Partial Class ReservationPayment
         Me.Reservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Reservation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Reservation.EnableHeadersVisualStyles = False
-        Me.Reservation.Location = New System.Drawing.Point(0, 122)
+        Me.Reservation.Location = New System.Drawing.Point(0, 133)
         Me.Reservation.Name = "Reservation"
         Me.Reservation.ReadOnly = True
         Me.Reservation.RowHeadersVisible = False
         Me.Reservation.RowHeadersWidth = 51
         Me.Reservation.RowTemplate.Height = 35
         Me.Reservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Reservation.Size = New System.Drawing.Size(1028, 410)
+        Me.Reservation.Size = New System.Drawing.Size(1028, 399)
         Me.Reservation.TabIndex = 2
         '
         'Panel4
@@ -199,7 +199,7 @@ Partial Class ReservationPayment
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(804, 591)
         Me.Name = "ReservationPayment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -83,6 +83,7 @@ Partial Class FormSales
         Me.RoundedPane24.Controls.Add(Me.Chart1)
         Me.RoundedPane24.CornerRadius = 15
         Me.RoundedPane24.FillColor = System.Drawing.Color.White
+        Me.RoundedPane24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane24.Location = New System.Drawing.Point(35, 194)
         Me.RoundedPane24.Name = "RoundedPane24"
         Me.RoundedPane24.Size = New System.Drawing.Size(1045, 387)
@@ -180,6 +181,7 @@ Partial Class FormSales
         Me.RoundedPane23.Controls.Add(Me.PictureBox10)
         Me.RoundedPane23.CornerRadius = 15
         Me.RoundedPane23.FillColor = System.Drawing.Color.White
+        Me.RoundedPane23.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane23.Location = New System.Drawing.Point(745, 27)
         Me.RoundedPane23.Name = "RoundedPane23"
         Me.RoundedPane23.Size = New System.Drawing.Size(335, 138)
@@ -228,6 +230,7 @@ Partial Class FormSales
         Me.RoundedPane21.Controls.Add(Me.PictureBox4)
         Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
+        Me.RoundedPane21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane21.Location = New System.Drawing.Point(35, 27)
         Me.RoundedPane21.Name = "RoundedPane21"
         Me.RoundedPane21.Size = New System.Drawing.Size(335, 138)
@@ -272,6 +275,7 @@ Partial Class FormSales
         Me.Panel1.AutoScroll = True
         Me.Panel1.AutoSize = True
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1080, 592)
@@ -320,6 +324,7 @@ Partial Class FormSales
         Me.RoundedPane22.Controls.Add(Me.PictureBox8)
         Me.RoundedPane22.CornerRadius = 15
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
+        Me.RoundedPane22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.RoundedPane22.Location = New System.Drawing.Point(390, 27)
         Me.RoundedPane22.Name = "RoundedPane22"
         Me.RoundedPane22.Size = New System.Drawing.Size(335, 138)

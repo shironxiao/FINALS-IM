@@ -23,12 +23,12 @@ Partial Class FormReservationStatus
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormReservationStatus))
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataPoint7 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 12.0R)
-        Dim DataPoint8 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 28.0R)
-        Dim DataPoint9 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 5.0R)
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataPoint1 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 12.0R)
+        Dim DataPoint2 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 28.0R)
+        Dim DataPoint3 As System.Windows.Forms.DataVisualization.Charting.DataPoint = New System.Windows.Forms.DataVisualization.Charting.DataPoint(0R, 5.0R)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -94,10 +94,11 @@ Partial Class FormReservationStatus
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(15, 21)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(119, 19)
+        Me.Label1.Size = New System.Drawing.Size(119, 17)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Total Reservations"
         '
@@ -127,10 +128,11 @@ Partial Class FormReservationStatus
         '
         Me.Pending.AutoSize = True
         Me.Pending.BackColor = System.Drawing.Color.Transparent
-        Me.Pending.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        Me.Pending.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Pending.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Pending.Location = New System.Drawing.Point(26, 20)
         Me.Pending.Name = "Pending"
-        Me.Pending.Size = New System.Drawing.Size(58, 19)
+        Me.Pending.Size = New System.Drawing.Size(58, 17)
         Me.Pending.TabIndex = 0
         Me.Pending.Text = "Pending"
         '
@@ -160,10 +162,11 @@ Partial Class FormReservationStatus
         '
         Me.Confirmed.AutoSize = True
         Me.Confirmed.BackColor = System.Drawing.Color.Transparent
-        Me.Confirmed.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        Me.Confirmed.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Confirmed.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Confirmed.Location = New System.Drawing.Point(16, 21)
         Me.Confirmed.Name = "Confirmed"
-        Me.Confirmed.Size = New System.Drawing.Size(73, 19)
+        Me.Confirmed.Size = New System.Drawing.Size(71, 17)
         Me.Confirmed.TabIndex = 0
         Me.Confirmed.Text = "Confirmed"
         '
@@ -193,10 +196,11 @@ Partial Class FormReservationStatus
         '
         Me.Cancelled.AutoSize = True
         Me.Cancelled.BackColor = System.Drawing.Color.Transparent
-        Me.Cancelled.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        Me.Cancelled.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cancelled.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Cancelled.Location = New System.Drawing.Point(26, 20)
         Me.Cancelled.Name = "Cancelled"
-        Me.Cancelled.Size = New System.Drawing.Size(67, 19)
+        Me.Cancelled.Size = New System.Drawing.Size(65, 17)
         Me.Cancelled.TabIndex = 0
         Me.Cancelled.Text = "Cancelled"
         '
@@ -243,6 +247,7 @@ Partial Class FormReservationStatus
         Me.lblTotalReservations.AutoSize = True
         Me.lblTotalReservations.BackColor = System.Drawing.Color.Transparent
         Me.lblTotalReservations.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalReservations.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblTotalReservations.Location = New System.Drawing.Point(23, 65)
         Me.lblTotalReservations.Name = "lblTotalReservations"
         Me.lblTotalReservations.Size = New System.Drawing.Size(39, 30)
@@ -342,6 +347,7 @@ Partial Class FormReservationStatus
         Me.RoundedPane25.Controls.Add(Me.Label4)
         Me.RoundedPane25.CornerRadius = 15
         Me.RoundedPane25.FillColor = System.Drawing.Color.White
+        Me.RoundedPane25.ForeColor = System.Drawing.Color.LightGray
         Me.RoundedPane25.Location = New System.Drawing.Point(32, 228)
         Me.RoundedPane25.Name = "RoundedPane25"
         Me.RoundedPane25.Size = New System.Drawing.Size(1045, 337)
@@ -350,6 +356,7 @@ Partial Class FormReservationStatus
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
         Me.Button1.Location = New System.Drawing.Point(918, 14)
         Me.Button1.Name = "Button1"
@@ -362,32 +369,32 @@ Partial Class FormReservationStatus
         '
         'Chart1
         '
-        ChartArea3.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea3)
-        Legend3.Enabled = False
-        Legend3.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend3)
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.Enabled = False
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
         Me.Chart1.Location = New System.Drawing.Point(19, 65)
         Me.Chart1.Name = "Chart1"
         Me.Chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel
-        Series3.ChartArea = "ChartArea1"
-        Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
-        Series3.IsValueShownAsLabel = True
-        Series3.Legend = "Legend1"
-        Series3.Name = "ReservationStatus"
-        DataPoint7.AxisLabel = "Pending"
-        DataPoint7.Color = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataPoint7.LabelForeColor = System.Drawing.Color.Transparent
-        DataPoint8.AxisLabel = "Confirmed"
-        DataPoint8.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataPoint8.LabelForeColor = System.Drawing.Color.Transparent
-        DataPoint9.AxisLabel = "Cancelled"
-        DataPoint9.Color = System.Drawing.Color.Red
-        DataPoint9.LabelForeColor = System.Drawing.Color.Transparent
-        Series3.Points.Add(DataPoint7)
-        Series3.Points.Add(DataPoint8)
-        Series3.Points.Add(DataPoint9)
-        Me.Chart1.Series.Add(Series3)
+        Series1.ChartArea = "ChartArea1"
+        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
+        Series1.IsValueShownAsLabel = True
+        Series1.Legend = "Legend1"
+        Series1.Name = "ReservationStatus"
+        DataPoint1.AxisLabel = "Pending"
+        DataPoint1.Color = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataPoint1.LabelForeColor = System.Drawing.Color.Transparent
+        DataPoint2.AxisLabel = "Confirmed"
+        DataPoint2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataPoint2.LabelForeColor = System.Drawing.Color.Transparent
+        DataPoint3.AxisLabel = "Cancelled"
+        DataPoint3.Color = System.Drawing.Color.Red
+        DataPoint3.LabelForeColor = System.Drawing.Color.Transparent
+        Series1.Points.Add(DataPoint1)
+        Series1.Points.Add(DataPoint2)
+        Series1.Points.Add(DataPoint3)
+        Me.Chart1.Series.Add(Series1)
         Me.Chart1.Size = New System.Drawing.Size(1007, 224)
         Me.Chart1.TabIndex = 1
         Me.Chart1.Text = "Chart1"
@@ -397,6 +404,7 @@ Partial Class FormReservationStatus
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Label4.Location = New System.Drawing.Point(25, 24)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(208, 20)

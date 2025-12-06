@@ -17,7 +17,7 @@ Partial Class OrderPayment
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -41,20 +41,20 @@ Partial Class OrderPayment
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 52)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.White
-        Me.lblTitle.Location = New System.Drawing.Point(10, 11)
+        Me.lblTitle.Location = New System.Drawing.Point(18, 16)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(186, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(226, 40)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Order Payment"
         '
@@ -67,8 +67,8 @@ Partial Class OrderPayment
         Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.btnRefresh)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 52)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Location = New System.Drawing.Point(0, 72)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(8, 9, 8, 9)
         Me.Panel2.Size = New System.Drawing.Size(1028, 60)
@@ -83,7 +83,7 @@ Partial Class OrderPayment
         Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnConfirm.ForeColor = System.Drawing.Color.White
         Me.btnConfirm.Location = New System.Drawing.Point(783, 14)
-        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(2)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(100, 30)
         Me.btnConfirm.TabIndex = 9
@@ -109,7 +109,7 @@ Partial Class OrderPayment
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
         Me.btnDelete.Location = New System.Drawing.Point(896, 14)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(2)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(100, 30)
         Me.btnDelete.TabIndex = 8
@@ -135,7 +135,7 @@ Partial Class OrderPayment
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnRefresh.ForeColor = System.Drawing.Color.White
         Me.btnRefresh.Location = New System.Drawing.Point(672, 14)
-        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 30)
         Me.btnRefresh.TabIndex = 2
@@ -152,27 +152,27 @@ Partial Class OrderPayment
         Me.Order.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Order.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.Order.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Order.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Order.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.Order.ColumnHeadersHeight = 40
         Me.Order.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Order.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Order.EnableHeadersVisualStyles = False
-        Me.Order.Location = New System.Drawing.Point(0, 112)
-        Me.Order.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Order.Location = New System.Drawing.Point(0, 132)
+        Me.Order.Margin = New System.Windows.Forms.Padding(2)
         Me.Order.Name = "Order"
         Me.Order.ReadOnly = True
         Me.Order.RowHeadersVisible = False
         Me.Order.RowHeadersWidth = 51
         Me.Order.RowTemplate.Height = 35
         Me.Order.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Order.Size = New System.Drawing.Size(1028, 434)
+        Me.Order.Size = New System.Drawing.Size(1028, 414)
         Me.Order.TabIndex = 2
         '
         'Panel4
@@ -181,7 +181,7 @@ Partial Class OrderPayment
         Me.Panel4.Controls.Add(Me.lblTotalRecords)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel4.Location = New System.Drawing.Point(0, 546)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1028, 26)
         Me.Panel4.TabIndex = 3
@@ -206,7 +206,7 @@ Partial Class OrderPayment
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 525)
         Me.Name = "OrderPayment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
