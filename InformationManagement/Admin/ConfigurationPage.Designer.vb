@@ -309,6 +309,7 @@ Partial Class ConfigurationPage
         Me.RoundedPane21.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Label6 As Label
@@ -317,6 +318,12 @@ Partial Class ConfigurationPage
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
     Friend WithEvents txtServer As RoundedTextBox
     Friend WithEvents txtUsername As RoundedTextBox
     Friend WithEvents txtDatabasename As RoundedTextBox

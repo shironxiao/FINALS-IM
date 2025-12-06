@@ -10,37 +10,30 @@ Public Class FormPayroll
         LoadPayrollChart()
     End Sub
 
+    '===================== PUBLIC REFRESH METHOD ======================
+    Public Sub RefreshPayroll()
+        LoadPayrollData()
+        LoadPayrollChart()
+    End Sub
+    '==================================================================
+
     Private Sub LoadPayrollData()
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
-                ' Get total payroll for all active employees
+                ' Get total payroll (sum of all salaries)
                 Dim cmdTotalPayroll As New MySqlCommand("SELECT IFNULL(SUM(Salary), 0) FROM employee WHERE EmploymentStatus = 'Active'", conn)
                 Dim totalPayroll As Object = cmdTotalPayroll.ExecuteScalar()
-                If totalPayroll IsNot Nothing AndAlso Not IsDBNull(totalPayroll) Then
-                    Label4.Text = "₱" & Convert.ToDecimal(totalPayroll).ToString("N2")
-                Else
-                    Label4.Text = "₱0.00"
-                End If
+                Label4.Text = "₱" & Convert.ToDecimal(totalPayroll).ToString("N2")
 
-                ' Get total hours (estimated: employees * 160 hours/month)
+                ' Estimated hours = employees * 160
                 Dim cmdTotalHours As New MySqlCommand("SELECT COUNT(*) * 160 FROM employee WHERE EmploymentStatus = 'Active'", conn)
-                Dim totalHours As Object = cmdTotalHours.ExecuteScalar()
-                If totalHours IsNot Nothing AndAlso Not IsDBNull(totalHours) Then
-                    Label6.Text = totalHours.ToString()
-                Else
-                    Label6.Text = "0"
-                End If
+                Label6.Text = Convert.ToString(cmdTotalHours.ExecuteScalar())
 
-                ' Get active employees count
+                ' Active employees count
                 Dim cmdActiveEmployees As New MySqlCommand("SELECT COUNT(*) FROM employee WHERE EmploymentStatus = 'Active'", conn)
-                Dim activeEmployees As Object = cmdActiveEmployees.ExecuteScalar()
-                If activeEmployees IsNot Nothing AndAlso Not IsDBNull(activeEmployees) Then
-                    Label7.Text = activeEmployees.ToString()
-                Else
-                    Label7.Text = "0"
-                End If
+                Label7.Text = Convert.ToString(cmdActiveEmployees.ExecuteScalar())
 
             End Using
         Catch ex As Exception
@@ -53,24 +46,22 @@ Public Class FormPayroll
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
-                ' Clear existing series
                 Chart1.Series.Clear()
 
-                ' Create new series
                 Dim series As New Series("Monthly Payroll")
                 series.ChartType = SeriesChartType.Column
                 series.Color = Color.MediumSlateBlue
 
-                ' Load actual salary values per employee for the chart
-                Dim cmdPayrollBreakdown As New MySqlCommand("SELECT CONCAT(FirstName, ' ', LastName) AS FullName, Salary FROM employee WHERE EmploymentStatus = 'Active' ORDER BY EmployeeID", conn)
+                Dim cmdPayrollBreakdown As New MySqlCommand("SELECT CONCAT(FirstName, ' ', LastName) AS FullName, Salary 
+                                                             FROM employee 
+                                                             WHERE EmploymentStatus = 'Active'
+                                                             ORDER BY EmployeeID", conn)
 
                 Using reader As MySqlDataReader = cmdPayrollBreakdown.ExecuteReader()
                     While reader.Read()
-                        Dim salaryValue As Decimal = 0D
-                        If Not reader.IsDBNull(reader.GetOrdinal("Salary")) Then
-                            salaryValue = Convert.ToDecimal(reader("Salary"))
-                        End If
-                        series.Points.AddXY(reader("FullName").ToString(), salaryValue)
+                        Dim salary As Decimal = If(reader.IsDBNull(reader.GetOrdinal("Salary")), 0D,
+                                                   Convert.ToDecimal(reader("Salary")))
+                        series.Points.AddXY(reader("FullName").ToString(), salary)
                     End While
                 End Using
 
@@ -80,7 +71,6 @@ Public Class FormPayroll
 
                 Chart1.Series.Add(series)
 
-                ' Configure chart appearance
                 Chart1.ChartAreas(0).AxisX.MajorGrid.Enabled = False
                 Chart1.ChartAreas(0).AxisY.MajorGrid.LineColor = Color.LightGray
                 Chart1.Legends(0).Enabled = False
@@ -92,18 +82,18 @@ Public Class FormPayroll
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Export payroll data
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
-                Dim cmdExport As New MySqlCommand("SELECT EmployeeID, FirstName, LastName, Position, Salary, HireDate, EmploymentType FROM employee WHERE EmploymentStatus = 'Active'", conn)
+                Dim cmdExport As New MySqlCommand("SELECT EmployeeID, FirstName, LastName, Position, Salary, HireDate, EmploymentType 
+                                                   FROM employee 
+                                                   WHERE EmploymentStatus = 'Active'", conn)
 
                 Dim dt As New DataTable()
                 Dim adapter As New MySqlDataAdapter(cmdExport)
                 adapter.Fill(dt)
 
-                ' Save to CSV
                 Dim saveDialog As New SaveFileDialog()
                 saveDialog.Filter = "CSV Files (*.csv)|*.csv"
                 saveDialog.FileName = "Payroll_Report_" & DateTime.Now.ToString("yyyyMMdd") & ".csv"
@@ -111,13 +101,10 @@ Public Class FormPayroll
                 If saveDialog.ShowDialog() = DialogResult.OK Then
                     Dim csv As New System.Text.StringBuilder()
 
-                    ' Add header
-                    Dim headerLine As String = String.Join(",", dt.Columns.Cast(Of DataColumn)().Select(Function(column) column.ColumnName))
-                    csv.AppendLine(headerLine)
+                    csv.AppendLine(String.Join(",", dt.Columns.Cast(Of DataColumn).Select(Function(c) c.ColumnName)))
 
-                    ' Add rows
                     For Each row As DataRow In dt.Rows
-                        Dim fields = row.ItemArray.Select(Function(field) String.Format("""{0}""", field.ToString().Replace("""", """""")))
+                        Dim fields = row.ItemArray.Select(Function(field) $"""{field.ToString().Replace("""", """""")}""")
                         csv.AppendLine(String.Join(",", fields))
                     Next
 
@@ -129,11 +116,5 @@ Public Class FormPayroll
         Catch ex As Exception
             MessageBox.Show("Error exporting data: " & ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormAddUser
+Partial Class FormEdit
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class FormAddUser
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormAddUser))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormEdit))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnAddUser = New System.Windows.Forms.Button()
         Me.txtName = New System.Windows.Forms.TextBox()
@@ -45,9 +45,9 @@ Partial Class FormAddUser
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(18, 23)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(139, 25)
+        Me.Label1.Size = New System.Drawing.Size(58, 32)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Add New User"
+        Me.Label1.Text = "Edit"
         '
         'btnAddUser
         '
@@ -131,7 +131,7 @@ Partial Class FormAddUser
         Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(29, 66)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(75, 17)
+        Me.Label7.Size = New System.Drawing.Size(95, 23)
         Me.Label7.TabIndex = 19
         Me.Label7.Text = "User Name"
         '
@@ -141,7 +141,7 @@ Partial Class FormAddUser
         Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.Location = New System.Drawing.Point(26, 212)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(34, 17)
+        Me.Label8.Size = New System.Drawing.Size(44, 23)
         Me.Label8.TabIndex = 21
         Me.Label8.Text = "Role"
         '
@@ -151,7 +151,7 @@ Partial Class FormAddUser
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(28, 138)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(66, 17)
+        Me.Label9.Size = New System.Drawing.Size(82, 23)
         Me.Label9.TabIndex = 22
         Me.Label9.Text = "Password"
         '
@@ -161,7 +161,7 @@ Partial Class FormAddUser
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(27, 279)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(46, 17)
+        Me.Label3.Size = New System.Drawing.Size(57, 23)
         Me.Label3.TabIndex = 23
         Me.Label3.Text = "Status"
         '
@@ -214,9 +214,9 @@ Partial Class FormAddUser
         Me.txtPhone.TextColor = System.Drawing.Color.Black
         Me.txtPhone.TextFont = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'FormAddUser
+        'FormEdit
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.White
@@ -238,7 +238,7 @@ Partial Class FormAddUser
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "FormAddUser"
+        Me.Name = "FormEdit"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FormAddUser"
         Me.ResumeLayout(False)

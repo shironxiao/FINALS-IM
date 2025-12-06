@@ -281,6 +281,7 @@ Partial Class AddNewBatch
         Me.MinimizeBox = False
         Me.Name = "AddNewBatch"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Add New Batch"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -222,6 +222,10 @@
     <Compile Include="Admin\Feedback.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Admin\FormEditPayroll.Designer.vb" />
+    <Compile Include="Admin\FormEditPayroll.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Admin\InventoryMovementHistory.Designer.vb">
       <DependentUpon>InventoryMovementHistory.vb</DependentUpon>
     </Compile>
@@ -252,10 +256,10 @@
     <Compile Include="Admin\FormAddOrder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\FormAddUser.Designer.vb">
-      <DependentUpon>FormAddUser.vb</DependentUpon>
+    <Compile Include="Admin\FormEdit.Designer.vb">
+      <DependentUpon>FormEdit.vb</DependentUpon>
     </Compile>
-    <Compile Include="Admin\FormAddUser.vb">
+    <Compile Include="Admin\FormEdit.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Admin\FormEditMenu.Designer.vb">
@@ -468,8 +472,8 @@
     <EmbeddedResource Include="Admin\FormAddOrder.resx">
       <DependentUpon>FormAddOrder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Admin\FormAddUser.resx">
-      <DependentUpon>FormAddUser.vb</DependentUpon>
+    <EmbeddedResource Include="Admin\FormEdit.resx">
+      <DependentUpon>FormEdit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\FormCateringReservations.resx">
       <DependentUpon>FormCateringReservations.vb</DependentUpon>

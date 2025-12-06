@@ -22,15 +22,16 @@ Public Class UsersAccounts
                 FROM customers
                 UNION ALL
                 SELECT 
-                    EmployeeID as ID,
-                    FirstName COLLATE utf8mb4_general_ci as FirstName,
-                    LastName COLLATE utf8mb4_general_ci as LastName,
-                    Position COLLATE utf8mb4_general_ci as Role,
-                    EmploymentStatus COLLATE utf8mb4_general_ci as Status,
-                    HireDate as DateCreated
-                FROM employee
+                    e.EmployeeID as ID,
+                    e.FirstName COLLATE utf8mb4_general_ci as FirstName,
+                    e.LastName COLLATE utf8mb4_general_ci as LastName,
+                    e.Position COLLATE utf8mb4_general_ci as Role,
+                    e.EmploymentStatus COLLATE utf8mb4_general_ci as Status,
+                    e.HireDate as DateCreated
+                FROM employee e
+                WHERE LOWER(e.Position) LIKE '%staff%' OR LOWER(e.Position) = 'admin'
                 ORDER BY DateCreated DESC"
-            
+
             Dim cmd As New MySqlCommand(query, conn)
             Dim adapter As New MySqlDataAdapter(cmd)
             Dim dt As New DataTable()
@@ -40,7 +41,7 @@ Public Class UsersAccounts
             For Each row As DataRow In dt.Rows
                 Dim rowIndex As Integer = UsersAccountData.Rows.Add()
                 Dim newRow As DataGridViewRow = UsersAccountData.Rows(rowIndex)
-                
+
                 ' Combine FirstName and LastName for display
                 Dim fullName As String = ""
                 If row("FirstName") IsNot DBNull.Value Then
@@ -50,13 +51,13 @@ Public Class UsersAccounts
                     If fullName <> "" Then fullName &= " "
                     fullName &= row("LastName").ToString()
                 End If
-                
+
                 ' Use correct column names from Designer: txtName and colJoinDate
                 newRow.Cells("txtName").Value = fullName
                 newRow.Cells("colRole").Value = If(row("Role") IsNot DBNull.Value, row("Role").ToString(), "")
                 newRow.Cells("colStatus").Value = If(row("Status") IsNot DBNull.Value, row("Status").ToString(), "")
                 newRow.Cells("colJoinDate").Value = If(row("DateCreated") IsNot DBNull.Value, Convert.ToDateTime(row("DateCreated")).ToString("MMMM dd, yyyy"), "")
-                
+
                 ' Store ID and Role type for edit/delete operations
                 newRow.Tag = New With {.ID = row("ID"), .Role = row("Role").ToString()}
             Next
@@ -72,11 +73,11 @@ Public Class UsersAccounts
         If e.RowIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = UsersAccountData.Rows(e.RowIndex)
             Dim username As String = If(selectedRow.Cells("txtName").Value IsNot Nothing, selectedRow.Cells("txtName").Value.ToString(), "Unknown")
-            
+
             Dim userInfo As Object = selectedRow.Tag
             Dim userID As Integer = 0
             Dim userRole As String = ""
-            
+
             If userInfo IsNot Nothing Then
                 userID = userInfo.ID
                 userRole = userInfo.Role.ToString()
@@ -84,9 +85,25 @@ Public Class UsersAccounts
 
             ' --- EDIT BUTTON ---
             If e.ColumnIndex = UsersAccountData.Columns("colEdit").Index Then
-                MessageBox.Show("Edit functionality coming soon!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Open edit form and pass the user information
+                If userRole.ToLower() = "customer" Then
+                    ' Edit customer
+                    MessageBox.Show("Customer edit functionality coming soon!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    ' Edit employee (Staff/Admin only appear in this list)
+                    ' FIXED: Create instance of FormEdit and pass parameters
+                    Dim editForm As New FormEdit()
+                    editForm.LoadUserData(userID, username, userRole)
+                    editForm.StartPosition = FormStartPosition.CenterScreen
 
-            ' --- DELETE BUTTON ---
+                    If editForm.ShowDialog() = DialogResult.OK Then
+                        ' Refresh the list after editing
+                        LoadUsers()
+                        UpdateUserCounts()
+                    End If
+                End If
+
+                ' --- DELETE BUTTON ---
             ElseIf e.ColumnIndex = UsersAccountData.Columns("colDelete").Index Then
                 Dim result As DialogResult = MessageBox.Show(
                     "Are you sure you want to delete " & username & "?",
@@ -98,21 +115,29 @@ Public Class UsersAccounts
                 If result = DialogResult.Yes Then
                     Try
                         openConn()
-                        Dim query As String = ""
-                        
+
                         ' Determine which table to delete from based on role
                         If userRole.ToLower() = "customer" Then
-                            query = "DELETE FROM customers WHERE CustomerID = @id"
+                            Dim query As String = "DELETE FROM customers WHERE CustomerID = @id"
+                            Dim cmd As New MySqlCommand(query, conn)
+                            cmd.Parameters.AddWithValue("@id", userID)
+                            cmd.ExecuteNonQuery()
                         Else
-                            query = "DELETE FROM employee WHERE EmployeeID = @id"
+                            ' For employees (staff/admin), delete from both employee and user_accounts
+                            Dim cmdEmployee As New MySqlCommand("DELETE FROM employee WHERE EmployeeID = @id", conn)
+                            cmdEmployee.Parameters.AddWithValue("@id", userID)
+                            cmdEmployee.ExecuteNonQuery()
+
+                            ' Also delete from user_accounts if exists
+                            Dim cmdUser As New MySqlCommand("DELETE FROM user_accounts WHERE username IN (SELECT CONCAT(FirstName, LastName) FROM employee WHERE EmployeeID = @id)", conn)
+                            cmdUser.Parameters.AddWithValue("@id", userID)
+                            cmdUser.ExecuteNonQuery()
                         End If
-                        
-                        Dim cmd As New MySqlCommand(query, conn)
-                        cmd.Parameters.AddWithValue("@id", userID)
-                        cmd.ExecuteNonQuery()
+
                         closeConn()
-                        
+
                         LoadUsers()
+                        UpdateUserCounts()
                         MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Catch ex As Exception
                         MessageBox.Show("Error deleting user: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -122,6 +147,80 @@ Public Class UsersAccounts
                 End If
             End If
         End If
+    End Sub
+
+    ' This method should be called from your employee edit form after saving
+    Public Shared Sub SyncEmployeeToUserAccount(employeeID As Integer)
+        Try
+            Dim connLocal As MySqlConnection = Nothing
+            Try
+                connLocal = New MySqlConnection("your_connection_string_here") ' Use your connection string
+                connLocal.Open()
+            Catch
+                ' If static connection method exists
+                openConn()
+                connLocal = conn
+            End Try
+
+            ' Get employee details
+            Dim queryEmp As String = "SELECT FirstName, LastName, Email, Position FROM employee WHERE EmployeeID = @id"
+            Dim cmdEmp As New MySqlCommand(queryEmp, connLocal)
+            cmdEmp.Parameters.AddWithValue("@id", employeeID)
+            Dim reader As MySqlDataReader = cmdEmp.ExecuteReader()
+
+            If reader.Read() Then
+                Dim firstName As String = reader("FirstName").ToString()
+                Dim lastName As String = reader("LastName").ToString()
+                Dim email As String = reader("Email").ToString()
+                Dim position As String = reader("Position").ToString()
+                reader.Close()
+
+                ' Only create user account if position contains "staff" or is "admin"
+                If position.ToLower().Contains("staff") OrElse position.ToLower() = "admin" Then
+                    Dim username As String = firstName & lastName
+                    Dim defaultPassword As String = "staff123" ' Default password
+
+                    ' Check if user account already exists
+                    Dim queryCheck As String = "SELECT COUNT(*) FROM user_accounts WHERE username = @username"
+                    Dim cmdCheck As New MySqlCommand(queryCheck, connLocal)
+                    cmdCheck.Parameters.AddWithValue("@username", username)
+                    Dim exists As Integer = Convert.ToInt32(cmdCheck.ExecuteScalar())
+
+                    If exists > 0 Then
+                        ' Update existing user account
+                        Dim queryUpdate As String = "UPDATE user_accounts SET position = @position WHERE username = @username"
+                        Dim cmdUpdate As New MySqlCommand(queryUpdate, connLocal)
+                        cmdUpdate.Parameters.AddWithValue("@position", position)
+                        cmdUpdate.Parameters.AddWithValue("@username", username)
+                        cmdUpdate.ExecuteNonQuery()
+                    Else
+                        ' Create new user account
+                        Dim queryInsert As String = "INSERT INTO user_accounts (name, position, username, password, type, created_at) VALUES (@name, @position, @username, @password, @type, NOW())"
+                        Dim cmdInsert As New MySqlCommand(queryInsert, connLocal)
+                        cmdInsert.Parameters.AddWithValue("@name", firstName & " " & lastName)
+                        cmdInsert.Parameters.AddWithValue("@position", position)
+                        cmdInsert.Parameters.AddWithValue("@username", username)
+                        cmdInsert.Parameters.AddWithValue("@password", defaultPassword)
+
+                        ' Set type based on position
+                        Dim userType As Integer = If(position.ToLower() = "admin", 1, 2) ' 1=Admin, 2=Staff
+                        cmdInsert.Parameters.AddWithValue("@type", userType)
+
+                        cmdInsert.ExecuteNonQuery()
+                    End If
+                End If
+            Else
+                reader.Close()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error syncing employee to user account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            Try
+                closeConn()
+            Catch
+            End Try
+        End Try
     End Sub
 
     Private Sub SetActiveButton(activeBtn As Button)
@@ -226,15 +325,18 @@ Public Class UsersAccounts
         RoundButton(Employeesbtn)
         RoundButton(Customerbtn)
         SetActiveButton(AllUsersbtn)
-        RoundButton(Adduserbtn)
+        RoundButton(AddEdit)
     End Sub
 
-    Private Sub Adduserbtn_Click(sender As Object, e As EventArgs) Handles Adduserbtn.Click
-        With FormAddUser
-            .StartPosition = FormStartPosition.CenterScreen
-            .Show()
-            .BringToFront()
-        End With
+    Private Sub AddEdit_Click(sender As Object, e As EventArgs) Handles AddEdit.Click
+        Dim addEditForm As New FormEdit()
+        addEditForm.StartPosition = FormStartPosition.CenterScreen
+
+        If addEditForm.ShowDialog() = DialogResult.OK Then
+            ' Refresh the list after adding/editing
+            LoadUsers()
+            UpdateUserCounts()
+        End If
     End Sub
 
 End Class
