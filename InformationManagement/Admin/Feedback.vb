@@ -11,9 +11,8 @@ Public Class Feedback
     ' Form Load Event
     Private Sub Feedback_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeConnection()
-        LoadReviews()
+        LoadFeedback()
         SetupDataGridView()
-        LoadReservations()
     End Sub
 
     ' Initialize Database Connection
@@ -55,33 +54,42 @@ Public Class Feedback
         End With
     End Sub
 
-    ' Load All Reviews from Database
-    Private Sub LoadReviews(Optional status As String = "")
+    ' Load All Feedback from Database
+    Private Sub LoadFeedback(Optional status As String = "")
         Try
+            ' Ensure connection is closed before opening
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+
             conn.Open()
 
             Dim query As String = "SELECT 
-                cr.ReviewID,
-                cr.CustomerID,
+                cf.FeedbackID,
+                cf.CustomerID,
                 CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
-                cr.OverallRating,
-                cr.FoodTasteRating,
-                cr.PortionSizeRating,
-                cr.CustomerServiceRating,
-                cr.AmbienceRating,
-                cr.CleanlinessRating,
-                cr.GeneralComment,
-                cr.Status,
-                cr.CreatedDate,
-                cr.ApprovedDate
-                FROM customer_reviews cr
-                INNER JOIN customers c ON cr.CustomerID = c.CustomerID"
+                cf.FeedbackType,
+                cf.OrderID,
+                cf.ReservationID,
+                cf.OverallRating,
+                cf.FoodTasteRating,
+                cf.PortionSizeRating,
+                cf.ServiceRating,
+                cf.AmbienceRating,
+                cf.CleanlinessRating,
+                cf.ReviewMessage,
+                cf.IsAnonymous,
+                cf.Status,
+                cf.CreatedDate,
+                cf.ApprovedDate
+                FROM customer_feedback cf
+                INNER JOIN customers c ON cf.CustomerID = c.CustomerID"
 
             If status <> "" Then
-                query &= " WHERE cr.Status = @status"
+                query &= " WHERE cf.Status = @status"
             End If
 
-            query &= " ORDER BY cr.CreatedDate DESC"
+            query &= " ORDER BY cf.CreatedDate DESC"
 
             adapter = New MySqlDataAdapter(query, conn)
 
@@ -98,10 +106,10 @@ Public Class Feedback
             FormatColumns()
 
             ' Update status label
-            lblTotalReviews.Text = "Total Reviews: " & dt.Rows.Count
+            lblTotalReviews.Text = "Total Feedback: " & dt.Rows.Count
 
         Catch ex As Exception
-            MessageBox.Show("Error loading reviews: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error loading feedback: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If conn.State = ConnectionState.Open Then
                 conn.Close()
@@ -114,18 +122,22 @@ Public Class Feedback
         With DataGridView1
 
             ' ✅ HIDE INTERNAL IDS
-            If .Columns.Contains("ReviewID") Then .Columns("ReviewID").Visible = False
+            If .Columns.Contains("FeedbackID") Then .Columns("FeedbackID").Visible = False
             If .Columns.Contains("CustomerID") Then .Columns("CustomerID").Visible = False
+            If .Columns.Contains("OrderID") Then .Columns("OrderID").Visible = False
+            If .Columns.Contains("ReservationID") Then .Columns("ReservationID").Visible = False
 
             ' ✅ RENAME HEADERS
             If .Columns.Contains("CustomerName") Then .Columns("CustomerName").HeaderText = "Customer Name"
+            If .Columns.Contains("FeedbackType") Then .Columns("FeedbackType").HeaderText = "Type"
             If .Columns.Contains("OverallRating") Then .Columns("OverallRating").HeaderText = "Overall Rating"
             If .Columns.Contains("FoodTasteRating") Then .Columns("FoodTasteRating").HeaderText = "Food"
             If .Columns.Contains("PortionSizeRating") Then .Columns("PortionSizeRating").HeaderText = "Portion"
-            If .Columns.Contains("CustomerServiceRating") Then .Columns("CustomerServiceRating").HeaderText = "Service"
+            If .Columns.Contains("ServiceRating") Then .Columns("ServiceRating").HeaderText = "Service"
             If .Columns.Contains("AmbienceRating") Then .Columns("AmbienceRating").HeaderText = "Ambience"
             If .Columns.Contains("CleanlinessRating") Then .Columns("CleanlinessRating").HeaderText = "Cleanliness"
-            If .Columns.Contains("GeneralComment") Then .Columns("GeneralComment").HeaderText = "Comment"
+            If .Columns.Contains("ReviewMessage") Then .Columns("ReviewMessage").HeaderText = "Review Message"
+            If .Columns.Contains("IsAnonymous") Then .Columns("IsAnonymous").HeaderText = "Anonymous"
             If .Columns.Contains("Status") Then .Columns("Status").HeaderText = "Status"
             If .Columns.Contains("CreatedDate") Then .Columns("CreatedDate").HeaderText = "Date Created"
             If .Columns.Contains("ApprovedDate") Then .Columns("ApprovedDate").HeaderText = "Date Approved"
@@ -148,62 +160,62 @@ Public Class Feedback
         If e.RowIndex < 0 Then Return
 
         Dim columnName As String = DataGridView1.Columns(e.ColumnIndex).Name
-        Dim reviewId As Integer = Convert.ToInt32(DataGridView1.Rows(e.RowIndex).Cells("ReviewID").Value)
+        Dim feedbackId As Integer = Convert.ToInt32(DataGridView1.Rows(e.RowIndex).Cells("FeedbackID").Value)
         Dim currentStatus As String = DataGridView1.Rows(e.RowIndex).Cells("Status").Value.ToString()
 
         If columnName = "Approve" Then
             If currentStatus = "Approved" Then
-                MessageBox.Show("This review is already approved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("This feedback is already approved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
 
-            If MessageBox.Show("Are you sure you want to approve this review?", "Confirm Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                UpdateReviewStatus(reviewId, "Approved")
+            If MessageBox.Show("Are you sure you want to approve this feedback?", "Confirm Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                UpdateFeedbackStatus(feedbackId, "Approved")
             End If
 
         ElseIf columnName = "Reject" Then
             If currentStatus = "Rejected" Then
-                MessageBox.Show("This review is already rejected.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("This feedback is already rejected.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
 
-            If MessageBox.Show("Are you sure you want to reject this review?", "Confirm Rejection", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                UpdateReviewStatus(reviewId, "Rejected")
+            If MessageBox.Show("Are you sure you want to reject this feedback?", "Confirm Rejection", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                UpdateFeedbackStatus(feedbackId, "Rejected")
             End If
         End If
     End Sub
 
-    ' Update Review Status (Approve/Reject)
-    Private Sub UpdateReviewStatus(reviewId As Integer, status As String)
+    ' Update Feedback Status (Approve/Reject)
+    Private Sub UpdateFeedbackStatus(feedbackId As Integer, status As String)
         Try
+            ' Ensure connection is closed before opening
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+
             conn.Open()
 
-            Dim query As String = "UPDATE customer_reviews 
+            Dim query As String = "UPDATE customer_feedback 
                                   SET Status = @status, 
                                       ApprovedDate = IF(@status = 'Approved', NOW(), NULL),
                                       UpdatedDate = NOW()
-                                  WHERE ReviewID = @reviewId"
+                                  WHERE FeedbackID = @feedbackId"
 
             Dim cmd As New MySqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@status", status)
-            cmd.Parameters.AddWithValue("@reviewId", reviewId)
+            cmd.Parameters.AddWithValue("@feedbackId", feedbackId)
 
             Dim result As Integer = cmd.ExecuteNonQuery()
 
             If result > 0 Then
-                ' If approved, increment customer's FeedbackCount
-                If status = "Approved" Then
-                    IncrementFeedbackCount(reviewId)
-                End If
-
-                MessageBox.Show($"Review {status} successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LoadReviews() ' Refresh the grid
+                MessageBox.Show($"Feedback {status} successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LoadFeedback() ' Refresh the grid
             Else
-                MessageBox.Show("Failed to update review status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Failed to update feedback status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
-            MessageBox.Show("Error updating review: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error updating feedback: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If conn.State = ConnectionState.Open Then
                 conn.Close()
@@ -211,50 +223,38 @@ Public Class Feedback
         End Try
     End Sub
 
-    ' Increment Customer Feedback Count
-    Private Sub IncrementFeedbackCount(reviewId As Integer)
+    ' Delete Feedback
+    Private Sub DeleteFeedback(feedbackId As Integer)
         Try
-            Dim query As String = "UPDATE customers c
-                                  INNER JOIN customer_reviews cr ON c.CustomerID = cr.CustomerID
-                                  SET c.FeedbackCount = c.FeedbackCount + 1
-                                  WHERE cr.ReviewID = @reviewId"
-
-            Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@reviewId", reviewId)
-            cmd.ExecuteNonQuery()
-
-        Catch ex As Exception
-            ' Silent fail - not critical
-        End Try
-    End Sub
-
-    ' Delete Review
-    Private Sub DeleteReview(reviewId As Integer)
-        Try
-            If MessageBox.Show("Are you sure you want to delete this review? This action cannot be undone.",
+            If MessageBox.Show("Are you sure you want to delete this feedback? This action cannot be undone.",
                               "Confirm Deletion",
                               MessageBoxButtons.YesNo,
                               MessageBoxIcon.Warning) = DialogResult.No Then
                 Return
             End If
 
+            ' Ensure connection is closed before opening
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+
             conn.Open()
 
-            Dim query As String = "DELETE FROM customer_reviews WHERE ReviewID = @reviewId"
+            Dim query As String = "DELETE FROM customer_feedback WHERE FeedbackID = @feedbackId"
             Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@reviewId", reviewId)
+            cmd.Parameters.AddWithValue("@feedbackId", feedbackId)
 
             Dim result As Integer = cmd.ExecuteNonQuery()
 
             If result > 0 Then
-                MessageBox.Show("Review deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LoadReviews()
+                MessageBox.Show("Feedback deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LoadFeedback()
             Else
-                MessageBox.Show("Failed to delete review.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Failed to delete feedback.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
-            MessageBox.Show("Error deleting review: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error deleting feedback: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If conn.State = ConnectionState.Open Then
                 conn.Close()
@@ -262,43 +262,54 @@ Public Class Feedback
         End Try
     End Sub
 
-    ' View Review Details
-    Private Sub ViewReviewDetails(reviewId As Integer)
+    ' View Feedback Details
+    Private Sub ViewFeedbackDetails(feedbackId As Integer)
         Try
+            ' Ensure connection is closed before opening
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+
             conn.Open()
 
             Dim query As String = "SELECT 
-                cr.*,
+                cf.*,
                 CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
                 c.Email
-                FROM customer_reviews cr
-                INNER JOIN customers c ON cr.CustomerID = c.CustomerID
-                WHERE cr.ReviewID = @reviewId"
+                FROM customer_feedback cf
+                INNER JOIN customers c ON cf.CustomerID = c.CustomerID
+                WHERE cf.FeedbackID = @feedbackId"
 
             Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@reviewId", reviewId)
+            cmd.Parameters.AddWithValue("@feedbackId", feedbackId)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
-                Dim details As String = $"Review Details:" & vbCrLf & vbCrLf &
-                                       $"Review ID: {reader("ReviewID")}" & vbCrLf &
+                Dim details As String = $"Feedback Details:" & vbCrLf & vbCrLf &
+                                       $"Feedback ID: {reader("FeedbackID")}" & vbCrLf &
                                        $"Customer: {reader("CustomerName")}" & vbCrLf &
-                                       $"Email: {reader("Email")}" & vbCrLf & vbCrLf &
+                                       $"Email: {reader("Email")}" & vbCrLf &
+                                       $"Type: {reader("FeedbackType")}" & vbCrLf &
+                                       $"Anonymous: {If(Convert.ToBoolean(reader("IsAnonymous")), "Yes", "No")}" & vbCrLf & vbCrLf &
                                        $"Overall Rating: {reader("OverallRating")}/5" & vbCrLf &
                                        $"Food Taste: {If(IsDBNull(reader("FoodTasteRating")), "N/A", reader("FoodTasteRating").ToString())}" & vbCrLf &
                                        $"Portion Size: {If(IsDBNull(reader("PortionSizeRating")), "N/A", reader("PortionSizeRating").ToString())}" & vbCrLf &
-                                       $"Service: {If(IsDBNull(reader("CustomerServiceRating")), "N/A", reader("CustomerServiceRating").ToString())}" & vbCrLf &
+                                       $"Service: {If(IsDBNull(reader("ServiceRating")), "N/A", reader("ServiceRating").ToString())}" & vbCrLf &
                                        $"Ambience: {If(IsDBNull(reader("AmbienceRating")), "N/A", reader("AmbienceRating").ToString())}" & vbCrLf &
                                        $"Cleanliness: {If(IsDBNull(reader("CleanlinessRating")), "N/A", reader("CleanlinessRating").ToString())}" & vbCrLf & vbCrLf &
                                        $"Comments:" & vbCrLf &
-                                       $"General: {If(IsDBNull(reader("GeneralComment")), "None", reader("GeneralComment").ToString())}" & vbCrLf &
+                                       $"Review Message: {If(IsDBNull(reader("ReviewMessage")), "None", reader("ReviewMessage").ToString())}" & vbCrLf &
                                        $"Food: {If(IsDBNull(reader("FoodTasteComment")), "None", reader("FoodTasteComment").ToString())}" & vbCrLf &
-                                       $"Service: {If(IsDBNull(reader("CustomerServiceComment")), "None", reader("CustomerServiceComment").ToString())}" & vbCrLf & vbCrLf &
+                                       $"Portion: {If(IsDBNull(reader("PortionSizeComment")), "None", reader("PortionSizeComment").ToString())}" & vbCrLf &
+                                       $"Service: {If(IsDBNull(reader("ServiceComment")), "None", reader("ServiceComment").ToString())}" & vbCrLf &
+                                       $"Ambience: {If(IsDBNull(reader("AmbienceComment")), "None", reader("AmbienceComment").ToString())}" & vbCrLf &
+                                       $"Cleanliness: {If(IsDBNull(reader("CleanlinessComment")), "None", reader("CleanlinessComment").ToString())}" & vbCrLf & vbCrLf &
                                        $"Status: {reader("Status")}" & vbCrLf &
-                                       $"Created: {reader("CreatedDate")}"
+                                       $"Created: {reader("CreatedDate")}" & vbCrLf &
+                                       $"Approved: {If(IsDBNull(reader("ApprovedDate")), "Not yet approved", reader("ApprovedDate").ToString())}"
 
-                MessageBox.Show(details, "Review Details", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(details, "Feedback Details", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
             reader.Close()
@@ -312,31 +323,41 @@ Public Class Feedback
         End Try
     End Sub
 
-    ' Search Reviews
-    Private Sub SearchReviews(searchTerm As String)
+    ' Search Feedback
+    Private Sub SearchFeedback(searchTerm As String)
         Try
+            ' Ensure connection is closed before opening
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+
             conn.Open()
 
             Dim query As String = "SELECT 
-                cr.ReviewID,
-                cr.CustomerID,
+                cf.FeedbackID,
+                cf.CustomerID,
                 CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
-                cr.OverallRating,
-                cr.FoodTasteRating,
-                cr.PortionSizeRating,
-                cr.CustomerServiceRating,
-                cr.AmbienceRating,
-                cr.CleanlinessRating,
-                cr.GeneralComment,
-                cr.Status,
-                cr.CreatedDate,
-                cr.ApprovedDate
-                FROM customer_reviews cr
-                INNER JOIN customers c ON cr.CustomerID = c.CustomerID
+                cf.FeedbackType,
+                cf.OrderID,
+                cf.ReservationID,
+                cf.OverallRating,
+                cf.FoodTasteRating,
+                cf.PortionSizeRating,
+                cf.ServiceRating,
+                cf.AmbienceRating,
+                cf.CleanlinessRating,
+                cf.ReviewMessage,
+                cf.IsAnonymous,
+                cf.Status,
+                cf.CreatedDate,
+                cf.ApprovedDate
+                FROM customer_feedback cf
+                INNER JOIN customers c ON cf.CustomerID = c.CustomerID
                 WHERE CONCAT(c.FirstName, ' ', c.LastName) LIKE @search
-                OR cr.GeneralComment LIKE @search
-                OR cr.Status LIKE @search
-                ORDER BY cr.CreatedDate DESC"
+                OR cf.ReviewMessage LIKE @search
+                OR cf.Status LIKE @search
+                OR cf.FeedbackType LIKE @search
+                ORDER BY cf.CreatedDate DESC"
 
             adapter = New MySqlDataAdapter(query, conn)
             adapter.SelectCommand.Parameters.AddWithValue("@search", "%" & searchTerm & "%")
@@ -347,7 +368,7 @@ Public Class Feedback
             DataGridView1.DataSource = dt
             FormatColumns()
 
-            lblTotalReviews.Text = $"Found: {dt.Rows.Count} reviews"
+            lblTotalReviews.Text = $"Found: {dt.Rows.Count} feedback"
 
         Catch ex As Exception
             MessageBox.Show("Error searching: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -358,84 +379,50 @@ Public Class Feedback
         End Try
     End Sub
 
-    ' Load Reservations
-    Private Sub LoadReservations()
-        Try
-            conn.Open()
-
-            Dim query As String = "SELECT 
-                r.ReservationID,
-                CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
-                r.EventType,
-                r.EventDate,
-                r.EventTime,
-                r.NumberOfGuests,
-                r.ReservationStatus,
-                r.ReservationDate
-                FROM reservations r
-                INNER JOIN customers c ON r.CustomerID = c.CustomerID
-                ORDER BY r.EventDate DESC"
-
-            Dim dtReservations As New DataTable()
-            Dim adapterRes As New MySqlDataAdapter(query, conn)
-            adapterRes.Fill(dtReservations)
-
-            ' Assuming you have a separate DataGridView for reservations
-            ' DataGridViewReservations.DataSource = dtReservations
-
-        Catch ex As Exception
-            MessageBox.Show("Error loading reservations: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
-        End Try
-    End Sub
-
     ' Button Event Handlers
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        LoadReviews()
+        LoadFeedback()
     End Sub
 
     Private Sub btnViewPending_Click(sender As Object, e As EventArgs) Handles btnViewPending.Click
-        LoadReviews("Pending")
+        LoadFeedback("Pending")
     End Sub
 
     Private Sub btnViewApproved_Click(sender As Object, e As EventArgs) Handles btnViewApproved.Click
-        LoadReviews("Approved")
+        LoadFeedback("Approved")
     End Sub
 
     Private Sub btnViewRejected_Click(sender As Object, e As EventArgs) Handles btnViewRejected.Click
-        LoadReviews("Rejected")
+        LoadFeedback("Rejected")
     End Sub
 
     Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
-        LoadReviews()
+        LoadFeedback()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         If txtSearch.Text.Trim() <> "" Then
-            SearchReviews(txtSearch.Text.Trim())
+            SearchFeedback(txtSearch.Text.Trim())
         Else
-            LoadReviews()
+            LoadFeedback()
         End If
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         If DataGridView1.SelectedRows.Count > 0 Then
-            Dim reviewId As Integer = Convert.ToInt32(DataGridView1.SelectedRows(0).Cells("ReviewID").Value)
-            DeleteReview(reviewId)
+            Dim feedbackId As Integer = Convert.ToInt32(DataGridView1.SelectedRows(0).Cells("FeedbackID").Value)
+            DeleteFeedback(feedbackId)
         Else
-            MessageBox.Show("Please select a review to delete.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please select a feedback to delete.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
 
     Private Sub btnViewDetails_Click(sender As Object, e As EventArgs) Handles btnViewDetails.Click
         If DataGridView1.SelectedRows.Count > 0 Then
-            Dim reviewId As Integer = Convert.ToInt32(DataGridView1.SelectedRows(0).Cells("ReviewID").Value)
-            ViewReviewDetails(reviewId)
+            Dim feedbackId As Integer = Convert.ToInt32(DataGridView1.SelectedRows(0).Cells("FeedbackID").Value)
+            ViewFeedbackDetails(feedbackId)
         Else
-            MessageBox.Show("Please select a review to view details.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please select a feedback to view details.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
 
@@ -444,7 +431,7 @@ Public Class Feedback
         Try
             Dim saveFileDialog As New SaveFileDialog()
             saveFileDialog.Filter = "CSV Files (*.csv)|*.csv"
-            saveFileDialog.FileName = $"Reviews_Export_{DateTime.Now:yyyyMMdd}.csv"
+            saveFileDialog.FileName = $"Feedback_Export_{DateTime.Now:yyyyMMdd}.csv"
 
             If saveFileDialog.ShowDialog() = DialogResult.OK Then
                 Using writer As New IO.StreamWriter(saveFileDialog.FileName)
@@ -465,7 +452,7 @@ Public Class Feedback
                     Next
                 End Using
 
-                MessageBox.Show("Reviews exported successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Feedback exported successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch ex As Exception
@@ -473,4 +460,3 @@ Public Class Feedback
         End Try
     End Sub
 End Class
-

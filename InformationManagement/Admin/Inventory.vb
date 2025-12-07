@@ -16,6 +16,7 @@ Public Class Inventory
             ' Load data
             LoadInventorySummary()
             LoadInventoryStatistics()
+            UpdateNotificationButton()
 
         Catch ex As Exception
             MessageBox.Show("Error loading form: " & ex.Message,
@@ -117,8 +118,6 @@ Public Class Inventory
                 Category.Location = New Point(leftMargin + searchWidth + spacing, searchTop + 25)
                 Category.Size = New Size(categoryWidth, 24)
             End If
-
-
 
             ' DataGrid
             Dim gridTop As Integer = searchTop + 60
@@ -243,9 +242,14 @@ Public Class Inventory
                 InventoryGrid.Columns("Max Level").Visible = False
             End If
 
-            ' Format grid
+            ' Format grid FIRST
             FormatInventoryGrid()
-            ColorCodeStatusColumn()
+
+            ' IMPORTANT: Apply color coding AFTER the grid is fully bound and formatted
+            ' Use BeginInvoke to ensure DataGridView has finished rendering
+            Me.BeginInvoke(New MethodInvoker(Sub()
+                                                 ColorCodeStatusColumn()
+                                             End Sub))
 
             ' Update total value card after grid refresh
             UpdateTotalValueCard()
@@ -359,6 +363,10 @@ Public Class Inventory
     ' Color code status
     Private Sub ColorCodeStatusColumn()
         Try
+            ' Force the grid to complete any pending layout operations
+            InventoryGrid.Update()
+            Application.DoEvents()
+
             For Each row As DataGridViewRow In InventoryGrid.Rows
                 If Not row.IsNewRow AndAlso row.Cells("Status").Value IsNot Nothing Then
                     Dim status As String = row.Cells("Status").Value.ToString()
@@ -402,8 +410,13 @@ Public Class Inventory
                     End If
                 End If
             Next
+
+            ' Force the grid to refresh and display the new colors
+            InventoryGrid.Refresh()
+
         Catch ex As Exception
-            MessageBox.Show("Error color coding: " & ex.Message)
+            ' Silent fail but log for debugging
+            Debug.WriteLine("Error color coding: " & ex.Message)
         End Try
     End Sub
 
@@ -432,7 +445,6 @@ Public Class Inventory
         End Try
     End Sub
 
-    ' Load statistics
     ' Load statistics in the top panels
     Private Sub LoadInventoryStatistics()
         Try
@@ -607,7 +619,10 @@ Public Class Inventory
                         searchText.Replace("'", "''"))
                 End If
 
-                ColorCodeStatusColumn()
+                ' Re-apply colors after filtering
+                Me.BeginInvoke(New MethodInvoker(Sub()
+                                                     ColorCodeStatusColumn()
+                                                 End Sub))
                 UpdateTotalValueCard()
             End If
         Catch ex As Exception
@@ -630,7 +645,10 @@ Public Class Inventory
                         selectedCategory.Replace("'", "''"))
                 End If
 
-                ColorCodeStatusColumn()
+                ' Re-apply colors after filtering
+                Me.BeginInvoke(New MethodInvoker(Sub()
+                                                     ColorCodeStatusColumn()
+                                                 End Sub))
                 UpdateTotalValueCard()
             End If
         Catch ex As Exception
@@ -653,6 +671,57 @@ Public Class Inventory
                           "Error",
                           MessageBoxButtons.OK,
                           MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub btnNotifications_Click(sender As Object, e As EventArgs) Handles btnNotifications.Click
+        Try
+            Dim usageForm As New ProductIngredientUsageHistory()
+            usageForm.StartPosition = FormStartPosition.CenterScreen
+            usageForm.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show("Error opening usage history: " & ex.Message,
+                      "Error",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Function GetRecentDeductionCount() As Integer
+        Try
+            openConn()
+
+            Dim sql As String = "
+            SELECT COUNT(*) 
+            FROM inventory_movement_log 
+            WHERE ChangeType = 'DEDUCT' 
+            AND MovementDate >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+        "
+
+            Dim cmd As New MySqlCommand(sql, conn)
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            Return count
+        Catch ex As Exception
+            Return 0
+        Finally
+            closeConn()
+        End Try
+    End Function
+
+    Private Sub UpdateNotificationButton()
+        Try
+            Dim count As Integer = GetRecentDeductionCount()
+
+            If count > 0 Then
+                btnNotifications.Text = "🔔 Usage History (" & count & ")"
+                btnNotifications.BackColor = Color.FromArgb(220, 53, 69) ' Red alert
+            Else
+                btnNotifications.Text = "🔔 View Usage History"
+                btnNotifications.BackColor = Color.FromArgb(111, 66, 193) ' Purple default
+            End If
+        Catch ex As Exception
+            ' Silent fail
         End Try
     End Sub
 
