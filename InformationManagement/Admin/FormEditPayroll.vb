@@ -26,6 +26,7 @@ Public Class FormEditPayroll
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             If reader.Read() Then
+                ' Populate fields
                 dtpPeriodStart.Value = Convert.ToDateTime(reader("PayPeriodStart"))
                 dtpPeriodEnd.Value = Convert.ToDateTime(reader("PayPeriodEnd"))
 
@@ -68,6 +69,30 @@ Public Class FormEditPayroll
         CalculateNetPay()
     End Sub
 
+    Public Sub LoadEmployees()
+        Try
+            openConn()
+
+            Dim query As String = "
+            SELECT p.PayrollID, e.EmployeeID,
+                   CONCAT(e.FirstName,' ',e.LastName) AS FullName,
+                   p.PayPeriodStart, p.PayPeriodEnd, p.NetPay, p.Status
+            FROM payroll p
+            INNER JOIN employee e ON p.EmployeeID = e.EmployeeID
+        "
+
+            Dim cmd As New MySqlCommand(query, conn)
+            Dim adapter As New MySqlDataAdapter(cmd)
+            Dim dt As New DataTable()
+            adapter.Fill(dt)
+
+            closeConn()
+        Catch ex As Exception
+            MessageBox.Show("Error loading payroll list: " & ex.Message)
+            closeConn()
+        End Try
+    End Sub
+
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
             openConn()
@@ -99,9 +124,9 @@ Public Class FormEditPayroll
 
             MessageBox.Show("Payroll updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' Refresh parent form (FIXED)
+            ' Refresh parent form
             If Application.OpenForms().OfType(Of Payroll).Any() Then
-                Application.OpenForms().OfType(Of Payroll)().First().LoadPayroll()
+                Application.OpenForms().OfType(Of Payroll)().First().LoadEmployees()
             End If
 
             Me.Close()

@@ -34,7 +34,7 @@ Public Class FormAddNewPayrollRecord
             cmbEmployee.DisplayMember = "FullName"
             cmbEmployee.ValueMember = "EmployeeID"
             cmbEmployee.DataSource = dt
-            
+
             ' Auto-select position when employee changes (optional)
             AddHandler cmbEmployee.SelectedIndexChanged, AddressOf CmbEmployee_SelectedIndexChanged
 
@@ -83,10 +83,10 @@ Public Class FormAddNewPayrollRecord
             Dim hourlyRate As Decimal = NumericUpDown3.Value
             Dim deductions As Decimal = If(Me.Controls.ContainsKey("NumericUpDown4"), CType(Me.Controls("NumericUpDown4"), NumericUpDown).Value, 0)
             Dim bonuses As Decimal = If(Me.Controls.ContainsKey("NumericUpDown5"), CType(Me.Controls("NumericUpDown5"), NumericUpDown).Value, 0)
-            
+
             Dim basicSalary As Decimal = hoursWorked * hourlyRate
             Dim overtimePay As Decimal = overtimeHours * hourlyRate * 1.5D ' 1.5x overtime rate
-            
+
             ' Parse Pay Period dates
             Dim periodStr As String = cmbPayperiod.Text
             Dim parts() As String = periodStr.Split(","c) ' "November 1-15", " 2023"
@@ -101,21 +101,21 @@ Public Class FormAddNewPayrollRecord
             Dim endDate As New DateTime(year, month, endDay)
 
             openConn()
-            
+
             ' Check if new columns exist
             Dim checkQuery As String = "SHOW COLUMNS FROM payroll LIKE 'HoursWorked'"
             Dim checkCmd As New MySqlCommand(checkQuery, conn)
             Dim hasNewColumns As Boolean = checkCmd.ExecuteScalar() IsNot Nothing
-            
+
             Dim query As String = ""
             Dim cmd As New MySqlCommand()
             cmd.Connection = conn
-            
+
             If hasNewColumns Then
                 query = "INSERT INTO payroll 
                     (EmployeeID, PayPeriodStart, PayPeriodEnd, HoursWorked, HourlyRate, BasicSalary, Overtime, Deductions, Bonuses, Status, CreatedDate) 
                     VALUES (@empID, @start, @end, @hours, @rate, @basic, @overtime, @deductions, @bonuses, 'Pending', NOW())"
-                
+
                 cmd.Parameters.AddWithValue("@hours", hoursWorked)
                 cmd.Parameters.AddWithValue("@rate", hourlyRate)
                 cmd.Parameters.AddWithValue("@deductions", deductions)
@@ -125,7 +125,7 @@ Public Class FormAddNewPayrollRecord
                     (EmployeeID, PayPeriodStart, PayPeriodEnd, BasicSalary, Overtime, Deductions, Bonuses, Status, CreatedDate) 
                     VALUES (@empID, @start, @end, @basic, @overtime, 0, 0, 'Pending', NOW())"
             End If
-            
+
             cmd.CommandText = query
             cmd.Parameters.AddWithValue("@empID", employeeID)
             cmd.Parameters.AddWithValue("@start", startDate)
@@ -137,10 +137,10 @@ Public Class FormAddNewPayrollRecord
             closeConn()
 
             MessageBox.Show("Payroll record created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            
+
             ' Refresh Payroll Grid if open
             If Application.OpenForms().OfType(Of Payroll).Any() Then
-                Application.OpenForms().OfType(Of Payroll)().First().LoadPayroll()
+                Application.OpenForms().OfType(Of Payroll)().First().LoadEmployees()
             End If
 
             Me.Close()
