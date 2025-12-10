@@ -500,7 +500,7 @@ Public Class Orders
         lblFilter.Text = "Showing: Preparing Orders"
     End Sub
 
-    Private Sub btnViewCompleted_Click(sender As Object, e As EventArgs) Handles btnViewCompleted.Click
+    Private Sub btnViewCompleted_Click(sender As Object, e As EventArgs) Handles btnViewConfirmed.Click
         LoadOrders("o.OrderStatus = 'Completed'")
         lblFilter.Text = "Showing: Completed Orders"
     End Sub
