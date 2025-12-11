@@ -17,12 +17,12 @@ Partial Class Orders
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Orders))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.btnConfirm = New Guna.UI2.WinForms.Guna2Button()
         Me.btnDelete = New Guna.UI2.WinForms.Guna2Button()
+        Me.btnRefresh = New Guna.UI2.WinForms.Guna2Button()
         Me.txtSearch = New Guna.UI2.WinForms.Guna2TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -32,9 +32,9 @@ Partial Class Orders
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.btnViewAll = New Guna.UI2.WinForms.Guna2Button()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-        Me.btnRefresh = New Guna.UI2.WinForms.Guna2Button()
         Me.lblTotalOrders = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnConfirm = New Guna.UI2.WinForms.Guna2Button()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,22 +67,6 @@ Partial Class Orders
         Me.Panel2.Size = New System.Drawing.Size(1111, 61)
         Me.Panel2.TabIndex = 1
         '
-        'btnConfirm
-        '
-        Me.btnConfirm.BorderRadius = 7
-        Me.btnConfirm.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.btnConfirm.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.btnConfirm.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.btnConfirm.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btnConfirm.FillColor = System.Drawing.Color.Green
-        Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnConfirm.ForeColor = System.Drawing.Color.White
-        Me.btnConfirm.Location = New System.Drawing.Point(860, 13)
-        Me.btnConfirm.Name = "btnConfirm"
-        Me.btnConfirm.Size = New System.Drawing.Size(132, 36)
-        Me.btnConfirm.TabIndex = 8
-        Me.btnConfirm.Text = "Update Status"
-        '
         'btnDelete
         '
         Me.btnDelete.BorderRadius = 7
@@ -98,6 +82,23 @@ Partial Class Orders
         Me.btnDelete.Size = New System.Drawing.Size(73, 36)
         Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "Delete"
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.BorderRadius = 7
+        Me.btnRefresh.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnRefresh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnRefresh.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnRefresh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnRefresh.FillColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(62, Byte), Integer))
+        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnRefresh.ForeColor = System.Drawing.Color.White
+        Me.btnRefresh.Image = CType(resources.GetObject("btnRefresh.Image"), System.Drawing.Image)
+        Me.btnRefresh.Location = New System.Drawing.Point(745, 14)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(104, 36)
+        Me.btnRefresh.TabIndex = 5
+        Me.btnRefresh.Text = "Refresh"
         '
         'txtSearch
         '
@@ -229,14 +230,14 @@ Partial Class Orders
         Me.DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.DataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView2.ColumnHeadersHeight = 40
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridView2.EnableHeadersVisualStyles = False
@@ -249,23 +250,6 @@ Partial Class Orders
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.Size = New System.Drawing.Size(1030, 314)
         Me.DataGridView2.TabIndex = 3
-        '
-        'btnRefresh
-        '
-        Me.btnRefresh.BorderRadius = 7
-        Me.btnRefresh.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.btnRefresh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.btnRefresh.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.btnRefresh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btnRefresh.FillColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(62, Byte), Integer))
-        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Image = CType(resources.GetObject("btnRefresh.Image"), System.Drawing.Image)
-        Me.btnRefresh.Location = New System.Drawing.Point(745, 14)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(104, 36)
-        Me.btnRefresh.TabIndex = 5
-        Me.btnRefresh.Text = "Refresh"
         '
         'lblTotalOrders
         '
@@ -287,6 +271,22 @@ Partial Class Orders
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1113, 30)
         Me.Panel4.TabIndex = 4
+        '
+        'btnConfirm
+        '
+        Me.btnConfirm.BorderRadius = 7
+        Me.btnConfirm.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btnConfirm.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btnConfirm.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btnConfirm.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnConfirm.FillColor = System.Drawing.Color.Green
+        Me.btnConfirm.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnConfirm.ForeColor = System.Drawing.Color.White
+        Me.btnConfirm.Location = New System.Drawing.Point(860, 13)
+        Me.btnConfirm.Name = "btnConfirm"
+        Me.btnConfirm.Size = New System.Drawing.Size(132, 36)
+        Me.btnConfirm.TabIndex = 8
+        Me.btnConfirm.Text = "Update Status"
         '
         'Orders
         '
@@ -322,7 +322,6 @@ Partial Class Orders
     Friend WithEvents Panel3 As Panel
     Friend WithEvents lblFilter As Label
     Friend WithEvents DataGridView2 As DataGridView
-    Friend WithEvents btnConfirm As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnDelete As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents txtSearch As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents btnViewCancelled As Guna.UI2.WinForms.Guna2Button
@@ -332,4 +331,5 @@ Partial Class Orders
     Friend WithEvents btnRefresh As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents lblTotalOrders As Label
     Friend WithEvents Panel4 As Panel
+    Friend WithEvents btnConfirm As Guna.UI2.WinForms.Guna2Button
 End Class
