@@ -24,6 +24,7 @@ Partial Class MenuItems
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnRefresh = New ReaLTaiizor.Controls.Button()
@@ -40,8 +41,6 @@ Partial Class MenuItems
         Me.DataGridMenu = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalItems = New System.Windows.Forms.Label()
-        Me.Edit = New System.Windows.Forms.Button()
-        Me.Delete = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -55,9 +54,8 @@ Partial Class MenuItems
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 79)
+        Me.Panel1.Size = New System.Drawing.Size(1113, 64)
         Me.Panel1.TabIndex = 0
         '
         'Label1
@@ -65,10 +63,10 @@ Partial Class MenuItems
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(30, 16)
+        Me.Label1.Location = New System.Drawing.Point(22, 13)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(467, 50)
+        Me.Label1.Size = New System.Drawing.Size(373, 40)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Menu Items Management"
         '
@@ -82,10 +80,11 @@ Partial Class MenuItems
         Me.Panel2.Controls.Add(Me.btnExport)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 79)
+        Me.Panel2.Location = New System.Drawing.Point(0, 64)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(9)
-        Me.Panel2.Size = New System.Drawing.Size(1066, 69)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(7, 7, 7, 7)
+        Me.Panel2.Size = New System.Drawing.Size(1113, 72)
         Me.Panel2.TabIndex = 1
         '
         'btnRefresh
@@ -99,11 +98,12 @@ Partial Class MenuItems
         Me.btnRefresh.Image = Nothing
         Me.btnRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnRefresh.InactiveColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(62, Byte), Integer))
-        Me.btnRefresh.Location = New System.Drawing.Point(824, 25)
+        Me.btnRefresh.Location = New System.Drawing.Point(858, 18)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.btnRefresh.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.btnRefresh.Size = New System.Drawing.Size(104, 36)
+        Me.btnRefresh.Size = New System.Drawing.Size(100, 35)
         Me.btnRefresh.TabIndex = 13
         Me.btnRefresh.Text = "Refresh"
         Me.btnRefresh.TextAlignment = System.Drawing.StringAlignment.Center
@@ -114,12 +114,13 @@ Partial Class MenuItems
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.txtSearch.Image = Nothing
-        Me.txtSearch.Location = New System.Drawing.Point(37, 23)
+        Me.txtSearch.Location = New System.Drawing.Point(41, 19)
+        Me.txtSearch.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txtSearch.MaxLength = 32767
         Me.txtSearch.Multiline = False
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.ReadOnly = False
-        Me.txtSearch.Size = New System.Drawing.Size(635, 38)
+        Me.txtSearch.Size = New System.Drawing.Size(476, 38)
         Me.txtSearch.TabIndex = 12
         Me.txtSearch.Text = "Search..."
         Me.txtSearch.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left
@@ -136,11 +137,12 @@ Partial Class MenuItems
         Me.AddMenuItemsbtn.Image = Nothing
         Me.AddMenuItemsbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AddMenuItemsbtn.InactiveColor = System.Drawing.Color.Green
-        Me.AddMenuItemsbtn.Location = New System.Drawing.Point(686, 25)
+        Me.AddMenuItemsbtn.Location = New System.Drawing.Point(702, 18)
+        Me.AddMenuItemsbtn.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.AddMenuItemsbtn.Name = "AddMenuItemsbtn"
         Me.AddMenuItemsbtn.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.AddMenuItemsbtn.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.AddMenuItemsbtn.Size = New System.Drawing.Size(132, 36)
+        Me.AddMenuItemsbtn.Size = New System.Drawing.Size(152, 35)
         Me.AddMenuItemsbtn.TabIndex = 14
         Me.AddMenuItemsbtn.Text = "➕ Add Menu Item"
         Me.AddMenuItemsbtn.TextAlignment = System.Drawing.StringAlignment.Center
@@ -156,11 +158,12 @@ Partial Class MenuItems
         Me.btnToggleAvailability.Image = Nothing
         Me.btnToggleAvailability.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnToggleAvailability.InactiveColor = System.Drawing.Color.Green
-        Me.btnToggleAvailability.Location = New System.Drawing.Point(934, 25)
+        Me.btnToggleAvailability.Location = New System.Drawing.Point(964, 18)
+        Me.btnToggleAvailability.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnToggleAvailability.Name = "btnToggleAvailability"
         Me.btnToggleAvailability.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.btnToggleAvailability.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.btnToggleAvailability.Size = New System.Drawing.Size(132, 36)
+        Me.btnToggleAvailability.Size = New System.Drawing.Size(100, 35)
         Me.btnToggleAvailability.TabIndex = 15
         Me.btnToggleAvailability.Text = "Toggle Status"
         Me.btnToggleAvailability.TextAlignment = System.Drawing.StringAlignment.Center
@@ -171,10 +174,9 @@ Partial Class MenuItems
         Me.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExport.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
         Me.btnExport.ForeColor = System.Drawing.Color.White
-        Me.btnExport.Location = New System.Drawing.Point(1657, 20)
-        Me.btnExport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnExport.Location = New System.Drawing.Point(1243, 16)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(148, 37)
+        Me.btnExport.Size = New System.Drawing.Size(111, 30)
         Me.btnExport.TabIndex = 5
         Me.btnExport.Text = "📊 Export CSV"
         Me.btnExport.UseVisualStyleBackColor = False
@@ -183,7 +185,8 @@ Partial Class MenuItems
         '
         Me.lblSearch.AutoSize = True
         Me.lblSearch.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSearch.Location = New System.Drawing.Point(34, 5)
+        Me.lblSearch.Location = New System.Drawing.Point(42, 3)
+        Me.lblSearch.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSearch.Name = "lblSearch"
         Me.lblSearch.Size = New System.Drawing.Size(46, 15)
         Me.lblSearch.TabIndex = 0
@@ -196,11 +199,12 @@ Partial Class MenuItems
         Me.Panel3.Controls.Add(Me.Edit)
         Me.Panel3.Controls.Add(Me.Category)
         Me.Panel3.Controls.Add(Me.lblFilter)
-        Me.Panel3.Location = New System.Drawing.Point(0, 130)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 136)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Padding = New System.Windows.Forms.Padding(9)
-        Me.Panel3.Size = New System.Drawing.Size(1066, 70)
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(7, 7, 7, 7)
+        Me.Panel3.Size = New System.Drawing.Size(1113, 70)
         Me.Panel3.TabIndex = 2
         '
         'Delete
@@ -213,12 +217,13 @@ Partial Class MenuItems
         Me.Delete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Delete.Image = Nothing
         Me.Delete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Delete.InactiveColor = System.Drawing.Color.Green
-        Me.Delete.Location = New System.Drawing.Point(438, 25)
+        Me.Delete.InactiveColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Delete.Location = New System.Drawing.Point(345, 26)
+        Me.Delete.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Delete.Name = "Delete"
         Me.Delete.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.Delete.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.Delete.Size = New System.Drawing.Size(132, 36)
+        Me.Delete.Size = New System.Drawing.Size(99, 35)
         Me.Delete.TabIndex = 16
         Me.Delete.Text = "Delete"
         Me.Delete.TextAlignment = System.Drawing.StringAlignment.Center
@@ -233,12 +238,13 @@ Partial Class MenuItems
         Me.Edit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Edit.Image = Nothing
         Me.Edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Edit.InactiveColor = System.Drawing.Color.Green
-        Me.Edit.Location = New System.Drawing.Point(300, 26)
+        Me.Edit.InactiveColor = System.Drawing.Color.Teal
+        Me.Edit.Location = New System.Drawing.Point(448, 26)
+        Me.Edit.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Edit.Name = "Edit"
         Me.Edit.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.Edit.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.Edit.Size = New System.Drawing.Size(132, 36)
+        Me.Edit.Size = New System.Drawing.Size(99, 35)
         Me.Edit.TabIndex = 17
         Me.Edit.Text = "Edit"
         Me.Edit.TextAlignment = System.Drawing.StringAlignment.Center
@@ -256,9 +262,10 @@ Partial Class MenuItems
         Me.Category.HoverSelectionColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.Category.IntegralHeight = False
         Me.Category.ItemHeight = 30
-        Me.Category.Location = New System.Drawing.Point(37, 25)
+        Me.Category.Location = New System.Drawing.Point(42, 25)
+        Me.Category.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Category.Name = "Category"
-        Me.Category.Size = New System.Drawing.Size(246, 36)
+        Me.Category.Size = New System.Drawing.Size(295, 36)
         Me.Category.StartIndex = 0
         Me.Category.TabIndex = 10
         '
@@ -266,7 +273,8 @@ Partial Class MenuItems
         '
         Me.lblFilter.AutoSize = True
         Me.lblFilter.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblFilter.Location = New System.Drawing.Point(34, 5)
+        Me.lblFilter.Location = New System.Drawing.Point(44, 4)
+        Me.lblFilter.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblFilter.Name = "lblFilter"
         Me.lblFilter.Size = New System.Drawing.Size(86, 15)
         Me.lblFilter.TabIndex = 0
@@ -301,7 +309,7 @@ Partial Class MenuItems
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridMenu.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridMenu.EnableHeadersVisualStyles = False
-        Me.DataGridMenu.Location = New System.Drawing.Point(37, 204)
+        Me.DataGridMenu.Location = New System.Drawing.Point(47, 210)
         Me.DataGridMenu.Margin = New System.Windows.Forms.Padding(2)
         Me.DataGridMenu.MultiSelect = False
         Me.DataGridMenu.Name = "DataGridMenu"
@@ -310,7 +318,7 @@ Partial Class MenuItems
         Me.DataGridMenu.RowHeadersWidth = 51
         Me.DataGridMenu.RowTemplate.Height = 40
         Me.DataGridMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridMenu.Size = New System.Drawing.Size(1029, 469)
+        Me.DataGridMenu.Size = New System.Drawing.Size(1017, 453)
         Me.DataGridMenu.TabIndex = 3
         '
         'Panel4
@@ -319,64 +327,34 @@ Partial Class MenuItems
         Me.Panel4.Controls.Add(Me.lblTotalItems)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel4.Location = New System.Drawing.Point(0, 677)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1371, 43)
+        Me.Panel4.Size = New System.Drawing.Size(1113, 35)
         Me.Panel4.TabIndex = 4
         '
         'lblTotalItems
         '
         Me.lblTotalItems.AutoSize = True
         Me.lblTotalItems.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTotalItems.Location = New System.Drawing.Point(31, 7)
+        Me.lblTotalItems.Location = New System.Drawing.Point(38, 7)
+        Me.lblTotalItems.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTotalItems.Name = "lblTotalItems"
-        Me.lblTotalItems.Size = New System.Drawing.Size(118, 23)
+        Me.lblTotalItems.Size = New System.Drawing.Size(98, 19)
         Me.lblTotalItems.TabIndex = 0
         Me.lblTotalItems.Text = "Total Items: 0"
         '
-        'Edit
-        '
-        Me.Edit.BackColor = System.Drawing.Color.Teal
-        Me.Edit.FlatAppearance.BorderSize = 0
-        Me.Edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Edit.ForeColor = System.Drawing.Color.White
-        Me.Edit.Location = New System.Drawing.Point(555, 10)
-        Me.Edit.Margin = New System.Windows.Forms.Padding(4)
-        Me.Edit.Name = "Edit"
-        Me.Edit.Size = New System.Drawing.Size(205, 37)
-        Me.Edit.TabIndex = 6
-        Me.Edit.Text = "Edit"
-        Me.Edit.UseVisualStyleBackColor = False
-        '
-        'Delete
-        '
-        Me.Delete.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Delete.FlatAppearance.BorderSize = 0
-        Me.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete.ForeColor = System.Drawing.Color.White
-        Me.Delete.Location = New System.Drawing.Point(779, 10)
-        Me.Delete.Margin = New System.Windows.Forms.Padding(4)
-        Me.Delete.Name = "Delete"
-        Me.Delete.Size = New System.Drawing.Size(205, 37)
-        Me.Delete.TabIndex = 7
-        Me.Delete.Text = "Delete"
-        Me.Delete.UseVisualStyleBackColor = False
-        '
         'MenuItems
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.GhostWhite
         Me.ClientSize = New System.Drawing.Size(1113, 712)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridMenu)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "MenuItems"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menu Items Management - Tabeya"

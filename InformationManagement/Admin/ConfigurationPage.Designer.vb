@@ -23,7 +23,6 @@ Partial Class ConfigurationPage
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.RoundedPane21 = New InformationManagement.RoundedPane2()
-        Me.lblServerStatus = New System.Windows.Forms.Label()
         Me.txtServer = New InformationManagement.RoundedTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -45,8 +44,6 @@ Partial Class ConfigurationPage
         Me.RoundedPane21.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.RoundedPane21.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane21.BorderColor = System.Drawing.Color.Transparent
-        Me.RoundedPane21.BorderThickness = 1
-        Me.RoundedPane21.Controls.Add(Me.lblServerStatus)
         Me.RoundedPane21.Controls.Add(Me.txtServer)
         Me.RoundedPane21.Controls.Add(Me.Label2)
         Me.RoundedPane21.Controls.Add(Me.Label6)
@@ -66,17 +63,6 @@ Partial Class ConfigurationPage
         Me.RoundedPane21.Name = "RoundedPane21"
         Me.RoundedPane21.Size = New System.Drawing.Size(494, 508)
         Me.RoundedPane21.TabIndex = 11
-        '
-        'lblServerStatus
-        '
-        Me.lblServerStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.lblServerStatus.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic)
-        Me.lblServerStatus.ForeColor = System.Drawing.Color.Gray
-        Me.lblServerStatus.Location = New System.Drawing.Point(90, 400)
-        Me.lblServerStatus.Name = "lblServerStatus"
-        Me.lblServerStatus.Size = New System.Drawing.Size(314, 35)
-        Me.lblServerStatus.TabIndex = 12
-        Me.lblServerStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtServer
         '
@@ -294,13 +280,12 @@ Partial Class ConfigurationPage
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtServer As RoundedTextBox
-    Friend WithEvents txtUsername As RoundedTextBox
-    Friend WithEvents txtDatabasename As RoundedTextBox
-    Friend WithEvents txtPassword As RoundedTextBox
-    Friend WithEvents txtPort As RoundedTextBox
+    Friend WithEvents txtServer As New InformationManagement.RoundedTextBox
+    Friend WithEvents txtUsername As New InformationManagement.RoundedTextBox
+    Friend WithEvents txtDatabasename As New InformationManagement.RoundedTextBox
+    Friend WithEvents txtPassword As New InformationManagement.RoundedTextBox
+    Friend WithEvents txtPort As New InformationManagement.RoundedTextBox
     Friend WithEvents btnTestConnection As Button
     Friend WithEvents RoundedPane21 As RoundedPane2
     Friend WithEvents btnSaveAndContinue As Button
-    Friend WithEvents lblServerStatus As Label
 End Class
