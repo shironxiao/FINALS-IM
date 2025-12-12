@@ -187,7 +187,7 @@ Public Class ProductIngredientUsageHistory
         dtpStartDate.Value = Date.Now.AddDays(-7)
         dtpEndDate.Value = Date.Now
         cmbSource.SelectedIndex = 0
-        txtSearch.Clear()
+        txtSearch.Text = ""
         LoadUsageHistory()
     End Sub
 

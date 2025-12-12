@@ -392,7 +392,7 @@ Public Class ReservationPayment
     ' REFRESH
     ' =============================================================
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        txtSearch.Clear()
+        txtSearch.Text = ""
         LoadReservationPayments()
         UpdateTotal()
     End Sub

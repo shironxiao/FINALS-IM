@@ -756,7 +756,7 @@ Public Class MenuItems
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Edit.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
 
     End Sub
 

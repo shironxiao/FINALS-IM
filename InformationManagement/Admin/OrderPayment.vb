@@ -444,7 +444,7 @@ Public Class OrderPayment
     ' REFRESH BUTTON
     ' =================================================
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        txtSearch.Clear()
+        txtSearch.Text = ""
         LoadPayments()
         UpdateTotal()
     End Sub
