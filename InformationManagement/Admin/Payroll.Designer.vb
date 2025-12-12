@@ -24,6 +24,7 @@ Partial Class Payroll
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Payroll))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -37,7 +38,7 @@ Partial Class Payroll
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Actions = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New Guna.UI2.WinForms.Guna2ComboBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.RoundedPane24 = New InformationManagement.RoundedPane2()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.E = New System.Windows.Forms.Label()
@@ -54,7 +55,7 @@ Partial Class Payroll
         Me.lblTotalGrossPay = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.AddNewPayrollRecordbtn = New Guna.UI2.WinForms.Guna2Button()
+        Me.AddNewPayrollRecordbtn = New InformationManagement.RoundedButton()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RoundedPane24.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,29 +85,37 @@ Partial Class Payroll
         Me.DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeight = 40
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Employee, Me.Position, Me.Hours, Me.HourlyRate, Me.Overtime, Me.GrossPay, Me.NetPay, Me.Status, Me.Actions})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.EnableHeadersVisualStyles = False
-        Me.DataGridView1.Location = New System.Drawing.Point(34, 276)
+        Me.DataGridView1.Location = New System.Drawing.Point(34, 248)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.Size = New System.Drawing.Size(1039, 147)
+        Me.DataGridView1.Size = New System.Drawing.Size(1039, 452)
         Me.DataGridView1.TabIndex = 4
         '
         'Employee
@@ -184,7 +193,7 @@ Partial Class Payroll
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(31, 235)
+        Me.Label3.Location = New System.Drawing.Point(34, 205)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(73, 17)
         Me.Label3.TabIndex = 6
@@ -202,7 +211,7 @@ Partial Class Payroll
         Me.ComboBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.ComboBox1.ItemHeight = 30
         Me.ComboBox1.Items.AddRange(New Object() {"Dec 1-15, 2024", "Nov 16-30, 2025", "Nov 1-15, 2024"})
-        Me.ComboBox1.Location = New System.Drawing.Point(110, 225)
+        Me.ComboBox1.Location = New System.Drawing.Point(113, 205)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(274, 36)
         Me.ComboBox1.TabIndex = 17
@@ -221,6 +230,19 @@ Partial Class Payroll
         Me.RoundedPane24.Size = New System.Drawing.Size(249, 123)
         Me.RoundedPane24.TabIndex = 13
         '
+        'RoundedPane24
+        '
+        Me.RoundedPane24.BackColor = System.Drawing.Color.Transparent
+        Me.RoundedPane24.BorderColor = System.Drawing.Color.LightGray
+        Me.RoundedPane24.Controls.Add(Me.PictureBox4)
+        Me.RoundedPane24.Controls.Add(Me.E)
+        Me.RoundedPane24.Controls.Add(Me.Label5)
+        Me.RoundedPane24.FillColor = System.Drawing.Color.White
+        Me.RoundedPane24.Location = New System.Drawing.Point(824, 86)
+        Me.RoundedPane24.Name = "RoundedPane24"
+        Me.RoundedPane24.Size = New System.Drawing.Size(249, 106)
+        Me.RoundedPane24.TabIndex = 13
+        '
         'PictureBox4
         '
         Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
@@ -235,10 +257,10 @@ Partial Class Payroll
         '
         Me.E.AutoSize = True
         Me.E.BackColor = System.Drawing.Color.Transparent
-        Me.E.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.E.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.E.Location = New System.Drawing.Point(18, 72)
         Me.E.Name = "E"
-        Me.E.Size = New System.Drawing.Size(25, 25)
+        Me.E.Size = New System.Drawing.Size(19, 21)
         Me.E.TabIndex = 2
         Me.E.Text = "3"
         '
@@ -257,16 +279,15 @@ Partial Class Payroll
         '
         'RoundedPane23
         '
+        Me.RoundedPane23.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane23.BorderColor = System.Drawing.Color.LightGray
-        Me.RoundedPane23.BorderThickness = 1
         Me.RoundedPane23.Controls.Add(Me.PictureBox5)
         Me.RoundedPane23.Controls.Add(Me.TotalHours)
         Me.RoundedPane23.Controls.Add(Me.Label11)
-        Me.RoundedPane23.CornerRadius = 15
         Me.RoundedPane23.FillColor = System.Drawing.Color.White
         Me.RoundedPane23.Location = New System.Drawing.Point(561, 86)
         Me.RoundedPane23.Name = "RoundedPane23"
-        Me.RoundedPane23.Size = New System.Drawing.Size(249, 123)
+        Me.RoundedPane23.Size = New System.Drawing.Size(249, 106)
         Me.RoundedPane23.TabIndex = 12
         '
         'PictureBox5
@@ -283,10 +304,10 @@ Partial Class Payroll
         '
         Me.TotalHours.AutoSize = True
         Me.TotalHours.BackColor = System.Drawing.Color.Transparent
-        Me.TotalHours.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TotalHours.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.TotalHours.Location = New System.Drawing.Point(18, 72)
         Me.TotalHours.Name = "TotalHours"
-        Me.TotalHours.Size = New System.Drawing.Size(51, 25)
+        Me.TotalHours.Size = New System.Drawing.Size(37, 21)
         Me.TotalHours.TabIndex = 2
         Me.TotalHours.Text = "120"
         '
@@ -305,16 +326,15 @@ Partial Class Payroll
         '
         'RoundedPane22
         '
+        Me.RoundedPane22.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane22.BorderColor = System.Drawing.Color.LightGray
-        Me.RoundedPane22.BorderThickness = 1
         Me.RoundedPane22.Controls.Add(Me.PictureBox2)
         Me.RoundedPane22.Controls.Add(Me.lblTotalNetPay)
         Me.RoundedPane22.Controls.Add(Me.Label9)
-        Me.RoundedPane22.CornerRadius = 15
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
-        Me.RoundedPane22.Location = New System.Drawing.Point(297, 86)
+        Me.RoundedPane22.Location = New System.Drawing.Point(298, 86)
         Me.RoundedPane22.Name = "RoundedPane22"
-        Me.RoundedPane22.Size = New System.Drawing.Size(249, 123)
+        Me.RoundedPane22.Size = New System.Drawing.Size(249, 106)
         Me.RoundedPane22.TabIndex = 11
         '
         'PictureBox2
@@ -331,10 +351,10 @@ Partial Class Payroll
         '
         Me.lblTotalNetPay.AutoSize = True
         Me.lblTotalNetPay.BackColor = System.Drawing.Color.Transparent
-        Me.lblTotalNetPay.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalNetPay.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lblTotalNetPay.Location = New System.Drawing.Point(18, 72)
         Me.lblTotalNetPay.Name = "lblTotalNetPay"
-        Me.lblTotalNetPay.Size = New System.Drawing.Size(145, 25)
+        Me.lblTotalNetPay.Size = New System.Drawing.Size(100, 21)
         Me.lblTotalNetPay.TabIndex = 2
         Me.lblTotalNetPay.Text = "₱104,681.25"
         '
@@ -353,26 +373,25 @@ Partial Class Payroll
         '
         'RoundedPane21
         '
+        Me.RoundedPane21.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane21.BorderColor = System.Drawing.Color.LightGray
-        Me.RoundedPane21.BorderThickness = 1
         Me.RoundedPane21.Controls.Add(Me.lblTotalGrossPay)
         Me.RoundedPane21.Controls.Add(Me.PictureBox1)
         Me.RoundedPane21.Controls.Add(Me.Label2)
-        Me.RoundedPane21.CornerRadius = 15
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
         Me.RoundedPane21.Location = New System.Drawing.Point(34, 86)
         Me.RoundedPane21.Name = "RoundedPane21"
-        Me.RoundedPane21.Size = New System.Drawing.Size(249, 123)
+        Me.RoundedPane21.Size = New System.Drawing.Size(249, 106)
         Me.RoundedPane21.TabIndex = 10
         '
         'lblTotalGrossPay
         '
         Me.lblTotalGrossPay.AutoSize = True
         Me.lblTotalGrossPay.BackColor = System.Drawing.Color.Transparent
-        Me.lblTotalGrossPay.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalGrossPay.Location = New System.Drawing.Point(18, 72)
+        Me.lblTotalGrossPay.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalGrossPay.Location = New System.Drawing.Point(19, 62)
         Me.lblTotalGrossPay.Name = "lblTotalGrossPay"
-        Me.lblTotalGrossPay.Size = New System.Drawing.Size(145, 25)
+        Me.lblTotalGrossPay.Size = New System.Drawing.Size(100, 21)
         Me.lblTotalGrossPay.TabIndex = 2
         Me.lblTotalGrossPay.Text = "₱126,125.00"
         '
@@ -380,7 +399,7 @@ Partial Class Payroll
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(210, 22)
+        Me.PictureBox1.Location = New System.Drawing.Point(204, 19)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(25, 19)
         Me.PictureBox1.TabIndex = 1
@@ -392,7 +411,7 @@ Partial Class Payroll
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label2.Location = New System.Drawing.Point(20, 22)
+        Me.Label2.Location = New System.Drawing.Point(20, 18)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(107, 15)
         Me.Label2.TabIndex = 0
@@ -401,21 +420,19 @@ Partial Class Payroll
         '
         'AddNewPayrollRecordbtn
         '
-        Me.AddNewPayrollRecordbtn.AccessibleName = "AddNewPayrollRecordbtn"
-        Me.AddNewPayrollRecordbtn.BorderRadius = 8
-        Me.AddNewPayrollRecordbtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.AddNewPayrollRecordbtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.AddNewPayrollRecordbtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.AddNewPayrollRecordbtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.AddNewPayrollRecordbtn.FillColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.AddNewPayrollRecordbtn.FocusedColor = System.Drawing.Color.DarkSlateGray
-        Me.AddNewPayrollRecordbtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.AddNewPayrollRecordbtn.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.AddNewPayrollRecordbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddNewPayrollRecordbtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         Me.AddNewPayrollRecordbtn.ForeColor = System.Drawing.Color.White
-        Me.AddNewPayrollRecordbtn.Location = New System.Drawing.Point(865, 12)
+        Me.AddNewPayrollRecordbtn.Image = CType(resources.GetObject("AddNewPayrollRecordbtn.Image"), System.Drawing.Image)
+        Me.AddNewPayrollRecordbtn.Location = New System.Drawing.Point(834, 25)
         Me.AddNewPayrollRecordbtn.Name = "AddNewPayrollRecordbtn"
-        Me.AddNewPayrollRecordbtn.Size = New System.Drawing.Size(208, 46)
-        Me.AddNewPayrollRecordbtn.TabIndex = 18
-        Me.AddNewPayrollRecordbtn.Text = "+   Add New Payroll Record"
+        Me.AddNewPayrollRecordbtn.Size = New System.Drawing.Size(239, 41)
+        Me.AddNewPayrollRecordbtn.TabIndex = 3
+        Me.AddNewPayrollRecordbtn.Text = "   Add New Payroll Record"
+        Me.AddNewPayrollRecordbtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.AddNewPayrollRecordbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.AddNewPayrollRecordbtn.UseVisualStyleBackColor = False
         '
         'Payroll
         '
@@ -424,9 +441,7 @@ Partial Class Payroll
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1113, 450)
-        Me.Controls.Add(Me.AddNewPayrollRecordbtn)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.ClientSize = New System.Drawing.Size(1113, 712)
         Me.Controls.Add(Me.RoundedPane24)
         Me.Controls.Add(Me.RoundedPane23)
         Me.Controls.Add(Me.RoundedPane22)

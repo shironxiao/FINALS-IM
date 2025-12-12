@@ -367,15 +367,16 @@ Public Class Reservations
     ' ==========================================
     ' VIEW ALL
     ' ==========================================
-    Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
+    Private Sub BtnViewAll_Click(sender As Object, e As EventArgs)
         LoadReservations()
         lblFilter.Text = "Showing: All Reservations"
     End Sub
 
+
     ' ==========================================
     ' VIEW PENDING
     ' ==========================================
-    Private Sub btnViewPending_Click(sender As Object, e As EventArgs) Handles btnViewPending.Click
+    Private Sub btnViewPending_Click(sender As Object, e As EventArgs)
         LoadReservations("ReservationStatus = 'Pending'")
         lblFilter.Text = "Showing: Pending"
     End Sub
@@ -383,7 +384,7 @@ Public Class Reservations
     ' ==========================================
     ' VIEW CONFIRMED
     ' ==========================================
-    Private Sub btnViewConfirmed_Click(sender As Object, e As EventArgs) Handles btnViewConfirmed.Click
+    Private Sub btnViewConfirmed_Click(sender As Object, e As EventArgs)
         LoadReservations("ReservationStatus = 'Confirmed'")
         lblFilter.Text = "Showing: Confirmed"
     End Sub
@@ -391,7 +392,7 @@ Public Class Reservations
     ' ==========================================
     ' VIEW CANCELLED
     ' ==========================================
-    Private Sub btnViewCancelled_Click(sender As Object, e As EventArgs) Handles btnViewCancelled.Click
+    Private Sub btnViewCancelled_Click(sender As Object, e As EventArgs)
         LoadReservations("ReservationStatus = 'Cancelled'")
         lblFilter.Text = "Showing: Cancelled"
     End Sub
@@ -399,7 +400,7 @@ Public Class Reservations
     ' ==========================================
     ' REFRESH
     ' ==========================================
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs)
         LoadReservations()
         lblFilter.Text = "Showing: All Reservations"
     End Sub
@@ -407,7 +408,7 @@ Public Class Reservations
     ' ==========================================
     ' SEARCH BAR
     ' ==========================================
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
         Dim keyword As String = txtSearch.Text.Trim()
 
         If keyword = "" Then

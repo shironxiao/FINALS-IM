@@ -756,13 +756,7 @@ Public Class MenuItems
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles AddMenuItemsbtn.Click
-        With FormAddNewmenuItem
-            .StartPosition = FormStartPosition.CenterScreen
-            If .ShowDialog() = DialogResult.OK Then
-                LoadMenuItems(txtSearch.Text, Category.Text)
-            End If
-        End With
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
 
     End Sub
 
