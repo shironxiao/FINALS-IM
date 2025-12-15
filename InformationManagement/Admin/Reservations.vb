@@ -399,7 +399,7 @@ Public Class Reservations
     ' ==========================================
     ' REFRESH
     ' ==========================================
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs)
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadReservations()
         lblFilter.Text = "Showing: All Reservations"
     End Sub
@@ -407,7 +407,7 @@ Public Class Reservations
     ' ==========================================
     ' SEARCH BAR
     ' ==========================================
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Dim keyword As String = txtSearch.Text.Trim()
 
         If keyword = "" Then
@@ -424,7 +424,7 @@ Public Class Reservations
     ' ==========================================
     ' DELETE RESERVATION
     ' ==========================================
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs)
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
 
         If Reservation.SelectedRows.Count = 0 Then
             MessageBox.Show("Select a reservation to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)

@@ -79,11 +79,10 @@ Partial Class Reports
         Me.FlowLayoutPanel1.Controls.Add(Me.btnEmployeeAttendance)
         Me.FlowLayoutPanel1.Controls.Add(Me.btnProductsPerformance)
         Me.FlowLayoutPanel1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(7, 56)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(12, 85)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(3146, 50)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(2840, 50)
         Me.FlowLayoutPanel1.TabIndex = 4
         Me.FlowLayoutPanel1.WrapContents = False
         '
@@ -279,8 +278,7 @@ Partial Class Reports
         Me.reportPeriod.ForeColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.reportPeriod.ItemHeight = 30
         Me.reportPeriod.Items.AddRange(New Object() {"Daily", "Weekly", "Montly", "Yearly"})
-        Me.reportPeriod.Location = New System.Drawing.Point(686, 13)
-        Me.reportPeriod.Margin = New System.Windows.Forms.Padding(2)
+        Me.reportPeriod.Location = New System.Drawing.Point(1220, 20)
         Me.reportPeriod.Name = "reportPeriod"
         Me.reportPeriod.Size = New System.Drawing.Size(121, 36)
         Me.reportPeriod.TabIndex = 6

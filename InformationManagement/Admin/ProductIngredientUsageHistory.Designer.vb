@@ -14,23 +14,21 @@
     End Sub
 
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlMain = New System.Windows.Forms.Panel()
         Me.pnlGrid = New System.Windows.Forms.Panel()
-        Me.PoisonDateTime1 = New ReaLTaiizor.Controls.PoisonDateTime()
         Me.dgvUsageHistory = New System.Windows.Forms.DataGridView()
         Me.pnlFilters = New System.Windows.Forms.Panel()
         Me.grpFilters = New System.Windows.Forms.GroupBox()
-        Me.cmbSource = New ReaLTaiizor.Controls.ComboBoxEdit()
         Me.lblStartDate = New System.Windows.Forms.Label()
         Me.dtpStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.txtSearch = New ReaLTaiizor.Controls.BigTextBox()
         Me.lblEndDate = New System.Windows.Forms.Label()
         Me.dtpEndDate = New System.Windows.Forms.DateTimePicker()
         Me.lblSource = New System.Windows.Forms.Label()
+        Me.cmbSource = New System.Windows.Forms.ComboBox()
         Me.lblSearch = New System.Windows.Forms.Label()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.btnApplyFilters = New System.Windows.Forms.Button()
         Me.btnResetFilters = New System.Windows.Forms.Button()
         Me.pnlHeader = New System.Windows.Forms.Panel()
@@ -66,7 +64,6 @@
         'pnlGrid
         '
         Me.pnlGrid.BackColor = System.Drawing.Color.White
-        Me.pnlGrid.Controls.Add(Me.PoisonDateTime1)
         Me.pnlGrid.Controls.Add(Me.dgvUsageHistory)
         Me.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlGrid.Location = New System.Drawing.Point(15, 175)
@@ -75,43 +72,27 @@
         Me.pnlGrid.Size = New System.Drawing.Size(870, 350)
         Me.pnlGrid.TabIndex = 0
         '
-        'PoisonDateTime1
-        '
-        Me.PoisonDateTime1.FontSize = ReaLTaiizor.Extension.Poison.PoisonDateTimeSize.Medium
-        Me.PoisonDateTime1.Location = New System.Drawing.Point(446, 34)
-        Me.PoisonDateTime1.MinimumSize = New System.Drawing.Size(0, 29)
-        Me.PoisonDateTime1.Name = "PoisonDateTime1"
-        Me.PoisonDateTime1.Size = New System.Drawing.Size(200, 29)
-        Me.PoisonDateTime1.TabIndex = 9
-        '
         'dgvUsageHistory
         '
         Me.dgvUsageHistory.AllowUserToAddRows = False
         Me.dgvUsageHistory.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(249, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.dgvUsageHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(249, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.dgvUsageHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvUsageHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvUsageHistory.BackgroundColor = System.Drawing.Color.White
         Me.dgvUsageHistory.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvUsageHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.dgvUsageHistory.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Padding = New System.Windows.Forms.Padding(8)
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvUsageHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Padding = New System.Windows.Forms.Padding(8)
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvUsageHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvUsageHistory.ColumnHeadersHeight = 38
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvUsageHistory.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvUsageHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvUsageHistory.EnableHeadersVisualStyles = False
         Me.dgvUsageHistory.GridColor = System.Drawing.Color.FromArgb(CType(CType(222, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(230, Byte), Integer))
@@ -137,14 +118,14 @@
         '
         'grpFilters
         '
-        Me.grpFilters.Controls.Add(Me.cmbSource)
         Me.grpFilters.Controls.Add(Me.lblStartDate)
         Me.grpFilters.Controls.Add(Me.dtpStartDate)
-        Me.grpFilters.Controls.Add(Me.txtSearch)
         Me.grpFilters.Controls.Add(Me.lblEndDate)
         Me.grpFilters.Controls.Add(Me.dtpEndDate)
         Me.grpFilters.Controls.Add(Me.lblSource)
+        Me.grpFilters.Controls.Add(Me.cmbSource)
         Me.grpFilters.Controls.Add(Me.lblSearch)
+        Me.grpFilters.Controls.Add(Me.txtSearch)
         Me.grpFilters.Controls.Add(Me.btnApplyFilters)
         Me.grpFilters.Controls.Add(Me.btnResetFilters)
         Me.grpFilters.Dock = System.Windows.Forms.DockStyle.Fill
@@ -155,25 +136,6 @@
         Me.grpFilters.TabIndex = 0
         Me.grpFilters.TabStop = False
         Me.grpFilters.Text = "Filter Options"
-        '
-        'cmbSource
-        '
-        Me.cmbSource.BackColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(246, Byte), Integer))
-        Me.cmbSource.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.cmbSource.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbSource.DropDownHeight = 100
-        Me.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSource.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.cmbSource.ForeColor = System.Drawing.Color.White
-        Me.cmbSource.FormattingEnabled = True
-        Me.cmbSource.HoverSelectionColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
-        Me.cmbSource.IntegralHeight = False
-        Me.cmbSource.ItemHeight = 30
-        Me.cmbSource.Location = New System.Drawing.Point(231, 49)
-        Me.cmbSource.Name = "cmbSource"
-        Me.cmbSource.Size = New System.Drawing.Size(135, 36)
-        Me.cmbSource.StartIndex = 0
-        Me.cmbSource.TabIndex = 8
         '
         'lblStartDate
         '
@@ -191,23 +153,6 @@
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(120, 23)
         Me.dtpStartDate.TabIndex = 1
-        '
-        'txtSearch
-        '
-        Me.txtSearch.BackColor = System.Drawing.Color.Transparent
-        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtSearch.Image = Nothing
-        Me.txtSearch.Location = New System.Drawing.Point(372, 42)
-        Me.txtSearch.MaxLength = 32767
-        Me.txtSearch.Multiline = False
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.ReadOnly = False
-        Me.txtSearch.Size = New System.Drawing.Size(186, 38)
-        Me.txtSearch.TabIndex = 6
-        Me.txtSearch.Text = "Search..."
-        Me.txtSearch.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left
-        Me.txtSearch.UseSystemPasswordChar = False
         '
         'lblEndDate
         '
@@ -235,6 +180,14 @@
         Me.lblSource.TabIndex = 4
         Me.lblSource.Text = "Source:"
         '
+        'cmbSource
+        '
+        Me.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSource.Location = New System.Drawing.Point(270, 42)
+        Me.cmbSource.Name = "cmbSource"
+        Me.cmbSource.Size = New System.Drawing.Size(120, 23)
+        Me.cmbSource.TabIndex = 5
+        '
         'lblSearch
         '
         Me.lblSearch.AutoSize = True
@@ -243,6 +196,13 @@
         Me.lblSearch.Size = New System.Drawing.Size(102, 15)
         Me.lblSearch.TabIndex = 6
         Me.lblSearch.Text = "Search Ingredient:"
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(400, 42)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(160, 23)
+        Me.txtSearch.TabIndex = 7
         '
         'btnApplyFilters
         '
@@ -401,7 +361,9 @@
     Friend WithEvents lblEndDate As Label
     Friend WithEvents dtpEndDate As DateTimePicker
     Friend WithEvents lblSource As Label
+    Friend WithEvents cmbSource As ComboBox
     Friend WithEvents lblSearch As Label
+    Friend WithEvents txtSearch As TextBox
     Friend WithEvents btnApplyFilters As Button
     Friend WithEvents btnResetFilters As Button
     Friend WithEvents pnlGrid As Panel
@@ -410,7 +372,4 @@
     Friend WithEvents btnClearHistory As Button
     Friend WithEvents btnRefresh As Button
     Friend WithEvents btnClose As Button
-    Friend WithEvents txtSearch As ReaLTaiizor.Controls.BigTextBox
-    Friend WithEvents PoisonDateTime1 As ReaLTaiizor.Controls.PoisonDateTime
-    Friend WithEvents cmbSource As ReaLTaiizor.Controls.ComboBoxEdit
 End Class

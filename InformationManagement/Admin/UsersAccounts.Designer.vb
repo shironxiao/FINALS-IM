@@ -52,13 +52,6 @@ Partial Class UsersAccounts
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblTotalUsers = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.AddEdit = New Guna.UI2.WinForms.Guna2Button()
-        Me.txtName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colJoinDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colEdit = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.colDelete = New System.Windows.Forms.DataGridViewImageColumn()
         CType(Me.UsersAccountData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RoundedPane24.SuspendLayout()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,7 +140,7 @@ Partial Class UsersAccounts
         Me.UsersAccountData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -160,8 +153,8 @@ Partial Class UsersAccounts
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.UsersAccountData.DefaultCellStyle = DataGridViewCellStyle3
         Me.UsersAccountData.EnableHeadersVisualStyles = False
@@ -179,7 +172,7 @@ Partial Class UsersAccounts
         Me.UsersAccountData.RowTemplate.Height = 35
         Me.UsersAccountData.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
         Me.UsersAccountData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.UsersAccountData.Size = New System.Drawing.Size(1214, 338)
+        Me.UsersAccountData.Size = New System.Drawing.Size(1214, 219)
         Me.UsersAccountData.TabIndex = 9
         '
         'txtName
@@ -190,7 +183,7 @@ Partial Class UsersAccounts
         Me.txtName.MinimumWidth = 6
         Me.txtName.Name = "txtName"
         Me.txtName.ReadOnly = True
-        Me.txtName.Width = 171
+        Me.txtName.Width = 250
         '
         'colRole
         '
@@ -198,7 +191,7 @@ Partial Class UsersAccounts
         Me.colRole.MinimumWidth = 6
         Me.colRole.Name = "colRole"
         Me.colRole.ReadOnly = True
-        Me.colRole.Width = 171
+        Me.colRole.Width = 250
         '
         'colStatus
         '
@@ -206,7 +199,7 @@ Partial Class UsersAccounts
         Me.colStatus.MinimumWidth = 6
         Me.colStatus.Name = "colStatus"
         Me.colStatus.ReadOnly = True
-        Me.colStatus.Width = 171
+        Me.colStatus.Width = 250
         '
         'colJoinDate
         '
@@ -214,7 +207,7 @@ Partial Class UsersAccounts
         Me.colJoinDate.MinimumWidth = 6
         Me.colJoinDate.Name = "colJoinDate"
         Me.colJoinDate.ReadOnly = True
-        Me.colJoinDate.Width = 171
+        Me.colJoinDate.Width = 250
         '
         'colEdit
         '
@@ -225,7 +218,7 @@ Partial Class UsersAccounts
         Me.colEdit.ReadOnly = True
         Me.colEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.colEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colEdit.Width = 171
+        Me.colEdit.Width = 200
         '
         'colDelete
         '
@@ -236,7 +229,7 @@ Partial Class UsersAccounts
         Me.colDelete.ReadOnly = True
         Me.colDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.colDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDelete.Width = 171
+        Me.colDelete.Width = 200
         '
         'DataGridViewImageColumn1
         '
@@ -466,80 +459,6 @@ Partial Class UsersAccounts
         Me.Label2.Size = New System.Drawing.Size(92, 23)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Total Users"
-        '
-        'AddEdit
-        '
-        Me.AddEdit.BorderRadius = 8
-        Me.AddEdit.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.AddEdit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.AddEdit.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.AddEdit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.AddEdit.FillColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.AddEdit.FocusedColor = System.Drawing.Color.DarkSlateGray
-        Me.AddEdit.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.AddEdit.ForeColor = System.Drawing.Color.White
-        Me.AddEdit.Location = New System.Drawing.Point(916, 28)
-        Me.AddEdit.Name = "AddEdit"
-        Me.AddEdit.Size = New System.Drawing.Size(153, 46)
-        Me.AddEdit.TabIndex = 15
-        Me.AddEdit.Text = "+   Add New User"
-        '
-        'txtName
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.txtName.DefaultCellStyle = DataGridViewCellStyle2
-        Me.txtName.HeaderText = "Name"
-        Me.txtName.MinimumWidth = 6
-        Me.txtName.Name = "txtName"
-        Me.txtName.ReadOnly = True
-        Me.txtName.Width = 220
-        '
-        'colRole
-        '
-        Me.colRole.HeaderText = "Role"
-        Me.colRole.MinimumWidth = 6
-        Me.colRole.Name = "colRole"
-        Me.colRole.ReadOnly = True
-        Me.colRole.Width = 200
-        '
-        'colStatus
-        '
-        Me.colStatus.HeaderText = "Status"
-        Me.colStatus.MinimumWidth = 6
-        Me.colStatus.Name = "colStatus"
-        Me.colStatus.ReadOnly = True
-        Me.colStatus.Width = 200
-        '
-        'colJoinDate
-        '
-        Me.colJoinDate.HeaderText = "Join Date"
-        Me.colJoinDate.MinimumWidth = 6
-        Me.colJoinDate.Name = "colJoinDate"
-        Me.colJoinDate.ReadOnly = True
-        Me.colJoinDate.Width = 220
-        '
-        'colEdit
-        '
-        Me.colEdit.HeaderText = "Actions"
-        Me.colEdit.Image = Global.InformationManagement.My.Resources.Resources.edit
-        Me.colEdit.MinimumWidth = 6
-        Me.colEdit.Name = "colEdit"
-        Me.colEdit.ReadOnly = True
-        Me.colEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colEdit.Width = 200
-        '
-        'colDelete
-        '
-        Me.colDelete.HeaderText = ""
-        Me.colDelete.Image = Global.InformationManagement.My.Resources.Resources.delete
-        Me.colDelete.MinimumWidth = 6
-        Me.colDelete.Name = "colDelete"
-        Me.colDelete.ReadOnly = True
-        Me.colDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDelete.Width = 200
         '
         'UsersAccounts
         '

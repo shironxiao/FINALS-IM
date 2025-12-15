@@ -22,8 +22,8 @@ Partial Class Payroll
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Payroll))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -38,32 +38,32 @@ Partial Class Payroll
         Me.Actions = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.RoundedPane24 = New InformationManagement.RoundedPane2()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.E = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.AddNewPayrollRecordbtn = New InformationManagement.RoundedButton()
+        Me.RoundedPane21 = New InformationManagement.RoundedPane2()
+        Me.lblTotalGrossPay = New System.Windows.Forms.Label()
+        Me.RoundedPane22 = New InformationManagement.RoundedPane2()
+        Me.lblTotalNetPay = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.RoundedPane23 = New InformationManagement.RoundedPane2()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.TotalHours = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.RoundedPane22 = New InformationManagement.RoundedPane2()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.lblTotalNetPay = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.RoundedPane21 = New InformationManagement.RoundedPane2()
-        Me.lblTotalGrossPay = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.AddNewPayrollRecordbtn = New InformationManagement.RoundedButton()
+        Me.RoundedPane24 = New InformationManagement.RoundedPane2()
+        Me.E = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.RoundedPane24.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.RoundedPane21.SuspendLayout()
+        Me.RoundedPane22.SuspendLayout()
         Me.RoundedPane23.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.RoundedPane22.SuspendLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.RoundedPane21.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.RoundedPane24.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -93,14 +93,6 @@ Partial Class Payroll
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DataGridView1.ColumnHeadersHeight = 40
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Employee, Me.Position, Me.Hours, Me.HourlyRate, Me.Overtime, Me.GrossPay, Me.NetPay, Me.Status, Me.Actions})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.EnableHeadersVisualStyles = False
         Me.DataGridView1.Location = New System.Drawing.Point(34, 276)
         Me.DataGridView1.Name = "DataGridView1"
@@ -227,33 +219,6 @@ Partial Class Payroll
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox1.TabIndex = 7
         '
-        'RoundedPane24
-        '
-        Me.RoundedPane24.BorderColor = System.Drawing.Color.LightGray
-        Me.RoundedPane24.BorderThickness = 1
-        Me.RoundedPane24.Controls.Add(Me.PictureBox4)
-        Me.RoundedPane24.Controls.Add(Me.E)
-        Me.RoundedPane24.Controls.Add(Me.Label5)
-        Me.RoundedPane24.CornerRadius = 15
-        Me.RoundedPane24.FillColor = System.Drawing.Color.White
-        Me.RoundedPane24.Location = New System.Drawing.Point(824, 86)
-        Me.RoundedPane24.Name = "RoundedPane24"
-        Me.RoundedPane24.Size = New System.Drawing.Size(249, 123)
-        Me.RoundedPane24.TabIndex = 13
-        '
-        'RoundedPane24
-        '
-        Me.RoundedPane24.BackColor = System.Drawing.Color.Transparent
-        Me.RoundedPane24.BorderColor = System.Drawing.Color.LightGray
-        Me.RoundedPane24.Controls.Add(Me.PictureBox4)
-        Me.RoundedPane24.Controls.Add(Me.E)
-        Me.RoundedPane24.Controls.Add(Me.Label5)
-        Me.RoundedPane24.FillColor = System.Drawing.Color.White
-        Me.RoundedPane24.Location = New System.Drawing.Point(824, 86)
-        Me.RoundedPane24.Name = "RoundedPane24"
-        Me.RoundedPane24.Size = New System.Drawing.Size(249, 106)
-        Me.RoundedPane24.TabIndex = 13
-        '
         'PictureBox4
         '
         Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
@@ -265,7 +230,7 @@ Partial Class Payroll
         Me.PictureBox4.TabIndex = 1
         Me.PictureBox4.TabStop = False
         '
-        'E
+        'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
@@ -275,7 +240,7 @@ Partial Class Payroll
         Me.PictureBox2.TabIndex = 1
         Me.PictureBox2.TabStop = False
         '
-        'Label5
+        'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
@@ -285,7 +250,7 @@ Partial Class Payroll
         Me.PictureBox1.TabIndex = 1
         Me.PictureBox1.TabStop = False
         '
-        'RoundedPane23
+        'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
@@ -298,7 +263,7 @@ Partial Class Payroll
         Me.Label2.Text = "Total Gross Pay"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'PictureBox5
+        'AddNewPayrollRecordbtn
         '
         Me.AddNewPayrollRecordbtn.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.AddNewPayrollRecordbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -314,7 +279,7 @@ Partial Class Payroll
         Me.AddNewPayrollRecordbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.AddNewPayrollRecordbtn.UseVisualStyleBackColor = False
         '
-        'TotalHours
+        'RoundedPane21
         '
         Me.RoundedPane21.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane21.BorderThickness = 1
@@ -328,7 +293,7 @@ Partial Class Payroll
         Me.RoundedPane21.Size = New System.Drawing.Size(249, 123)
         Me.RoundedPane21.TabIndex = 10
         '
-        'Label11
+        'lblTotalGrossPay
         '
         Me.lblTotalGrossPay.AutoSize = True
         Me.lblTotalGrossPay.BackColor = System.Drawing.Color.Transparent
@@ -351,16 +316,6 @@ Partial Class Payroll
         Me.RoundedPane22.Name = "RoundedPane22"
         Me.RoundedPane22.Size = New System.Drawing.Size(249, 123)
         Me.RoundedPane22.TabIndex = 11
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(206, 20)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(25, 19)
-        Me.PictureBox2.TabIndex = 1
-        Me.PictureBox2.TabStop = False
         '
         'lblTotalNetPay
         '
@@ -422,7 +377,7 @@ Partial Class Payroll
         Me.TotalHours.TabIndex = 2
         Me.TotalHours.Text = "120"
         '
-        'lblTotalGrossPay
+        'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
@@ -435,7 +390,7 @@ Partial Class Payroll
         Me.Label11.Text = "Total Hours"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'PictureBox1
+        'RoundedPane24
         '
         Me.RoundedPane24.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane24.BorderThickness = 1
@@ -449,7 +404,7 @@ Partial Class Payroll
         Me.RoundedPane24.Size = New System.Drawing.Size(249, 123)
         Me.RoundedPane24.TabIndex = 13
         '
-        'Label2
+        'E
         '
         Me.E.AutoSize = True
         Me.E.BackColor = System.Drawing.Color.Transparent
@@ -460,7 +415,7 @@ Partial Class Payroll
         Me.E.TabIndex = 2
         Me.E.Text = "3"
         '
-        'AddNewPayrollRecordbtn
+        'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
@@ -495,18 +450,18 @@ Partial Class Payroll
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.Text = "Payroll"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.RoundedPane24.ResumeLayout(False)
-        Me.RoundedPane24.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.RoundedPane21.ResumeLayout(False)
+        Me.RoundedPane21.PerformLayout()
+        Me.RoundedPane22.ResumeLayout(False)
+        Me.RoundedPane22.PerformLayout()
         Me.RoundedPane23.ResumeLayout(False)
         Me.RoundedPane23.PerformLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.RoundedPane22.ResumeLayout(False)
-        Me.RoundedPane22.PerformLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.RoundedPane21.ResumeLayout(False)
-        Me.RoundedPane21.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.RoundedPane24.ResumeLayout(False)
+        Me.RoundedPane24.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
