@@ -4,11 +4,32 @@ Imports System.Drawing.Imaging
 
 Public Class FormAddNewmenuItem
 
-    ' Store the selected image bytes
-    Private SelectedImageBytes As Byte() = Nothing
+    ' =======================================================
+    ' CONFIGURATION: Match your MenuItems.vb settings
+    ' =======================================================
+    Private Const UPLOAD_FOLDER As String = "C:\xampp\htdocs\TrialWeb\TrialWorkIM\Tabeya\uploads\products\"
+    Private Const WEB_BASE_PATH As String = "uploads/products/"
+
+    ' Store the selected image file path
+    Private SelectedImagePath As String = Nothing
 
     Private Sub FormAddNewmenuItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeForm()
+        EnsureUploadFolderExists()
+    End Sub
+
+    ' =======================================================
+    ' ENSURE UPLOAD FOLDER EXISTS
+    ' =======================================================
+    Private Sub EnsureUploadFolderExists()
+        Try
+            If Not Directory.Exists(UPLOAD_FOLDER) Then
+                Directory.CreateDirectory(UPLOAD_FOLDER)
+                MessageBox.Show("Upload folder created at: " & UPLOAD_FOLDER, "Info")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Warning: Could not create upload folder." & vbCrLf & ex.Message, "Warning")
+        End Try
     End Sub
 
     ' =======================================================
@@ -55,7 +76,7 @@ Public Class FormAddNewmenuItem
         PictureBox1.Image = Nothing
         PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
 
-        SelectedImageBytes = Nothing
+        SelectedImagePath = Nothing
     End Sub
 
     ' =======================================================
@@ -109,28 +130,46 @@ Public Class FormAddNewmenuItem
 
         If ofd.ShowDialog() = DialogResult.OK Then
             Try
-                Using fs As New FileStream(ofd.FileName, FileMode.Open, FileAccess.Read)
-                    PictureBox1.Image = Image.FromStream(fs)
-                    ' Store the image bytes when loaded
-                    SelectedImageBytes = PictureBoxImageToBytes()
-                End Using
+                ' Load image into PictureBox
+                PictureBox1.Image = Image.FromFile(ofd.FileName)
+
+                ' Store the selected file path
+                SelectedImagePath = ofd.FileName
+
             Catch ex As Exception
                 MessageBox.Show("Error loading image: " & ex.Message)
-                SelectedImageBytes = Nothing
+                SelectedImagePath = Nothing
             End Try
         End If
     End Sub
 
     ' =======================================================
-    ' IMAGE → BYTE()
+    ' SAVE IMAGE TO UPLOAD FOLDER
     ' =======================================================
-    Private Function PictureBoxImageToBytes() As Byte()
-        If PictureBox1.Image Is Nothing Then Return Nothing
+    Private Function SaveImageToFolder() As String
+        If SelectedImagePath Is Nothing OrElse Not File.Exists(SelectedImagePath) Then
+            Return Nothing
+        End If
 
-        Using ms As New MemoryStream()
-            PictureBox1.Image.Save(ms, ImageFormat.Jpeg)
-            Return ms.ToArray()
-        End Using
+        Try
+            ' Generate unique filename
+            Dim timestamp As String = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+            Dim extension As String = Path.GetExtension(SelectedImagePath)
+            Dim newFileName As String = $"product_{timestamp}_{Guid.NewGuid().ToString().Substring(0, 8)}{extension}"
+
+            ' Full destination path
+            Dim destinationPath As String = Path.Combine(UPLOAD_FOLDER, newFileName)
+
+            ' Copy file to uploads folder
+            File.Copy(SelectedImagePath, destinationPath, True)
+
+            ' Return the relative web path (for database storage)
+            Return WEB_BASE_PATH & newFileName
+
+        Catch ex As Exception
+            MessageBox.Show("Error saving image: " & ex.Message, "Error")
+            Return Nothing
+        End Try
     End Function
 
     ' =======================================================
@@ -169,18 +208,21 @@ Public Class FormAddNewmenuItem
             cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
             cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
 
-            ' ===================== IMAGE SAVE LOGIC =====================
-            ' Use stored image bytes if available
-            If SelectedImageBytes IsNot Nothing Then
-                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = SelectedImageBytes
+            ' ===================== SAVE IMAGE AS FILE PATH =====================
+            Dim imagePath As String = SaveImageToFolder()
+
+            If imagePath IsNot Nothing Then
+                cmd.Parameters.AddWithValue("@Image", imagePath)
             Else
-                cmd.Parameters.Add("@Image", MySqlDbType.LongBlob).Value = DBNull.Value
+                cmd.Parameters.AddWithValue("@Image", DBNull.Value)
             End If
-            ' ============================================================
+            ' ===================================================================
 
             cmd.ExecuteNonQuery()
 
-            MessageBox.Show("Menu item added successfully!", "Success")
+            MessageBox.Show("Menu item added successfully!" & vbCrLf &
+                          If(imagePath IsNot Nothing, "Image saved to: " & imagePath, "No image uploaded"),
+                          "Success")
 
             ClearForm()
 
@@ -213,7 +255,7 @@ Public Class FormAddNewmenuItem
         PrepTime.Text = ""
         cmbMealTime.SelectedIndex = 0
         PictureBox1.Image = Nothing
-        SelectedImageBytes = Nothing ' Clear stored image bytes
+        SelectedImagePath = Nothing
         ProductID.Text = GenerateNextProductID()
         txtProductName.Focus()
     End Sub
