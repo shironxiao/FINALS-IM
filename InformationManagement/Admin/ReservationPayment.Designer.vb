@@ -29,6 +29,7 @@ Partial Class ReservationPayment
         Me.Reservation = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalRecords = New System.Windows.Forms.Label()
+        Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Reservation, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
@@ -49,7 +50,7 @@ Partial Class ReservationPayment
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblTitle.Location = New System.Drawing.Point(31, 16)
+        Me.lblTitle.Location = New System.Drawing.Point(22, 21)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(309, 40)
         Me.lblTitle.TabIndex = 0
@@ -58,36 +59,17 @@ Partial Class ReservationPayment
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.GhostWhite
-        Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.btnConfirm)
         Me.Panel2.Controls.Add(Me.btnDelete)
         Me.Panel2.Controls.Add(Me.btnRefresh)
+        Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
-        Me.Panel2.Location = New System.Drawing.Point(0, 69)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 79)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
         Me.Panel2.Size = New System.Drawing.Size(1028, 61)
         Me.Panel2.TabIndex = 1
-        '
-        'txtSearch
-        '
-        Me.txtSearch.BorderRadius = 7
-        Me.txtSearch.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtSearch.DefaultText = ""
-        Me.txtSearch.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.txtSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.txtSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.txtSearch.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.txtSearch.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtSearch.IconLeft = CType(resources.GetObject("txtSearch.IconLeft"), System.Drawing.Image)
-        Me.txtSearch.Location = New System.Drawing.Point(98, 12)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.PlaceholderText = ""
-        Me.txtSearch.SelectedText = ""
-        Me.txtSearch.Size = New System.Drawing.Size(488, 36)
-        Me.txtSearch.TabIndex = 10
         '
         'btnConfirm
         '
@@ -216,21 +198,25 @@ Partial Class ReservationPayment
         Me.Controls.Add(Me.Reservation)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Panel1)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(804, 591)
         Me.Name = "ReservationPayment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Reservation Payment - Tabeya"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.Reservation, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents Panel1 As Panel
     Friend WithEvents lblTitle As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents txtSearch As TextBox

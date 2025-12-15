@@ -705,8 +705,7 @@ Public Class Orders
     End Sub
 
     Private Sub btnViewCompleted_Click(sender As Object, e As EventArgs) Handles btnViewCompleted.Click
-        CurrentPage = 1
-        LoadOrdersAsync("o.OrderStatus = 'Completed'")
+        LoadOrders("o.OrderStatus = 'Completed'")
         lblFilter.Text = "Showing: Completed Orders"
     End Sub
 

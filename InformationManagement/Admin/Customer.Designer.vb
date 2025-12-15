@@ -30,6 +30,7 @@ Partial Class Customer
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalCustomers = New System.Windows.Forms.Label()
@@ -44,10 +45,12 @@ Partial Class Customer
         Me.Panel1.BackColor = System.Drawing.Color.GhostWhite
         Me.Panel1.Controls.Add(Me.lblTitle)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
+        Me.Panel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1113, 72)
+        Me.Panel1.Size = New System.Drawing.Size(1028, 72)
         Me.Panel1.TabIndex = 0
         '
         'lblTitle
@@ -67,9 +70,9 @@ Partial Class Customer
         '
         Me.Panel2.AutoSize = True
         Me.Panel2.BackColor = System.Drawing.Color.GhostWhite
-        Me.Panel2.Controls.Add(Me.txtSearch)
-        Me.Panel2.Controls.Add(Me.btnRefresh)
         Me.Panel2.Controls.Add(Me.btnDelete)
+        Me.Panel2.Controls.Add(Me.btnRefresh)
+        Me.Panel2.Controls.Add(Me.txtSearch)
         Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 72)
@@ -121,9 +124,39 @@ Partial Class Customer
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(527, 25)
         Me.txtSearch.TabIndex = 1
-        'Customer
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        'lblSearch
+        '
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSearch.Location = New System.Drawing.Point(11, 17)
+        Me.lblSearch.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSearch.Name = "lblSearch"
+        Me.lblSearch.Size = New System.Drawing.Size(58, 19)
+        Me.lblSearch.TabIndex = 0
+        Me.lblSearch.Text = "Search:"
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.White
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 123)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(8, 9, 8, 9)
+        Me.Panel3.Size = New System.Drawing.Size(1028, 8)
+        Me.Panel3.TabIndex = 2
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
+        Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -132,11 +165,65 @@ Partial Class Customer
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.DataGridView1.ColumnHeadersHeight = 40
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView1.EnableHeadersVisualStyles = False
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 131)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(2)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
+        Me.DataGridView1.RowHeadersWidth = 51
+        Me.DataGridView1.RowTemplate.Height = 35
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.Size = New System.Drawing.Size(1028, 415)
+        Me.DataGridView1.TabIndex = 3
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel4.Controls.Add(Me.lblTotalCustomers)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel4.Location = New System.Drawing.Point(0, 546)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(1028, 26)
+        Me.Panel4.TabIndex = 4
+        '
+        'lblTotalCustomers
+        '
+        Me.lblTotalCustomers.AutoSize = True
+        Me.lblTotalCustomers.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblTotalCustomers.Location = New System.Drawing.Point(10, 6)
+        Me.lblTotalCustomers.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblTotalCustomers.Name = "lblTotalCustomers"
+        Me.lblTotalCustomers.Size = New System.Drawing.Size(109, 15)
+        Me.lblTotalCustomers.TabIndex = 0
+        Me.lblTotalCustomers.Text = "Total Customers: 0"
+        '
+        '
+        '
+        '
+        '
+        '
+        '
+        'Customer
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.GhostWhite
+        Me.ClientSize = New System.Drawing.Size(1113, 572)
+        Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 525)
         Me.Name = "Customer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Customer Management - Tabeya"
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 131)
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -146,14 +233,16 @@ Partial Class Customer
         Me.PerformLayout()
         Me.DataGridView1.Size = New System.Drawing.Size(1028, 415)
     End Sub
+
+    Friend WithEvents Panel1 As Panel
     Friend WithEvents lblTitle As Label
     Friend WithEvents Panel2 As Panel
+    Friend WithEvents txtSearch As TextBox
     Friend WithEvents lblSearch As Label
-    Friend WithEvents Panel3 As Panel
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblTotalCustomers As Label
-    Friend WithEvents btnDelete As ReaLTaiizor.Controls.Button
-    Friend WithEvents btnRefresh As ReaLTaiizor.Controls.Button
-    Friend WithEvents txtSearch As ReaLTaiizor.Controls.BigTextBox
+    Friend WithEvents btnDelete As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnRefresh As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents txtSearch As Guna.UI2.WinForms.Guna2TextBox
 End Class

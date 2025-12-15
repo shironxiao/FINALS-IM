@@ -22,20 +22,26 @@ Partial Class UsersAccounts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UsersAccounts))
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.AllUsersbtn = New System.Windows.Forms.Button()
         Me.Staffbtn = New System.Windows.Forms.Button()
         Me.Employeesbtn = New System.Windows.Forms.Button()
         Me.Customerbtn = New System.Windows.Forms.Button()
         Me.UsersAccountData = New System.Windows.Forms.DataGridView()
+        Me.txtName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colJoinDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colEdit = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.colDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.DataGridViewImageColumn1 = New System.Windows.Forms.DataGridViewImageColumn()
         Me.DataGridViewImageColumn2 = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.AddEdit = New ReaLTaiizor.Controls.Button()
+        Me.AddEdit = New System.Windows.Forms.Button()
         Me.RoundedPane24 = New InformationManagement.RoundedPane2()
         Me.lblCustomers = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -52,13 +58,6 @@ Partial Class UsersAccounts
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblTotalUsers = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colJoinDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colEdit = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.colDelete = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.AddEdit = New Guna.UI2.WinForms.Guna2Button()
         CType(Me.UsersAccountData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RoundedPane24.SuspendLayout()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,7 +86,7 @@ Partial Class UsersAccounts
         Me.AllUsersbtn.FlatAppearance.BorderSize = 0
         Me.AllUsersbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AllUsersbtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AllUsersbtn.Location = New System.Drawing.Point(43, 91)
+        Me.AllUsersbtn.Location = New System.Drawing.Point(60, 91)
         Me.AllUsersbtn.Name = "AllUsersbtn"
         Me.AllUsersbtn.Size = New System.Drawing.Size(130, 35)
         Me.AllUsersbtn.TabIndex = 1
@@ -100,7 +99,7 @@ Partial Class UsersAccounts
         Me.Staffbtn.FlatAppearance.BorderSize = 0
         Me.Staffbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Staffbtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Staffbtn.Location = New System.Drawing.Point(188, 91)
+        Me.Staffbtn.Location = New System.Drawing.Point(209, 91)
         Me.Staffbtn.Name = "Staffbtn"
         Me.Staffbtn.Size = New System.Drawing.Size(130, 35)
         Me.Staffbtn.TabIndex = 2
@@ -113,7 +112,7 @@ Partial Class UsersAccounts
         Me.Employeesbtn.FlatAppearance.BorderSize = 0
         Me.Employeesbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Employeesbtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Employeesbtn.Location = New System.Drawing.Point(334, 91)
+        Me.Employeesbtn.Location = New System.Drawing.Point(356, 91)
         Me.Employeesbtn.Name = "Employeesbtn"
         Me.Employeesbtn.Size = New System.Drawing.Size(130, 35)
         Me.Employeesbtn.TabIndex = 3
@@ -126,7 +125,7 @@ Partial Class UsersAccounts
         Me.Customerbtn.FlatAppearance.BorderSize = 0
         Me.Customerbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Customerbtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Customerbtn.Location = New System.Drawing.Point(480, 91)
+        Me.Customerbtn.Location = New System.Drawing.Point(503, 91)
         Me.Customerbtn.Name = "Customerbtn"
         Me.Customerbtn.Size = New System.Drawing.Size(140, 35)
         Me.Customerbtn.TabIndex = 4
@@ -139,46 +138,45 @@ Partial Class UsersAccounts
         Me.UsersAccountData.AllowUserToDeleteRows = False
         Me.UsersAccountData.AllowUserToResizeColumns = False
         Me.UsersAccountData.AllowUserToResizeRows = False
-        Me.UsersAccountData.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.UsersAccountData.BackgroundColor = System.Drawing.Color.White
         Me.UsersAccountData.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.UsersAccountData.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.UsersAccountData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.UsersAccountData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.UsersAccountData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.UsersAccountData.ColumnHeadersHeight = 40
         Me.UsersAccountData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.UsersAccountData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.txtName, Me.colRole, Me.colStatus, Me.colJoinDate, Me.colEdit, Me.colDelete})
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.UsersAccountData.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(254, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.UsersAccountData.DefaultCellStyle = DataGridViewCellStyle3
         Me.UsersAccountData.EnableHeadersVisualStyles = False
         Me.UsersAccountData.GridColor = System.Drawing.Color.LightGray
-        Me.UsersAccountData.Location = New System.Drawing.Point(47, 267)
+        Me.UsersAccountData.Location = New System.Drawing.Point(58, 273)
         Me.UsersAccountData.Name = "UsersAccountData"
         Me.UsersAccountData.ReadOnly = True
         Me.UsersAccountData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         Me.UsersAccountData.RowHeadersVisible = False
         Me.UsersAccountData.RowHeadersWidth = 55
         Me.UsersAccountData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.White
-        Me.UsersAccountData.RowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        Me.UsersAccountData.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.UsersAccountData.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White
         Me.UsersAccountData.RowTemplate.Height = 35
         Me.UsersAccountData.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
         Me.UsersAccountData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.UsersAccountData.Size = New System.Drawing.Size(1026, 219)
+        Me.UsersAccountData.Size = New System.Drawing.Size(1214, 219)
         Me.UsersAccountData.TabIndex = 9
         '
         'txtName
@@ -261,35 +259,29 @@ Partial Class UsersAccounts
         '
         'AddEdit
         '
-        Me.AddEdit.BackColor = System.Drawing.Color.Transparent
-        Me.AddEdit.BorderColor = System.Drawing.Color.Transparent
-        Me.AddEdit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AddEdit.EnteredBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.AddEdit.EnteredColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.AddEdit.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.AddEdit.Image = Nothing
-        Me.AddEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddEdit.InactiveColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.AddEdit.Location = New System.Drawing.Point(919, 20)
+        Me.AddEdit.BackColor = System.Drawing.SystemColors.ControlText
+        Me.AddEdit.FlatAppearance.BorderSize = 0
+        Me.AddEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddEdit.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AddEdit.ForeColor = System.Drawing.Color.White
+        Me.AddEdit.Location = New System.Drawing.Point(962, 20)
         Me.AddEdit.Name = "AddEdit"
-        Me.AddEdit.PressedBorderColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
-        Me.AddEdit.PressedColor = System.Drawing.Color.FromArgb(CType(CType(165, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer))
         Me.AddEdit.Size = New System.Drawing.Size(165, 40)
         Me.AddEdit.TabIndex = 14
         Me.AddEdit.Text = "+   Add New User"
-        Me.AddEdit.TextAlignment = System.Drawing.StringAlignment.Center
+        Me.AddEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.AddEdit.UseVisualStyleBackColor = False
         '
         'RoundedPane24
         '
-        Me.RoundedPane24.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane24.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane24.Controls.Add(Me.lblCustomers)
         Me.RoundedPane24.Controls.Add(Me.Label8)
         Me.RoundedPane24.Controls.Add(Me.PictureBox7)
         Me.RoundedPane24.FillColor = System.Drawing.Color.White
-        Me.RoundedPane24.Location = New System.Drawing.Point(833, 149)
+        Me.RoundedPane24.Location = New System.Drawing.Point(899, 149)
         Me.RoundedPane24.Name = "RoundedPane24"
-        Me.RoundedPane24.Size = New System.Drawing.Size(240, 90)
+        Me.RoundedPane24.Size = New System.Drawing.Size(253, 105)
         Me.RoundedPane24.TabIndex = 12
         '
         'lblCustomers
@@ -320,7 +312,7 @@ Partial Class UsersAccounts
         '
         Me.PictureBox7.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox7.Image = Global.InformationManagement.My.Resources.Resources.user__6_
-        Me.PictureBox7.Location = New System.Drawing.Point(190, 17)
+        Me.PictureBox7.Location = New System.Drawing.Point(209, 28)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(31, 24)
         Me.PictureBox7.TabIndex = 1
@@ -328,15 +320,14 @@ Partial Class UsersAccounts
         '
         'RoundedPane23
         '
-        Me.RoundedPane23.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane23.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane23.Controls.Add(Me.lblEmployees)
         Me.RoundedPane23.Controls.Add(Me.Label7)
         Me.RoundedPane23.Controls.Add(Me.PictureBox6)
         Me.RoundedPane23.FillColor = System.Drawing.Color.White
-        Me.RoundedPane23.Location = New System.Drawing.Point(572, 149)
+        Me.RoundedPane23.Location = New System.Drawing.Point(624, 149)
         Me.RoundedPane23.Name = "RoundedPane23"
-        Me.RoundedPane23.Size = New System.Drawing.Size(240, 90)
+        Me.RoundedPane23.Size = New System.Drawing.Size(253, 105)
         Me.RoundedPane23.TabIndex = 13
         '
         'lblEmployees
@@ -367,7 +358,7 @@ Partial Class UsersAccounts
         '
         Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox6.Image = Global.InformationManagement.My.Resources.Resources.user__7_
-        Me.PictureBox6.Location = New System.Drawing.Point(191, 19)
+        Me.PictureBox6.Location = New System.Drawing.Point(209, 28)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(31, 24)
         Me.PictureBox6.TabIndex = 1
@@ -375,15 +366,14 @@ Partial Class UsersAccounts
         '
         'RoundedPane22
         '
-        Me.RoundedPane22.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane22.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane22.Controls.Add(Me.lblStaffs)
         Me.RoundedPane22.Controls.Add(Me.Label6)
         Me.RoundedPane22.Controls.Add(Me.PictureBox5)
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
-        Me.RoundedPane22.Location = New System.Drawing.Point(311, 149)
+        Me.RoundedPane22.Location = New System.Drawing.Point(345, 149)
         Me.RoundedPane22.Name = "RoundedPane22"
-        Me.RoundedPane22.Size = New System.Drawing.Size(240, 90)
+        Me.RoundedPane22.Size = New System.Drawing.Size(253, 105)
         Me.RoundedPane22.TabIndex = 12
         '
         'lblStaffs
@@ -414,7 +404,7 @@ Partial Class UsersAccounts
         '
         Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
-        Me.PictureBox5.Location = New System.Drawing.Point(192, 15)
+        Me.PictureBox5.Location = New System.Drawing.Point(209, 28)
         Me.PictureBox5.Name = "PictureBox5"
         Me.PictureBox5.Size = New System.Drawing.Size(31, 24)
         Me.PictureBox5.TabIndex = 1
@@ -422,22 +412,21 @@ Partial Class UsersAccounts
         '
         'RoundedPane21
         '
-        Me.RoundedPane21.BackColor = System.Drawing.Color.Transparent
         Me.RoundedPane21.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane21.Controls.Add(Me.PictureBox1)
         Me.RoundedPane21.Controls.Add(Me.lblTotalUsers)
         Me.RoundedPane21.Controls.Add(Me.Label2)
         Me.RoundedPane21.FillColor = System.Drawing.Color.White
-        Me.RoundedPane21.Location = New System.Drawing.Point(47, 149)
+        Me.RoundedPane21.Location = New System.Drawing.Point(61, 149)
         Me.RoundedPane21.Name = "RoundedPane21"
-        Me.RoundedPane21.Size = New System.Drawing.Size(240, 90)
+        Me.RoundedPane21.Size = New System.Drawing.Size(253, 105)
         Me.RoundedPane21.TabIndex = 11
         '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = Global.InformationManagement.My.Resources.Resources.user__4_
-        Me.PictureBox1.Location = New System.Drawing.Point(189, 18)
+        Me.PictureBox1.Location = New System.Drawing.Point(199, 28)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(31, 24)
         Me.PictureBox1.TabIndex = 1
@@ -466,86 +455,13 @@ Partial Class UsersAccounts
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Total Users"
         '
-        'txtName
-        '
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.txtName.DefaultCellStyle = DataGridViewCellStyle14
-        Me.txtName.HeaderText = "Name"
-        Me.txtName.MinimumWidth = 6
-        Me.txtName.Name = "txtName"
-        Me.txtName.ReadOnly = True
-        Me.txtName.Width = 220
-        '
-        'colRole
-        '
-        Me.colRole.HeaderText = "Role"
-        Me.colRole.MinimumWidth = 6
-        Me.colRole.Name = "colRole"
-        Me.colRole.ReadOnly = True
-        Me.colRole.Width = 200
-        '
-        'colStatus
-        '
-        Me.colStatus.HeaderText = "Status"
-        Me.colStatus.MinimumWidth = 6
-        Me.colStatus.Name = "colStatus"
-        Me.colStatus.ReadOnly = True
-        Me.colStatus.Width = 200
-        '
-        'colJoinDate
-        '
-        Me.colJoinDate.HeaderText = "Join Date"
-        Me.colJoinDate.MinimumWidth = 6
-        Me.colJoinDate.Name = "colJoinDate"
-        Me.colJoinDate.ReadOnly = True
-        Me.colJoinDate.Width = 220
-        '
-        'colEdit
-        '
-        Me.colEdit.HeaderText = "Actions"
-        Me.colEdit.Image = Global.InformationManagement.My.Resources.Resources.edit
-        Me.colEdit.MinimumWidth = 6
-        Me.colEdit.Name = "colEdit"
-        Me.colEdit.ReadOnly = True
-        Me.colEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colEdit.Width = 200
-        '
-        'colDelete
-        '
-        Me.colDelete.HeaderText = ""
-        Me.colDelete.Image = Global.InformationManagement.My.Resources.Resources.delete
-        Me.colDelete.MinimumWidth = 6
-        Me.colDelete.Name = "colDelete"
-        Me.colDelete.ReadOnly = True
-        Me.colDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDelete.Width = 200
-        '
-        'AddEdit
-        '
-        Me.AddEdit.BorderRadius = 8
-        Me.AddEdit.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.AddEdit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.AddEdit.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.AddEdit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.AddEdit.FillColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.AddEdit.FocusedColor = System.Drawing.Color.DarkSlateGray
-        Me.AddEdit.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.AddEdit.ForeColor = System.Drawing.Color.White
-        Me.AddEdit.Location = New System.Drawing.Point(916, 28)
-        Me.AddEdit.Name = "AddEdit"
-        Me.AddEdit.Size = New System.Drawing.Size(153, 46)
-        Me.AddEdit.TabIndex = 15
-        Me.AddEdit.Text = "+   Add New User"
-        '
         'UsersAccounts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1110, 544)
+        Me.ClientSize = New System.Drawing.Size(1265, 544)
         Me.Controls.Add(Me.AddEdit)
         Me.Controls.Add(Me.RoundedPane24)
         Me.Controls.Add(Me.RoundedPane23)
@@ -601,7 +517,7 @@ Partial Class UsersAccounts
     Friend WithEvents lblStaffs As Label
     Friend WithEvents lblEmployees As Label
     Friend WithEvents lblCustomers As Label
-    Friend WithEvents AddEdit As ReaLTaiizor.Controls.Button
+    Friend WithEvents AddEdit As Button
     Friend WithEvents DataGridViewImageColumn1 As DataGridViewImageColumn
     Friend WithEvents DataGridViewImageColumn2 As DataGridViewImageColumn
     Friend WithEvents txtName As DataGridViewTextBoxColumn
@@ -610,5 +526,4 @@ Partial Class UsersAccounts
     Friend WithEvents colJoinDate As DataGridViewTextBoxColumn
     Friend WithEvents colEdit As DataGridViewImageColumn
     Friend WithEvents colDelete As DataGridViewImageColumn
-    Friend WithEvents AddEdit As Guna.UI2.WinForms.Guna2Button
 End Class
