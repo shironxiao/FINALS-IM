@@ -13,9 +13,6 @@ Public Class FormAddNewmenuItem
     Private SelectedImagePath As String = Nothing
     Private SelectedImageBytes As Byte() = Nothing
 
-    ' Store the selected image file path
-    Private SelectedImagePath As String = Nothing
-
     Private Sub FormAddNewmenuItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeForm()
         EnsureUploadFolderExists()
@@ -247,14 +244,7 @@ Public Class FormAddNewmenuItem
     Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
         If Not ValidateForm() Then Exit Sub
 
-        If Not ValidateForm() Then
-            Exit Sub
-        End If
-
         Try
-            ' Save image first before database operation
-            imagePath = SaveImageToFolder()
-
             openConn()
 
             ' Insert product without image first
@@ -282,9 +272,6 @@ Public Class FormAddNewmenuItem
             Else
                 cmd.Parameters.AddWithValue("@ProductCode", ProductCode.Text.Trim())
             End If
-
-            cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
-            cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
 
             cmd.ExecuteNonQuery()
 
