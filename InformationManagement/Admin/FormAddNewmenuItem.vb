@@ -10,11 +10,9 @@ Public Class FormAddNewmenuItem
     Private Const UPLOAD_DIR As String = "C:\xampp\htdocs\TrialWeb\TrialWorkIM\Tabeya\uploads\products\"
     Private Const WEB_URL As String = "http://localhost/TrialWeb/TrialWorkIM/Tabeya/uploads/products/"
 
+    ' Store the selected image file path and bytes
     Private SelectedImagePath As String = Nothing
     Private SelectedImageBytes As Byte() = Nothing
-
-    ' Store the selected image file path
-    Private SelectedImagePath As String = Nothing
 
     Private Sub FormAddNewmenuItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeForm()
@@ -247,9 +245,7 @@ Public Class FormAddNewmenuItem
     Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
         If Not ValidateForm() Then Exit Sub
 
-        If Not ValidateForm() Then
-            Exit Sub
-        End If
+        Dim imagePath As String = Nothing
 
         Try
             ' Save image first before database operation
@@ -282,9 +278,6 @@ Public Class FormAddNewmenuItem
             Else
                 cmd.Parameters.AddWithValue("@ProductCode", ProductCode.Text.Trim())
             End If
-
-            cmd.Parameters.AddWithValue("@PrepTime", PrepTime.Text.Trim())
-            cmd.Parameters.AddWithValue("@MealTime", cmbMealTime.Text)
 
             cmd.ExecuteNonQuery()
 
