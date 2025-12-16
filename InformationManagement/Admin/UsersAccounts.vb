@@ -1,273 +1,362 @@
-﻿Imports System.Security.Policy
-Imports MySqlConnector
+﻿Imports MySqlConnector
 
 Public Class UsersAccounts
+    ' Pagination variables
+    Private currentPage As Integer = 1
+    Private pageSize As Integer = 20
+    Private totalRecords As Integer = 0
+    Private totalPages As Integer = 0
+    Private allStaffData As DataTable
+    Private initialLoadComplete As Boolean = False
+
     Private Sub UsersAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadUsers()
-        UpdateUserCounts()
+        InitializeDataGridView()
+        RoundButton(Adduserbtn)
+        RoundPaginationButtons()
+        LoadStaffData()
+        initialLoadComplete = True
+        AdjustControlsToScreen()
     End Sub
 
-    Public Sub LoadUsers()
-        Try
-            ' Suspend layout to prevent flickering and improve performance
-            UsersAccountData.SuspendLayout()
+    Private Sub UsersAccounts_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If initialLoadComplete Then
+            AdjustControlsToScreen()
+        End If
+    End Sub
 
+    Private Sub AdjustControlsToScreen()
+        Try
+            ' Get the form's client area dimensions
+            Dim formWidth As Integer = Me.ClientSize.Width
+            Dim formHeight As Integer = Me.ClientSize.Height
+
+            ' Set margins
+            Dim leftMargin As Integer = 30
+            Dim rightMargin As Integer = 30
+            Dim topMargin As Integer = 30
+
+            ' Title Label
+            Label1.Location = New Point(leftMargin, topMargin)
+
+            ' Stats Card
+            RoundedPane22.Location = New Point(leftMargin, Label1.Bottom + 20)
+            Dim statsCardWidth As Integer = Math.Min(300, (formWidth - leftMargin - rightMargin) \ 3)
+            RoundedPane22.Width = statsCardWidth
+
+            ' Add User Button (aligned to right)
+            Adduserbtn.Location = New Point(formWidth - rightMargin - Adduserbtn.Width, RoundedPane22.Top + 10)
+
+            ' DataGridView - Calculate available space
+            Dim gridTop As Integer = RoundedPane22.Bottom + 20
+            Dim gridWidth As Integer = formWidth - leftMargin - rightMargin
+            Dim paginationHeight As Integer = 60
+            Dim gridHeight As Integer = formHeight - gridTop - paginationHeight - 20
+
+            UsersAccountData.Location = New Point(leftMargin, gridTop)
+            UsersAccountData.Size = New Size(gridWidth, gridHeight)
+
+            ' Adjust DataGridView column widths proportionally
+            AdjustColumnWidths()
+
+            ' Pagination Panel
+            PaginationPanel.Location = New Point(leftMargin, UsersAccountData.Bottom + 10)
+            PaginationPanel.Width = gridWidth
+
+            ' Center pagination controls
+            CenterPaginationControls()
+
+        Catch ex As Exception
+            ' Silently handle resize errors to prevent crashes
+            Debug.WriteLine("Resize error: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub AdjustColumnWidths()
+        Try
+            If UsersAccountData.Columns.Count = 0 Then Return
+
+            Dim totalWidth As Integer = UsersAccountData.Width - 20 ' Account for scrollbar
+            Dim actionColumnWidth As Integer = 90
+
+            ' Calculate available width for data columns
+            Dim availableWidth As Integer = totalWidth - (actionColumnWidth * 2) ' 2 action columns
+
+            ' Set column widths proportionally
+            UsersAccountData.Columns("txtName").Width = CInt(availableWidth * 0.35) ' 35%
+            UsersAccountData.Columns("colRole").Width = CInt(availableWidth * 0.3) ' 30%
+            UsersAccountData.Columns("colStatus").Width = CInt(availableWidth * 0.15) ' 15%
+            UsersAccountData.Columns("colJoinDate").Width = CInt(availableWidth * 0.2) ' 20%
+            UsersAccountData.Columns("colEdit").Width = actionColumnWidth
+            UsersAccountData.Columns("colDelete").Width = actionColumnWidth
+
+        Catch ex As Exception
+            Debug.WriteLine("Column width adjustment error: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CenterPaginationControls()
+        Try
+            Dim panelWidth As Integer = PaginationPanel.Width
+            Dim totalButtonWidth As Integer = btnFirstPage.Width + btnPreviousPage.Width +
+                                              btnNextPage.Width + btnLastPage.Width
+            Dim spacing As Integer = 10
+            Dim labelWidth As Integer = 100
+
+            Dim totalWidth As Integer = totalButtonWidth + (spacing * 3) + labelWidth
+            Dim startX As Integer = (panelWidth - totalWidth) \ 2
+
+            btnFirstPage.Location = New Point(startX, btnFirstPage.Top)
+            btnPreviousPage.Location = New Point(btnFirstPage.Right + spacing, btnPreviousPage.Top)
+            lblPageInfo.Location = New Point(btnPreviousPage.Right + spacing, lblPageInfo.Top)
+            lblPageInfo.Width = labelWidth
+            btnNextPage.Location = New Point(lblPageInfo.Right + spacing, btnNextPage.Top)
+            btnLastPage.Location = New Point(btnNextPage.Right + spacing, btnLastPage.Top)
+
+        Catch ex As Exception
+            Debug.WriteLine("Pagination centering error: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub InitializeDataGridView()
+        ' Enable double buffering for smoother rendering
+        UsersAccountData.DoubleBuffered(True)
+        UsersAccountData.SuspendLayout()
+        UsersAccountData.Rows.Clear()
+        UsersAccountData.ResumeLayout()
+
+        ' Set alternating row colors for better readability
+        UsersAccountData.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 252, 255)
+
+        ' Remove selection highlighting on focus
+        UsersAccountData.DefaultCellStyle.SelectionBackColor = Color.FromArgb(240, 244, 250)
+        UsersAccountData.DefaultCellStyle.SelectionForeColor = Color.Black
+    End Sub
+
+    Private Sub LoadStaffData()
+        Try
             openConn()
-            ' Query only employees (staff and admin)
+
+            ' Load only staff members with improved query
             Dim query As String = "
                 SELECT 
-                    e.EmployeeID as ID,
-                    e.FirstName COLLATE utf8mb4_general_ci as FirstName,
-                    e.LastName COLLATE utf8mb4_general_ci as LastName,
-                    e.Position COLLATE utf8mb4_general_ci as Role,
-                    e.EmploymentStatus COLLATE utf8mb4_general_ci as Status,
-                    e.HireDate as DateCreated
-                FROM employee e
-                WHERE LOWER(e.Position) LIKE '%staff%' OR LOWER(e.Position) = 'admin'
-                ORDER BY DateCreated DESC"
+                    EmployeeID as ID,
+                    CONCAT(FirstName, ' ', LastName) as FullName,
+                    Position as Role,
+                    EmploymentStatus as Status,
+                    HireDate as DateCreated
+                FROM employee
+                WHERE Position LIKE '%Staff%'
+                ORDER BY HireDate DESC"
 
             Dim cmd As New MySqlCommand(query, conn)
             Dim adapter As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable()
-            adapter.Fill(dt)
+            allStaffData = New DataTable()
+            adapter.Fill(allStaffData)
 
-            UsersAccountData.Rows.Clear()
-            For Each row As DataRow In dt.Rows
-                Dim rowIndex As Integer = UsersAccountData.Rows.Add()
-                Dim newRow As DataGridViewRow = UsersAccountData.Rows(rowIndex)
+            totalRecords = allStaffData.Rows.Count
+            totalPages = If(totalRecords > 0, Math.Ceiling(totalRecords / pageSize), 1)
 
-                ' Combine FirstName and LastName for display
-                Dim fullName As String = ""
-                If row("FirstName") IsNot DBNull.Value Then
-                    fullName = row("FirstName").ToString()
-                End If
-                If row("LastName") IsNot DBNull.Value Then
-                    If fullName <> "" Then fullName &= " "
-                    fullName &= row("LastName").ToString()
-                End If
+            ' Update staff count
+            lblStaffs.Text = totalRecords.ToString()
 
-                newRow.Cells("txtName").Value = fullName
-                newRow.Cells("colRole").Value = If(row("Role") IsNot DBNull.Value, row("Role").ToString(), "")
-                newRow.Cells("colStatus").Value = If(row("Status") IsNot DBNull.Value, row("Status").ToString(), "")
-                newRow.Cells("colJoinDate").Value = If(row("DateCreated") IsNot DBNull.Value, Convert.ToDateTime(row("DateCreated")).ToString("MMMM dd, yyyy"), "")
+            ' Load first page
+            If totalRecords > 0 Then
+                LoadPage(1)
+            Else
+                UsersAccountData.Rows.Clear()
+                UpdatePaginationControls()
+            End If
 
-                ' Store ID and Role type for edit/delete operations
-                newRow.Tag = New With {.ID = row("ID"), .Role = row("Role").ToString()}
-            Next
-
-            ' Resume layout
-            UsersAccountData.ResumeLayout()
-
+        Catch ex As MySqlException
+            MessageBox.Show("Database error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            MessageBox.Show("Error loading users: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error loading staff data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             closeConn()
         End Try
     End Sub
 
-    Private Sub UsersAccountData_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles UsersAccountData.CellContentClick
-        If e.RowIndex >= 0 Then
-            Dim selectedRow As DataGridViewRow = UsersAccountData.Rows(e.RowIndex)
-            Dim username As String = If(selectedRow.Cells("txtName").Value IsNot Nothing, selectedRow.Cells("txtName").Value.ToString(), "Unknown")
+    Private Sub LoadPage(pageNumber As Integer)
+        If allStaffData Is Nothing OrElse allStaffData.Rows.Count = 0 Then
+            UpdatePaginationControls()
+            Return
+        End If
 
-            Dim userInfo As Object = selectedRow.Tag
-            Dim userID As Integer = 0
-            Dim userRole As String = ""
+        ' Validate page number
+        If pageNumber < 1 Then pageNumber = 1
+        If pageNumber > totalPages Then pageNumber = totalPages
 
-            If userInfo IsNot Nothing Then
-                userID = userInfo.ID
-                userRole = userInfo.Role.ToString()
-            End If
+        currentPage = pageNumber
+        Dim startIndex As Integer = (currentPage - 1) * pageSize
+        Dim endIndex As Integer = Math.Min(startIndex + pageSize, totalRecords)
 
-            ' --- EDIT BUTTON ---
-            If e.ColumnIndex = UsersAccountData.Columns("colEdit").Index Then
-                ' Edit employee (Staff/Admin)
-                Dim editForm As New FormEdit()
-                editForm.LoadUserData(userID, username, userRole)
-                editForm.StartPosition = FormStartPosition.CenterScreen
+        ' Suspend layout for smoother loading
+        UsersAccountData.SuspendLayout()
+        UsersAccountData.Rows.Clear()
 
-                If editForm.ShowDialog() = DialogResult.OK Then
-                    ' Refresh the list after editing
-                    LoadUsers()
-                    UpdateUserCounts()
-                End If
+        Try
+            ' Use bulk operation for better performance
+            For i As Integer = startIndex To endIndex - 1
+                Dim row As DataRow = allStaffData.Rows(i)
 
-                ' --- DELETE BUTTON ---
-            ElseIf e.ColumnIndex = UsersAccountData.Columns("colDelete").Index Then
-                Dim result As DialogResult = MessageBox.Show(
-                    "Are you sure you want to delete " & username & "?",
-                    "Confirm Delete",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                )
+                ' Get full name
+                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().Trim(), "N/A")
 
-                If result = DialogResult.Yes Then
+                ' Get role
+                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString(), "N/A")
+
+                ' Get status
+                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString(), "N/A")
+
+                ' Format join date
+                Dim joinDate As String = "N/A"
+                If row("DateCreated") IsNot DBNull.Value Then
                     Try
-                        openConn()
-
-                        ' Delete from employee table
-                        Dim cmdEmployee As New MySqlCommand("DELETE FROM employee WHERE EmployeeID = @id", conn)
-                        cmdEmployee.Parameters.AddWithValue("@id", userID)
-                        cmdEmployee.ExecuteNonQuery()
-
-                        ' Also delete from user_accounts if exists
-                        Dim cmdUser As New MySqlCommand("DELETE FROM user_accounts WHERE username IN (SELECT CONCAT(FirstName, LastName) FROM employee WHERE EmployeeID = @id)", conn)
-                        cmdUser.Parameters.AddWithValue("@id", userID)
-                        cmdUser.ExecuteNonQuery()
-
-                        closeConn()
-
-                        LoadUsers()
-                        UpdateUserCounts()
-                        MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Catch ex As Exception
-                        MessageBox.Show("Error deleting user: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Finally
-                        closeConn()
+                        joinDate = Convert.ToDateTime(row("DateCreated")).ToString("MMMM dd, yyyy")
+                    Catch
+                        joinDate = row("DateCreated").ToString()
                     End Try
                 End If
+
+                ' Add row to DataGridView
+                Dim rowIndex As Integer = UsersAccountData.Rows.Add()
+                Dim newRow As DataGridViewRow = UsersAccountData.Rows(rowIndex)
+
+                newRow.Cells("txtName").Value = fullName
+                newRow.Cells("colRole").Value = role
+                newRow.Cells("colStatus").Value = status
+                newRow.Cells("colJoinDate").Value = joinDate
+
+                ' Store ID for edit/delete operations
+                newRow.Tag = If(row("ID") IsNot DBNull.Value, Convert.ToInt32(row("ID")), 0)
+            Next
+
+        Catch ex As Exception
+            MessageBox.Show("Error displaying data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            UsersAccountData.ResumeLayout()
+            UpdatePaginationControls()
+        End Try
+    End Sub
+
+    Private Sub UpdatePaginationControls()
+        ' Update page info label
+        lblPageInfo.Text = $"Page {currentPage} of {totalPages}"
+
+        ' Enable/disable buttons based on current page
+        btnFirstPage.Enabled = (currentPage > 1)
+        btnPreviousPage.Enabled = (currentPage > 1)
+        btnNextPage.Enabled = (currentPage < totalPages)
+        btnLastPage.Enabled = (currentPage < totalPages)
+
+        ' Visual feedback for disabled buttons
+        btnFirstPage.BackColor = If(btnFirstPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnPreviousPage.BackColor = If(btnPreviousPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnNextPage.BackColor = If(btnNextPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnLastPage.BackColor = If(btnLastPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+    End Sub
+
+    Private Sub UsersAccountData_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles UsersAccountData.CellContentClick
+        If e.RowIndex < 0 Then Return
+
+        Dim selectedRow As DataGridViewRow = UsersAccountData.Rows(e.RowIndex)
+        Dim username As String = If(selectedRow.Cells("txtName").Value IsNot Nothing,
+                                    selectedRow.Cells("txtName").Value.ToString(), "Unknown")
+
+        Dim userID As Integer = If(selectedRow.Tag IsNot Nothing, CInt(selectedRow.Tag), 0)
+
+        If userID = 0 Then
+            MessageBox.Show("Invalid user ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        ' EDIT BUTTON
+        If e.ColumnIndex = UsersAccountData.Columns("colEdit").Index Then
+            MessageBox.Show($"Edit functionality for {username} (ID: {userID}) coming soon!",
+                          "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' DELETE BUTTON
+        ElseIf e.ColumnIndex = UsersAccountData.Columns("colDelete").Index Then
+            Dim result As DialogResult = MessageBox.Show(
+                $"Are you sure you want to delete {username}?{vbNewLine}{vbNewLine}This action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            )
+
+            If result = DialogResult.Yes Then
+                DeleteStaffMember(userID, username)
             End If
         End If
     End Sub
 
-    ' This method should be called from your employee edit form after saving
-    Public Shared Sub SyncEmployeeToUserAccount(employeeID As Integer)
+    Private Sub DeleteStaffMember(userID As Integer, username As String)
         Try
-            Dim connLocal As MySqlConnection = Nothing
-            Try
-                connLocal = New MySqlConnection("your_connection_string_here") ' Use your connection string
-                connLocal.Open()
-            Catch
-                ' If static connection method exists
-                openConn()
-                connLocal = conn
-            End Try
+            openConn()
+            Dim query As String = "DELETE FROM employee WHERE EmployeeID = @id"
+            Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@id", userID)
 
-            ' Get employee details
-            Dim queryEmp As String = "SELECT FirstName, LastName, Email, Position FROM employee WHERE EmployeeID = @id"
-            Dim cmdEmp As New MySqlCommand(queryEmp, connLocal)
-            cmdEmp.Parameters.AddWithValue("@id", employeeID)
-            Dim reader As MySqlDataReader = cmdEmp.ExecuteReader()
+            Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
-            If reader.Read() Then
-                Dim firstName As String = reader("FirstName").ToString()
-                Dim lastName As String = reader("LastName").ToString()
-                Dim email As String = reader("Email").ToString()
-                Dim position As String = reader("Position").ToString()
-                reader.Close()
-
-                ' Only create user account if position contains "staff" or is "admin"
-                If position.ToLower().Contains("staff") OrElse position.ToLower() = "admin" Then
-                    Dim username As String = firstName & lastName
-                    Dim defaultPassword As String = "staff123" ' Default password
-
-                    ' Check if user account already exists
-                    Dim queryCheck As String = "SELECT COUNT(*) FROM user_accounts WHERE username = @username"
-                    Dim cmdCheck As New MySqlCommand(queryCheck, connLocal)
-                    cmdCheck.Parameters.AddWithValue("@username", username)
-                    Dim exists As Integer = Convert.ToInt32(cmdCheck.ExecuteScalar())
-
-                    If exists > 0 Then
-                        ' Update existing user account
-                        Dim queryUpdate As String = "UPDATE user_accounts SET position = @position WHERE username = @username"
-                        Dim cmdUpdate As New MySqlCommand(queryUpdate, connLocal)
-                        cmdUpdate.Parameters.AddWithValue("@position", position)
-                        cmdUpdate.Parameters.AddWithValue("@username", username)
-                        cmdUpdate.ExecuteNonQuery()
-                    Else
-                        ' Create new user account
-                        Dim queryInsert As String = "INSERT INTO user_accounts (name, position, username, password, type, created_at) VALUES (@name, @position, @username, @password, @type, NOW())"
-                        Dim cmdInsert As New MySqlCommand(queryInsert, connLocal)
-                        cmdInsert.Parameters.AddWithValue("@name", firstName & " " & lastName)
-                        cmdInsert.Parameters.AddWithValue("@position", position)
-                        cmdInsert.Parameters.AddWithValue("@username", username)
-                        cmdInsert.Parameters.AddWithValue("@password", defaultPassword)
-
-                        ' Set type based on position
-                        Dim userType As Integer = If(position.ToLower() = "admin", 1, 2) ' 1=Admin, 2=Staff
-                        cmdInsert.Parameters.AddWithValue("@type", userType)
-
-                        cmdInsert.ExecuteNonQuery()
-                    End If
-                End If
+            If rowsAffected > 0 Then
+                MessageBox.Show($"{username} has been deleted successfully.",
+                              "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LoadStaffData() ' Reload data
             Else
-                reader.Close()
+                MessageBox.Show("No records were deleted.",
+                              "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
+        Catch ex As MySqlException
+            MessageBox.Show($"Database error while deleting staff member: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
-            MessageBox.Show("Error syncing employee to user account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show($"Error deleting staff member: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            Try
-                closeConn()
-            Catch
-            End Try
+            closeConn()
         End Try
     End Sub
 
-    Private Sub SetActiveButton(activeBtn As Button)
-        Dim buttons() As Button = {AllUsersbtn, Staffbtn, Employeesbtn}
-
-        For Each btn As Button In buttons
-            btn.BackColor = Color.White
-            btn.ForeColor = Color.Black
-            btn.FlatAppearance.BorderSize = 0
-        Next
-
-        activeBtn.BackColor = Color.FromArgb(25, 25, 35)
-        activeBtn.ForeColor = Color.White
+    ' Pagination button handlers
+    Private Sub btnFirstPage_Click(sender As Object, e As EventArgs) Handles btnFirstPage.Click
+        If currentPage > 1 Then
+            LoadPage(1)
+        End If
     End Sub
 
-    Private Sub AllUsersbtn_Click(sender As Object, e As EventArgs) Handles AllUsersbtn.Click
-        SetActiveButton(AllUsersbtn)
-        For Each row As DataGridViewRow In UsersAccountData.Rows
-            row.Visible = True
-        Next
+    Private Sub btnPreviousPage_Click(sender As Object, e As EventArgs) Handles btnPreviousPage.Click
+        If currentPage > 1 Then
+            LoadPage(currentPage - 1)
+        End If
     End Sub
 
-    Private Sub Staffbtn_Click(sender As Object, e As EventArgs) Handles Staffbtn.Click
-        SetActiveButton(Staffbtn)
-        For Each row As DataGridViewRow In UsersAccountData.Rows
-            If row.Cells("colRole").Value IsNot Nothing Then
-                Dim role As String = row.Cells("colRole").Value.ToString().ToLower()
-                row.Visible = (role.Contains("staff"))
-            End If
-        Next
+    Private Sub btnNextPage_Click(sender As Object, e As EventArgs) Handles btnNextPage.Click
+        If currentPage < totalPages Then
+            LoadPage(currentPage + 1)
+        End If
     End Sub
 
-    Private Sub Employeesbtn_Click(sender As Object, e As EventArgs) Handles Employeesbtn.Click
-        SetActiveButton(Employeesbtn)
-        For Each row As DataGridViewRow In UsersAccountData.Rows
-            row.Visible = True ' Show all employees (no customers to filter out)
-        Next
+    Private Sub btnLastPage_Click(sender As Object, e As EventArgs) Handles btnLastPage.Click
+        If currentPage < totalPages Then
+            LoadPage(totalPages)
+        End If
     End Sub
 
-    Private Sub UpdateUserCounts()
-        Dim totalUsers As Integer = UsersAccountData.Rows.Count
-        Dim staffCount As Integer = 0
-        Dim employeeCount As Integer = 0
+    Private Sub Adduserbtn_Click(sender As Object, e As EventArgs) Handles Adduserbtn.Click
+        Dim addUserForm As New FormAddUser()
+        addUserForm.StartPosition = FormStartPosition.CenterScreen
 
-        For Each row As DataGridViewRow In UsersAccountData.Rows
-            If Not row.IsNewRow AndAlso row.Cells("colRole").Value IsNot Nothing Then
-                Dim role As String = row.Cells("colRole").Value.ToString().ToLower()
-
-                If role.Contains("staff") Then
-                    staffCount += 1
-                Else
-                    employeeCount += 1
-                End If
-            End If
-        Next
-
-        lblTotalUsers.Text = totalUsers.ToString()
-        lblStaffs.Text = staffCount.ToString()
-        lblEmployees.Text = employeeCount.ToString()
+        If addUserForm.ShowDialog() = DialogResult.OK Then
+            ' Refresh data after adding new staff
+            LoadStaffData()
+        End If
     End Sub
 
-    ' Removed RowsAdded and RowsRemoved events to prevent infinite loops
-    ' UpdateUserCounts is called manually after LoadUsers()
-
+    ' UI Helper Methods
     Private Sub RoundButton(btn As Button)
-        Dim radius As Integer = 12
+        Dim radius As Integer = 10
         Dim path As New Drawing2D.GraphicsPath()
         path.StartFigure()
         path.AddArc(New Rectangle(0, 0, radius, radius), 180, 90)
@@ -278,23 +367,32 @@ Public Class UsersAccounts
         btn.Region = New Region(path)
     End Sub
 
-    Private Sub FormDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        RoundButton(AllUsersbtn)
-        RoundButton(Staffbtn)
-        RoundButton(Employeesbtn)
-        SetActiveButton(AllUsersbtn)
-        RoundButton(AddEdit)
+    Private Sub RoundPaginationButtons()
+        RoundButton(btnFirstPage)
+        RoundButton(btnPreviousPage)
+        RoundButton(btnNextPage)
+        RoundButton(btnLastPage)
     End Sub
 
-    Private Sub AddEdit_Click(sender As Object, e As EventArgs) Handles AddEdit.Click
-        Dim addEditForm As New FormEdit()
-        addEditForm.StartPosition = FormStartPosition.CenterScreen
+    ' Public methods for external refresh
+    Public Sub RefreshData()
+        LoadStaffData()
+    End Sub
 
-        If addEditForm.ShowDialog() = DialogResult.OK Then
-            ' Refresh the list after adding/editing
-            LoadUsers()
-            UpdateUserCounts()
+    Public Sub LoadUsers()
+        LoadStaffData()
+    End Sub
+End Class
+
+' Extension module for DataGridView double buffering
+Module DataGridViewExtensions
+    <System.Runtime.CompilerServices.Extension()>
+    Public Sub DoubleBuffered(ByVal dgv As DataGridView, ByVal setting As Boolean)
+        Dim dgvType As Type = dgv.GetType()
+        Dim pi As Reflection.PropertyInfo = dgvType.GetProperty("DoubleBuffered",
+            Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
+        If pi IsNot Nothing Then
+            pi.SetValue(dgv, setting, Nothing)
         End If
     End Sub
-
-End Class
+End Module
