@@ -10,6 +10,7 @@ Public Class FormAddNewmenuItem
     Private Const UPLOAD_DIR As String = "C:\xampp\htdocs\TrialWeb\TrialWorkIM\Tabeya\uploads\products\"
     Private Const WEB_URL As String = "http://localhost/TrialWeb/TrialWorkIM/Tabeya/uploads/products/"
 
+    ' Store the selected image file path and bytes
     Private SelectedImagePath As String = Nothing
     Private SelectedImageBytes As Byte() = Nothing
 
@@ -243,6 +244,10 @@ Public Class FormAddNewmenuItem
     ' ================================
     Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
         If Not ValidateForm() Then Exit Sub
+
+        If Not ValidateForm() Then
+            Exit Sub
+        End If
 
         Try
             openConn()
