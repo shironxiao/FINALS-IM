@@ -747,6 +747,20 @@ Public Class MenuItems
         End Try
     End Sub
 
+    ' =======================================================
+    ' 🥘 CHECK INGREDIENTS BUTTON - NEW FEATURE
+    ' =======================================================
+    Private Sub btnCheckIngredients_Click(sender As Object, e As EventArgs) Handles btnCheckIngredients.Click
+        Try
+            Dim ingredientsForm As New FormCheckIngredients()
+            ingredientsForm.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show("Error opening ingredients viewer: " & ex.Message & vbCrLf & vbCrLf &
+                          "Please ensure FormCheckIngredients.vb exists in your project.",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Private Sub DataGridMenu_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataGridMenu.DataBindingComplete
         If DataGridMenu.Columns.Contains("ProductID") Then
             DataGridMenu.Columns("ProductID").Visible = False

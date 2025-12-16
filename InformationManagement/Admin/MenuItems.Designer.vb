@@ -2,7 +2,6 @@
 Partial Class MenuItems
     Inherits System.Windows.Forms.Form
 
-    'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,258 +13,145 @@ Partial Class MenuItems
         End Try
     End Sub
 
-    'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
+
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
+
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.btnToggleAvailability = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.AddMenuItemsbtn = New System.Windows.Forms.Button()
+        Me.btnCheckIngredients = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
+
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Category = New System.Windows.Forms.ComboBox()
         Me.lblFilter = New System.Windows.Forms.Label()
+
         Me.DataGridMenu = New System.Windows.Forms.DataGridView()
+
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblTotalItems = New System.Windows.Forms.Label()
-        Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        CType(Me.DataGridMenu, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'Panel1
-        '
+
+        ' ===== Panel1 =====
         Me.Panel1.BackColor = System.Drawing.Color.GhostWhite
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1028, 79)
-        Me.Panel1.TabIndex = 0
-        '
-        'Label1
-        '
+        Me.Panel1.Size = New System.Drawing.Size(1250, 79)
+
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold)
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(22, 21)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(373, 40)
-        Me.Label1.TabIndex = 0
         Me.Label1.Text = "Menu Items Management"
-        '
-        'Panel2
-        '
+
+        ' ===== Panel2 =====
         Me.Panel2.BackColor = System.Drawing.Color.GhostWhite
-        Me.Panel2.Controls.Add(Me.btnExport)
-        Me.Panel2.Controls.Add(Me.btnToggleAvailability)
-        Me.Panel2.Controls.Add(Me.btnRefresh)
-        Me.Panel2.Controls.Add(Me.AddMenuItemsbtn)
-        Me.Panel2.Controls.Add(Me.txtSearch)
-        Me.Panel2.Controls.Add(Me.lblSearch)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 79)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(9)
-        Me.Panel2.Size = New System.Drawing.Size(1028, 61)
-        Me.Panel2.TabIndex = 1
-        '
-        'btnExport
-        '
-        Me.btnExport.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(123, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExport.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.btnExport.ForeColor = System.Drawing.Color.White
-        Me.btnExport.Location = New System.Drawing.Point(1243, 16)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(111, 30)
-        Me.btnExport.TabIndex = 5
-        Me.btnExport.Text = "📊 Export CSV"
-        Me.btnExport.UseVisualStyleBackColor = False
-        '
-        'btnToggleAvailability
-        '
-        Me.btnToggleAvailability.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(193, Byte), Integer), CType(CType(7, Byte), Integer))
-        Me.btnToggleAvailability.FlatAppearance.BorderSize = 0
-        Me.btnToggleAvailability.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnToggleAvailability.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.btnToggleAvailability.ForeColor = System.Drawing.Color.Black
-        Me.btnToggleAvailability.Location = New System.Drawing.Point(1089, 16)
-        Me.btnToggleAvailability.Name = "btnToggleAvailability"
-        Me.btnToggleAvailability.Size = New System.Drawing.Size(146, 30)
-        Me.btnToggleAvailability.TabIndex = 4
-        Me.btnToggleAvailability.Text = "🔄 Toggle Status"
-        Me.btnToggleAvailability.UseVisualStyleBackColor = False
-        '
-        'btnRefresh
-        '
-        Me.btnRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
-        Me.btnRefresh.FlatAppearance.BorderSize = 0
-        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Location = New System.Drawing.Point(986, 16)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(94, 30)
-        Me.btnRefresh.TabIndex = 3
-        Me.btnRefresh.Text = "🔄 Refresh"
-        Me.btnRefresh.UseVisualStyleBackColor = False
-        '
-        'AddMenuItemsbtn
-        '
-        Me.AddMenuItemsbtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(167, Byte), Integer), CType(CType(69, Byte), Integer))
-        Me.AddMenuItemsbtn.FlatAppearance.BorderSize = 0
-        Me.AddMenuItemsbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddMenuItemsbtn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.AddMenuItemsbtn.ForeColor = System.Drawing.Color.White
-        Me.AddMenuItemsbtn.Location = New System.Drawing.Point(823, 16)
-        Me.AddMenuItemsbtn.Name = "AddMenuItemsbtn"
-        Me.AddMenuItemsbtn.Size = New System.Drawing.Size(154, 30)
-        Me.AddMenuItemsbtn.TabIndex = 2
-        Me.AddMenuItemsbtn.Text = "➕ Add Menu Item"
-        Me.AddMenuItemsbtn.UseVisualStyleBackColor = False
-        '
-        'txtSearch
-        '
-        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.0!)
-        Me.txtSearch.ForeColor = System.Drawing.Color.Gray
-        Me.txtSearch.Location = New System.Drawing.Point(77, 19)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(729, 27)
-        Me.txtSearch.TabIndex = 1
-        Me.txtSearch.Text = "Search menu items..."
-        '
-        'lblSearch
-        '
-        Me.lblSearch.AutoSize = True
-        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSearch.Location = New System.Drawing.Point(13, 22)
-        Me.lblSearch.Name = "lblSearch"
-        Me.lblSearch.Size = New System.Drawing.Size(59, 20)
-        Me.lblSearch.TabIndex = 0
+        Me.Panel2.Padding = New Padding(9)
+        Me.Panel2.Size = New System.Drawing.Size(1250, 61)
+
         Me.lblSearch.Text = "Search:"
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.White
-        Me.Panel3.Controls.Add(Me.Category)
-        Me.Panel3.Controls.Add(Me.lblFilter)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(0, 140)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Padding = New System.Windows.Forms.Padding(9)
-        Me.Panel3.Size = New System.Drawing.Size(1028, 48)
-        Me.Panel3.TabIndex = 2
-        '
-        'Category
-        '
-        Me.Category.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Category.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Category.FormattingEnabled = True
-        Me.Category.Location = New System.Drawing.Point(136, 11)
-        Me.Category.Name = "Category"
-        Me.Category.Size = New System.Drawing.Size(258, 25)
-        Me.Category.TabIndex = 1
-        '
-        'lblFilter
-        '
-        Me.lblFilter.AutoSize = True
-        Me.lblFilter.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.lblFilter.Location = New System.Drawing.Point(13, 13)
-        Me.lblFilter.Name = "lblFilter"
-        Me.lblFilter.Size = New System.Drawing.Size(117, 20)
-        Me.lblFilter.TabIndex = 0
+        Me.lblSearch.Font = New Font("Segoe UI", 11.0!, FontStyle.Bold)
+        Me.lblSearch.Location = New Point(13, 22)
+
+        Me.txtSearch.Font = New Font("Segoe UI", 11.0!)
+        Me.txtSearch.ForeColor = Color.Gray
+        Me.txtSearch.Location = New Point(77, 19)
+        Me.txtSearch.Size = New Size(480, 27)
+        Me.txtSearch.Text = "Search menu items..."
+
+        Me.btnCheckIngredients.Text = "🥘 Check Ingredients"
+        Me.btnCheckIngredients.BackColor = Color.FromArgb(52, 152, 219)
+        Me.btnCheckIngredients.ForeColor = Color.White
+        Me.btnCheckIngredients.FlatStyle = FlatStyle.Flat
+        Me.btnCheckIngredients.Font = New Font("Segoe UI", 9.75!, FontStyle.Bold)
+        Me.btnCheckIngredients.Location = New Point(570, 16)
+        Me.btnCheckIngredients.Size = New Size(180, 30)
+
+        Me.AddMenuItemsbtn.Text = "➕ Add Menu Item"
+        Me.AddMenuItemsbtn.BackColor = Color.FromArgb(40, 167, 69)
+        Me.AddMenuItemsbtn.ForeColor = Color.White
+        Me.AddMenuItemsbtn.FlatStyle = FlatStyle.Flat
+        Me.AddMenuItemsbtn.Location = New Point(760, 16)
+        Me.AddMenuItemsbtn.Size = New Size(154, 30)
+
+        Me.btnRefresh.Text = "🔄 Refresh"
+        Me.btnRefresh.BackColor = Color.FromArgb(108, 117, 125)
+        Me.btnRefresh.ForeColor = Color.White
+        Me.btnRefresh.FlatStyle = FlatStyle.Flat
+        Me.btnRefresh.Location = New Point(920, 16)
+        Me.btnRefresh.Size = New Size(94, 30)
+
+        Me.btnToggleAvailability.Text = "🔄 Toggle Status"
+        Me.btnToggleAvailability.BackColor = Color.FromArgb(255, 193, 7)
+        Me.btnToggleAvailability.FlatStyle = FlatStyle.Flat
+        Me.btnToggleAvailability.Location = New Point(1020, 16)
+        Me.btnToggleAvailability.Size = New Size(146, 30)
+
+        Me.btnExport.Text = "📊 Export CSV"
+        Me.btnExport.BackColor = Color.FromArgb(0, 123, 255)
+        Me.btnExport.ForeColor = Color.White
+        Me.btnExport.FlatStyle = FlatStyle.Flat
+        Me.btnExport.Location = New Point(1175, 16)
+        Me.btnExport.Size = New Size(111, 30)
+
+        Me.Panel2.Controls.AddRange(New Control() {
+            Me.lblSearch,
+            Me.txtSearch,
+            Me.btnCheckIngredients,
+            Me.AddMenuItemsbtn,
+            Me.btnRefresh,
+            Me.btnToggleAvailability,
+            Me.btnExport
+        })
+
+        ' ===== Panel3 =====
+        Me.Panel3.Dock = DockStyle.Top
+        Me.Panel3.Size = New Size(1250, 48)
+
         Me.lblFilter.Text = "Filter Category:"
-        '
-        'DataGridMenu
-        '
-        Me.DataGridMenu.AllowUserToAddRows = False
-        Me.DataGridMenu.AllowUserToDeleteRows = False
-        Me.DataGridMenu.BackgroundColor = System.Drawing.Color.White
-        Me.DataGridMenu.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataGridMenu.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.DataGridMenu.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridMenu.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridMenu.ColumnHeadersHeight = 50
-        Me.DataGridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.DataGridMenu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridMenu.EnableHeadersVisualStyles = False
-        Me.DataGridMenu.Location = New System.Drawing.Point(0, 188)
-        Me.DataGridMenu.MultiSelect = False
-        Me.DataGridMenu.Name = "DataGridMenu"
+        Me.lblFilter.Font = New Font("Segoe UI", 11.0!, FontStyle.Bold)
+        Me.lblFilter.Location = New Point(13, 13)
+
+        Me.Category.DropDownStyle = ComboBoxStyle.DropDownList
+        Me.Category.Location = New Point(136, 11)
+        Me.Category.Size = New Size(258, 25)
+
+        Me.Panel3.Controls.Add(Me.lblFilter)
+        Me.Panel3.Controls.Add(Me.Category)
+
+        ' ===== DataGrid =====
+        Me.DataGridMenu.Dock = DockStyle.Fill
         Me.DataGridMenu.ReadOnly = True
         Me.DataGridMenu.RowHeadersVisible = False
-        Me.DataGridMenu.RowHeadersWidth = 51
-        Me.DataGridMenu.RowTemplate.Height = 40
-        Me.DataGridMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridMenu.Size = New System.Drawing.Size(1028, 386)
-        Me.DataGridMenu.TabIndex = 3
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel4.Controls.Add(Me.lblTotalItems)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel4.Location = New System.Drawing.Point(0, 574)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1028, 35)
-        Me.Panel4.TabIndex = 4
-        '
-        'lblTotalItems
-        '
-        Me.lblTotalItems.AutoSize = True
-        Me.lblTotalItems.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTotalItems.Location = New System.Drawing.Point(13, 9)
-        Me.lblTotalItems.Name = "lblTotalItems"
-        Me.lblTotalItems.Size = New System.Drawing.Size(98, 19)
-        Me.lblTotalItems.TabIndex = 0
+        Me.DataGridMenu.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+
+        ' ===== Panel4 =====
+        Me.Panel4.Dock = DockStyle.Bottom
+        Me.Panel4.Size = New Size(1250, 35)
+
         Me.lblTotalItems.Text = "Total Items: 0"
-        '
-        'MenuItems
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.GhostWhite
-        Me.ClientSize = New System.Drawing.Size(1028, 609)
+        Me.lblTotalItems.Font = New Font("Segoe UI", 10.0!, FontStyle.Bold)
+        Me.lblTotalItems.Location = New Point(13, 9)
+
+        Me.Panel4.Controls.Add(Me.lblTotalItems)
+
+        ' ===== Form =====
+        Me.ClientSize = New Size(1250, 609)
         Me.Controls.Add(Me.DataGridMenu)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Name = "MenuItems"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = FormStartPosition.CenterScreen
         Me.Text = "Menu Items Management - Tabeya"
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
-        CType(Me.DataGridMenu, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
-        Me.ResumeLayout(False)
-
     End Sub
 
     Friend WithEvents Panel1 As Panel
@@ -277,6 +163,7 @@ Partial Class MenuItems
     Friend WithEvents btnRefresh As Button
     Friend WithEvents btnToggleAvailability As Button
     Friend WithEvents btnExport As Button
+    Friend WithEvents btnCheckIngredients As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents lblFilter As Label
     Friend WithEvents Category As ComboBox
