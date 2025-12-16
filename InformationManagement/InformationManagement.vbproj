@@ -274,6 +274,12 @@
     <Compile Include="Admin\Feedback.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Admin\FormAddUser.Designer.vb">
+      <DependentUpon>FormAddUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FormAddUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Admin\FormCheckIngredients.Designer.vb">
       <DependentUpon>FormCheckIngredients.vb</DependentUpon>
     </Compile>
@@ -332,10 +338,10 @@
     <Compile Include="Admin\FormEditMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\FormEditUser.Designer.vb">
-      <DependentUpon>FormEditUser.vb</DependentUpon>
+    <Compile Include="Admin\FormUser.Designer.vb">
+      <DependentUpon>FormUser.vb</DependentUpon>
     </Compile>
-    <Compile Include="Admin\FormEditUser.vb">
+    <Compile Include="Admin\FormUser.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Admin\Inventory.Designer.vb">
@@ -558,8 +564,8 @@
     <EmbeddedResource Include="Admin\FormEditMenu.resx">
       <DependentUpon>FormEditMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Admin\FormEditUser.resx">
-      <DependentUpon>FormEditUser.vb</DependentUpon>
+    <EmbeddedResource Include="Admin\FormUser.resx">
+      <DependentUpon>FormUser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\FormEmployeeAttendance.resx">
       <DependentUpon>FormEmployeeAttendance.vb</DependentUpon>

@@ -6,8 +6,13 @@ Imports System.Net
 Public Class ReservationPayment
 
     Private Sub ReservationPayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadReservationPayments()
-        UpdateTotal()
+        Try
+            ' Add error handling to the load event
+            LoadReservationPayments()
+            UpdateTotal()
+        Catch ex As Exception
+            MessageBox.Show("Error loading form: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' =============================================================
@@ -15,6 +20,12 @@ Public Class ReservationPayment
     ' =============================================================
     Private Sub LoadReservationPayments(Optional condition As String = "")
         Try
+            ' Check if DataGridView is initialized
+            If Reservation Is Nothing Then
+                MessageBox.Show("DataGridView is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
             Dim query As String =
             "SELECT 
                 rp.ReservationPaymentID,
@@ -48,185 +59,206 @@ Public Class ReservationPayment
 
             LoadToDGV(query, Reservation, "")
 
-            FormatGrid()
-            AddViewButtonColumn()
+            ' Only format if data was loaded successfully
+            If Reservation.Columns.Count > 0 Then
+                FormatGrid()
+                AddViewButtonColumn()
+            End If
 
         Catch ex As Exception
-            MessageBox.Show("Error loading reservation payments: " & ex.Message)
+            MessageBox.Show("Error loading reservation payments: " & ex.Message & vbCrLf & vbCrLf &
+                          "Stack Trace: " & ex.StackTrace, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
     ' Dummy wrapper to call modDB.LoadToDGV
     Private Sub LoadToDGV(query As String, dgv As DataGridView, filter As String)
-        modDB.LoadToDGV(query, dgv, filter)
+        Try
+            modDB.LoadToDGV(query, dgv, filter)
+        Catch ex As Exception
+            Throw New Exception("Database connection error: " & ex.Message, ex)
+        End Try
     End Sub
 
     ' =============================================================
     ' ADD VIEW BUTTON COLUMN FOR PROOF OF PAYMENT
     ' =============================================================
     Private Sub AddViewButtonColumn()
-        ' Remove existing button column if it exists
-        If Reservation.Columns.Contains("ViewProof") Then
-            Reservation.Columns.Remove("ViewProof")
-        End If
+        Try
+            ' Remove existing button column if it exists
+            If Reservation.Columns.Contains("ViewProof") Then
+                Reservation.Columns.Remove("ViewProof")
+            End If
 
-        ' Create button column
-        Dim btnCol As New DataGridViewButtonColumn()
-        btnCol.Name = "ViewProof"
-        btnCol.HeaderText = "Proof of Payment"
-        btnCol.Text = "View"
-        btnCol.UseColumnTextForButtonValue = True
-        btnCol.Width = 120
-        btnCol.DefaultCellStyle.BackColor = Color.FromArgb(0, 123, 255)
-        btnCol.DefaultCellStyle.ForeColor = Color.White
-        btnCol.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 105, 217)
-        btnCol.DefaultCellStyle.SelectionForeColor = Color.White
-        btnCol.FlatStyle = FlatStyle.Flat
+            ' Create button column
+            Dim btnCol As New DataGridViewButtonColumn()
+            btnCol.Name = "ViewProof"
+            btnCol.HeaderText = "Proof of Payment"
+            btnCol.Text = "View"
+            btnCol.UseColumnTextForButtonValue = True
+            btnCol.Width = 120
+            btnCol.DefaultCellStyle.BackColor = Color.FromArgb(0, 123, 255)
+            btnCol.DefaultCellStyle.ForeColor = Color.White
+            btnCol.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 105, 217)
+            btnCol.DefaultCellStyle.SelectionForeColor = Color.White
+            btnCol.FlatStyle = FlatStyle.Flat
 
-        ' Add column at the end
-        Reservation.Columns.Add(btnCol)
-        btnCol.DisplayIndex = Reservation.Columns.Count - 1
+            ' Add column at the end
+            Reservation.Columns.Add(btnCol)
+            btnCol.DisplayIndex = Reservation.Columns.Count - 1
+        Catch ex As Exception
+            ' Silently handle if column already exists
+        End Try
     End Sub
 
     ' =============================================================
     ' FORMAT GRID + HIDE COLUMNS + SET WIDTHS
     ' =============================================================
     Private Sub FormatGrid()
-        If Reservation.Columns.Count = 0 Then Exit Sub
+        Try
+            If Reservation.Columns.Count = 0 Then Exit Sub
 
-        ' Hide ID and file columns
-        Dim hideCols() As String = {
-            "ReservationPaymentID",
-            "ReservationID",
-            "CustomerID",
-            "ProofOfPayment",
-            "ReceiptFileName",
-            "TransactionID"
-        }
+            ' Hide ID and file columns
+            Dim hideCols() As String = {
+                "ReservationPaymentID",
+                "ReservationID",
+                "CustomerID",
+                "ProofOfPayment",
+                "ReceiptFileName",
+                "TransactionID"
+            }
 
-        For Each colName In hideCols
-            If Reservation.Columns.Contains(colName) Then
-                Reservation.Columns(colName).Visible = False
+            For Each colName In hideCols
+                If Reservation.Columns.Contains(colName) Then
+                    Reservation.Columns(colName).Visible = False
+                End If
+            Next
+
+            ' Set fixed column widths and order
+            If Reservation.Columns.Contains("FirstName") Then
+                Reservation.Columns("FirstName").HeaderText = "First Name"
+                Reservation.Columns("FirstName").Width = 120
+                Reservation.Columns("FirstName").DisplayIndex = 0
             End If
-        Next
 
-        ' Set fixed column widths and order
-        If Reservation.Columns.Contains("FirstName") Then
-            Reservation.Columns("FirstName").HeaderText = "First Name"
-            Reservation.Columns("FirstName").Width = 120
-            Reservation.Columns("FirstName").DisplayIndex = 0
-        End If
+            If Reservation.Columns.Contains("LastName") Then
+                Reservation.Columns("LastName").HeaderText = "Last Name"
+                Reservation.Columns("LastName").Width = 120
+                Reservation.Columns("LastName").DisplayIndex = 1
+            End If
 
-        If Reservation.Columns.Contains("LastName") Then
-            Reservation.Columns("LastName").HeaderText = "Last Name"
-            Reservation.Columns("LastName").Width = 120
-            Reservation.Columns("LastName").DisplayIndex = 1
-        End If
+            If Reservation.Columns.Contains("Email") Then
+                Reservation.Columns("Email").HeaderText = "Email"
+                Reservation.Columns("Email").Width = 180
+                Reservation.Columns("Email").DisplayIndex = 2
+            End If
 
-        If Reservation.Columns.Contains("Email") Then
-            Reservation.Columns("Email").HeaderText = "Email"
-            Reservation.Columns("Email").Width = 180
-            Reservation.Columns("Email").DisplayIndex = 2
-        End If
+            If Reservation.Columns.Contains("CustomerContact") Then
+                Reservation.Columns("CustomerContact").HeaderText = "Customer Phone"
+                Reservation.Columns("CustomerContact").Width = 120
+                Reservation.Columns("CustomerContact").DisplayIndex = 3
+            End If
 
-        If Reservation.Columns.Contains("CustomerContact") Then
-            Reservation.Columns("CustomerContact").HeaderText = "Customer Phone"
-            Reservation.Columns("CustomerContact").Width = 120
-            Reservation.Columns("CustomerContact").DisplayIndex = 3
-        End If
+            If Reservation.Columns.Contains("ReservationContact") Then
+                Reservation.Columns("ReservationContact").HeaderText = "Reservation Phone"
+                Reservation.Columns("ReservationContact").Width = 130
+                Reservation.Columns("ReservationContact").DisplayIndex = 4
+            End If
 
-        If Reservation.Columns.Contains("ReservationContact") Then
-            Reservation.Columns("ReservationContact").HeaderText = "Reservation Phone"
-            Reservation.Columns("ReservationContact").Width = 130
-            Reservation.Columns("ReservationContact").DisplayIndex = 4
-        End If
+            If Reservation.Columns.Contains("EventType") Then
+                Reservation.Columns("EventType").HeaderText = "Event Type"
+                Reservation.Columns("EventType").Width = 120
+                Reservation.Columns("EventType").DisplayIndex = 5
+            End If
 
-        If Reservation.Columns.Contains("EventType") Then
-            Reservation.Columns("EventType").HeaderText = "Event Type"
-            Reservation.Columns("EventType").Width = 120
-            Reservation.Columns("EventType").DisplayIndex = 5
-        End If
+            If Reservation.Columns.Contains("EventDate") Then
+                Reservation.Columns("EventDate").HeaderText = "Event Date"
+                Reservation.Columns("EventDate").Width = 100
+                Reservation.Columns("EventDate").DefaultCellStyle.Format = "MM/dd/yyyy"
+                Reservation.Columns("EventDate").DisplayIndex = 6
+            End If
 
-        If Reservation.Columns.Contains("EventDate") Then
-            Reservation.Columns("EventDate").HeaderText = "Event Date"
-            Reservation.Columns("EventDate").Width = 100
-            Reservation.Columns("EventDate").DefaultCellStyle.Format = "MM/dd/yyyy"
-            Reservation.Columns("EventDate").DisplayIndex = 6
-        End If
+            If Reservation.Columns.Contains("PaymentDate") Then
+                Reservation.Columns("PaymentDate").HeaderText = "Payment Date"
+                Reservation.Columns("PaymentDate").Width = 110
+                Reservation.Columns("PaymentDate").DefaultCellStyle.Format = "MM/dd/yyyy"
+                Reservation.Columns("PaymentDate").DisplayIndex = 7
+            End If
 
-        If Reservation.Columns.Contains("PaymentDate") Then
-            Reservation.Columns("PaymentDate").HeaderText = "Payment Date"
-            Reservation.Columns("PaymentDate").Width = 110
-            Reservation.Columns("PaymentDate").DefaultCellStyle.Format = "MM/dd/yyyy"
-            Reservation.Columns("PaymentDate").DisplayIndex = 7
-        End If
+            If Reservation.Columns.Contains("PaymentMethod") Then
+                Reservation.Columns("PaymentMethod").HeaderText = "Payment Method"
+                Reservation.Columns("PaymentMethod").Width = 120
+                Reservation.Columns("PaymentMethod").DisplayIndex = 8
+            End If
 
-        If Reservation.Columns.Contains("PaymentMethod") Then
-            Reservation.Columns("PaymentMethod").HeaderText = "Payment Method"
-            Reservation.Columns("PaymentMethod").Width = 120
-            Reservation.Columns("PaymentMethod").DisplayIndex = 8
-        End If
+            If Reservation.Columns.Contains("PaymentStatus") Then
+                Reservation.Columns("PaymentStatus").HeaderText = "Payment Status"
+                Reservation.Columns("PaymentStatus").Width = 110
+                Reservation.Columns("PaymentStatus").DisplayIndex = 9
+            End If
 
-        If Reservation.Columns.Contains("PaymentStatus") Then
-            Reservation.Columns("PaymentStatus").HeaderText = "Payment Status"
-            Reservation.Columns("PaymentStatus").Width = 110
-            Reservation.Columns("PaymentStatus").DisplayIndex = 9
-        End If
+            If Reservation.Columns.Contains("AmountPaid") Then
+                Reservation.Columns("AmountPaid").HeaderText = "Amount Paid"
+                Reservation.Columns("AmountPaid").Width = 120
+                Reservation.Columns("AmountPaid").DefaultCellStyle.Format = "₱ #,##0.00"
+                Reservation.Columns("AmountPaid").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                Reservation.Columns("AmountPaid").DisplayIndex = 10
+            End If
 
-        If Reservation.Columns.Contains("AmountPaid") Then
-            Reservation.Columns("AmountPaid").HeaderText = "Amount Paid"
-            Reservation.Columns("AmountPaid").Width = 120
-            Reservation.Columns("AmountPaid").DefaultCellStyle.Format = "₱ #,##0.00"
-            Reservation.Columns("AmountPaid").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            Reservation.Columns("AmountPaid").DisplayIndex = 10
-        End If
+            If Reservation.Columns.Contains("PaymentSource") Then
+                Reservation.Columns("PaymentSource").HeaderText = "Payment Source"
+                Reservation.Columns("PaymentSource").Width = 120
+                Reservation.Columns("PaymentSource").DisplayIndex = 11
+            End If
 
-        If Reservation.Columns.Contains("PaymentSource") Then
-            Reservation.Columns("PaymentSource").HeaderText = "Payment Source"
-            Reservation.Columns("PaymentSource").Width = 120
-            Reservation.Columns("PaymentSource").DisplayIndex = 11
-        End If
+            If Reservation.Columns.Contains("UpdatedDate") Then
+                Reservation.Columns("UpdatedDate").HeaderText = "Updated Date"
+                Reservation.Columns("UpdatedDate").Width = 110
+                Reservation.Columns("UpdatedDate").DefaultCellStyle.Format = "MM/dd/yyyy"
+                Reservation.Columns("UpdatedDate").DisplayIndex = 12
+            End If
 
-        If Reservation.Columns.Contains("UpdatedDate") Then
-            Reservation.Columns("UpdatedDate").HeaderText = "Updated Date"
-            Reservation.Columns("UpdatedDate").Width = 110
-            Reservation.Columns("UpdatedDate").DefaultCellStyle.Format = "MM/dd/yyyy"
-            Reservation.Columns("UpdatedDate").DisplayIndex = 12
-        End If
+            ' Disable auto-sizing to keep fixed widths
+            Reservation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+            Reservation.ScrollBars = ScrollBars.Both
 
-        ' Disable auto-sizing to keep fixed widths
-        Reservation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
-        Reservation.ScrollBars = ScrollBars.Both
+            ' Other formatting
+            Reservation.RowHeadersVisible = False
+            Reservation.DefaultCellStyle.Font = New Font("Segoe UI", 10)
+            Reservation.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI Semibold", 10)
+            Reservation.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 60, 85)
+            Reservation.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+            Reservation.EnableHeadersVisualStyles = False
 
-        ' Other formatting
-        Reservation.RowHeadersVisible = False
-        Reservation.DefaultCellStyle.Font = New Font("Segoe UI", 10)
-        Reservation.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI Semibold", 10)
-        Reservation.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 60, 85)
-        Reservation.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
-        Reservation.EnableHeadersVisualStyles = False
+        Catch ex As Exception
+            MessageBox.Show("Error formatting grid: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' =============================================================
     ' HANDLE BUTTON CLICK FOR VIEWING PROOF OF PAYMENT
     ' =============================================================
     Private Sub Reservation_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Reservation.CellContentClick
-        ' Check if the clicked cell is the View button
-        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-            If Reservation.Columns(e.ColumnIndex).Name = "ViewProof" Then
-                Dim row As DataGridViewRow = Reservation.Rows(e.RowIndex)
-                Dim proofPath As String = If(row.Cells("ProofOfPayment").Value?.ToString(), "")
-                Dim receiptFileName As String = If(row.Cells("ReceiptFileName").Value?.ToString(), "")
+        Try
+            ' Check if the clicked cell is the View button
+            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+                If Reservation.Columns(e.ColumnIndex).Name = "ViewProof" Then
+                    Dim row As DataGridViewRow = Reservation.Rows(e.RowIndex)
+                    Dim proofPath As String = If(row.Cells("ProofOfPayment").Value?.ToString(), "")
+                    Dim receiptFileName As String = If(row.Cells("ReceiptFileName").Value?.ToString(), "")
 
-                If String.IsNullOrEmpty(proofPath) Then
-                    MessageBox.Show("No proof of payment available for this record.", "No Image", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return
+                    If String.IsNullOrEmpty(proofPath) Then
+                        MessageBox.Show("No proof of payment available for this record.", "No Image", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return
+                    End If
+
+                    ' Show the image in fullscreen
+                    ShowProofOfPayment(proofPath, receiptFileName)
                 End If
-
-                ' Show the image in fullscreen
-                ShowProofOfPayment(proofPath, receiptFileName)
             End If
-        End If
+        Catch ex As Exception
+            MessageBox.Show("Error handling cell click: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' =============================================================
@@ -362,46 +394,64 @@ Public Class ReservationPayment
     ' DATA BIND COMPLETE (ensures hidden columns stay hidden)
     ' =============================================================
     Private Sub Reservation_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles Reservation.DataBindingComplete
-        FormatGrid()
-        AddViewButtonColumn()
+        Try
+            FormatGrid()
+            AddViewButtonColumn()
+        Catch ex As Exception
+            ' Silently handle errors during data binding
+        End Try
     End Sub
 
     ' =============================================================
     ' SEARCH - Updated to include customer name and email
     ' =============================================================
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        Dim keyword As String = txtSearch.Text.Trim()
+        Try
+            Dim keyword As String = txtSearch.Text.Trim()
 
-        If keyword = "" Then
-            LoadReservationPayments()
-        Else
-            LoadReservationPayments(
-                $"rp.ReservationPaymentID LIKE '%{keyword}%' 
-                  OR rp.ReservationID LIKE '%{keyword}%' 
-                  OR rp.PaymentStatus LIKE '%{keyword}%'
-                  OR c.FirstName LIKE '%{keyword}%'
-                  OR c.LastName LIKE '%{keyword}%'
-                  OR c.Email LIKE '%{keyword}%'
-                  OR r.EventType LIKE '%{keyword}%'")
-        End If
+            If keyword = "" Then
+                LoadReservationPayments()
+            Else
+                LoadReservationPayments(
+                    $"rp.ReservationPaymentID LIKE '%{keyword}%' 
+                      OR rp.ReservationID LIKE '%{keyword}%' 
+                      OR rp.PaymentStatus LIKE '%{keyword}%'
+                      OR c.FirstName LIKE '%{keyword}%'
+                      OR c.LastName LIKE '%{keyword}%'
+                      OR c.Email LIKE '%{keyword}%'
+                      OR r.EventType LIKE '%{keyword}%'")
+            End If
 
-        UpdateTotal()
+            UpdateTotal()
+        Catch ex As Exception
+            MessageBox.Show("Error searching: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' =============================================================
     ' REFRESH
     ' =============================================================
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        txtSearch.Clear()
-        LoadReservationPayments()
-        UpdateTotal()
+        Try
+            txtSearch.Clear()
+            LoadReservationPayments()
+            UpdateTotal()
+        Catch ex As Exception
+            MessageBox.Show("Error refreshing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' =============================================================
     ' UPDATE TOTAL COUNT
     ' =============================================================
     Private Sub UpdateTotal()
-        lblTotalRecords.Text = "Total: " & Reservation.Rows.Count.ToString()
+        Try
+            If lblTotalRecords IsNot Nothing AndAlso Reservation IsNot Nothing Then
+                lblTotalRecords.Text = "Total: " & Reservation.Rows.Count.ToString()
+            End If
+        Catch ex As Exception
+            ' Silently handle if label doesn't exist
+        End Try
     End Sub
 
     ' =============================================================

@@ -343,7 +343,6 @@ Public Class UsersAccounts
             LoadPage(totalPages)
         End If
     End Sub
-
     Private Sub Adduserbtn_Click(sender As Object, e As EventArgs) Handles Adduserbtn.Click
         Dim addUserForm As New FormAddUser()
         addUserForm.StartPosition = FormStartPosition.CenterScreen
