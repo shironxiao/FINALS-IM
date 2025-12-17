@@ -33,6 +33,18 @@ Public Class FormTakeOutOrders
             End Using
             FormatGrid()
             HideOrderID()
+
+            ' Ensure newest orders appear at the top
+            If DataGridView1.Columns.Contains("OrderID") Then
+                Try
+                    DataGridView1.Columns("OrderID").SortMode = DataGridViewColumnSortMode.Automatic
+                    DataGridView1.Sort(DataGridView1.Columns("OrderID"), ComponentModel.ListSortDirection.Descending)
+                Catch
+                End Try
+            End If
+            If DataGridView1.Rows.Count > 0 Then
+                DataGridView1.FirstDisplayedScrollingRowIndex = 0
+            End If
         Catch ex As Exception
             MessageBox.Show("Error loading takeout orders: " & ex.Message)
         End Try

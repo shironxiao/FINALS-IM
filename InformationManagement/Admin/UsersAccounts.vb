@@ -7,6 +7,7 @@ Public Class UsersAccounts
     Private totalRecords As Integer = 0
     Private totalPages As Integer = 0
     Private allStaffData As DataTable
+    Private searchText As String = ""
     Private initialLoadComplete As Boolean = False
 
     Private Class AccountCredentialsResult
@@ -168,15 +169,10 @@ Public Class UsersAccounts
             totalPages = If(totalRecords > 0, Math.Ceiling(totalRecords / pageSize), 1)
 
             ' Update staff count
-            lblStaffs.Text = totalRecords.ToString()
+            lblStaffs.Text = allStaffData.Rows.Count.ToString()
 
-            ' Load first page
-            If totalRecords > 0 Then
-                LoadPage(1)
-            Else
-                UsersAccountData.Rows.Clear()
-                UpdatePaginationControls()
-            End If
+            ' Apply search and load first page
+            ApplySearchFilter()
 
         Catch ex As MySqlException
             MessageBox.Show("Database error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -187,8 +183,40 @@ Public Class UsersAccounts
         End Try
     End Sub
 
-    Private Sub LoadPage(pageNumber As Integer)
-        If allStaffData Is Nothing OrElse allStaffData.Rows.Count = 0 Then
+    Private Sub ApplySearchFilter()
+        If allStaffData Is Nothing Then Return
+
+        Dim filteredData As DataTable
+
+        If String.IsNullOrWhiteSpace(searchText) Then
+            filteredData = allStaffData
+        Else
+            filteredData = allStaffData.Clone()
+            For Each row As DataRow In allStaffData.Rows
+                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().ToLower(), "")
+                Dim username As String = If(row("Username") IsNot DBNull.Value, row("Username").ToString().ToLower(), "")
+                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString().ToLower(), "")
+                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+
+                If fullName.Contains(searchText.ToLower()) OrElse
+                   username.Contains(searchText.ToLower()) OrElse
+                   role.Contains(searchText.ToLower()) OrElse
+                   status.Contains(searchText.ToLower()) Then
+                    filteredData.ImportRow(row)
+                End If
+            Next
+        End If
+
+        totalRecords = filteredData.Rows.Count
+        totalPages = If(totalRecords > 0, Math.Ceiling(totalRecords / pageSize), 1)
+
+        ' Load first page of filtered data
+        LoadPage(1, filteredData)
+    End Sub
+
+    Private Sub LoadPage(pageNumber As Integer, Optional dataSource As DataTable = Nothing)
+        If dataSource Is Nothing Then dataSource = allStaffData
+        If dataSource Is Nothing OrElse dataSource.Rows.Count = 0 Then
             UpdatePaginationControls()
             Return
         End If
@@ -199,7 +227,7 @@ Public Class UsersAccounts
 
         currentPage = pageNumber
         Dim startIndex As Integer = (currentPage - 1) * pageSize
-        Dim endIndex As Integer = Math.Min(startIndex + pageSize, totalRecords)
+        Dim endIndex As Integer = Math.Min(startIndex + pageSize, dataSource.Rows.Count)
 
         ' Suspend layout for smoother loading
         UsersAccountData.SuspendLayout()
@@ -208,7 +236,7 @@ Public Class UsersAccounts
         Try
             ' Use bulk operation for better performance
             For i As Integer = startIndex To endIndex - 1
-                Dim row As DataRow = allStaffData.Rows(i)
+                Dim row As DataRow = dataSource.Rows(i)
 
                 ' Get full name
                 Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().Trim(), "N/A")
@@ -537,27 +565,61 @@ Public Class UsersAccounts
     ' Pagination button handlers
     Private Sub btnFirstPage_Click(sender As Object, e As EventArgs) Handles btnFirstPage.Click
         If currentPage > 1 Then
-            LoadPage(1)
+            ApplySearchFilter() ' Reload from page 1
         End If
     End Sub
 
     Private Sub btnPreviousPage_Click(sender As Object, e As EventArgs) Handles btnPreviousPage.Click
         If currentPage > 1 Then
-            LoadPage(currentPage - 1)
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(currentPage - 1, filteredData)
         End If
     End Sub
 
     Private Sub btnNextPage_Click(sender As Object, e As EventArgs) Handles btnNextPage.Click
         If currentPage < totalPages Then
-            LoadPage(currentPage + 1)
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(currentPage + 1, filteredData)
         End If
     End Sub
 
     Private Sub btnLastPage_Click(sender As Object, e As EventArgs) Handles btnLastPage.Click
         If currentPage < totalPages Then
-            LoadPage(totalPages)
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(totalPages, filteredData)
         End If
     End Sub
+
+    Private Function GetFilteredData() As DataTable
+        If allStaffData Is Nothing Then Return Nothing
+
+        If String.IsNullOrWhiteSpace(searchText) Then
+            Return allStaffData
+        Else
+            Dim filteredData As DataTable = allStaffData.Clone()
+            For Each row As DataRow In allStaffData.Rows
+                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().ToLower(), "")
+                Dim username As String = If(row("Username") IsNot DBNull.Value, row("Username").ToString().ToLower(), "")
+                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString().ToLower(), "")
+                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+
+                If fullName.Contains(searchText.ToLower()) OrElse
+                   username.Contains(searchText.ToLower()) OrElse
+                   role.Contains(searchText.ToLower()) OrElse
+                   status.Contains(searchText.ToLower()) Then
+                    filteredData.ImportRow(row)
+                End If
+            Next
+            Return filteredData
+        End If
+    End Function
+
+    ' Search functionality
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        searchText = txtSearch.Text.Trim()
+        ApplySearchFilter()
+    End Sub
+
     Private Sub Adduserbtn_Click(sender As Object, e As EventArgs) Handles Adduserbtn.Click
         ' Create a login account for the selected staff member (links employee_id in user_accounts)
         If UsersAccountData.SelectedRows Is Nothing OrElse UsersAccountData.SelectedRows.Count = 0 Then

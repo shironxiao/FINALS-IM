@@ -24,6 +24,18 @@ Public Class FormDineInOrders
             If Me.IsDisposed OrElse Not Me.IsHandleCreated Then Return
             DataGridView1.DataSource = table
             ConfigureGrid()
+
+            ' Ensure newest orders appear at the top (even if date/time columns are not reliable)
+            If DataGridView1.Columns.Contains("OrderID") Then
+                Try
+                    DataGridView1.Sort(DataGridView1.Columns("OrderID"), ComponentModel.ListSortDirection.Descending)
+                Catch
+                    ' Best-effort: if bound sorting isn't supported, SQL ordering still applies.
+                End Try
+            End If
+            If DataGridView1.Rows.Count > 0 Then
+                DataGridView1.FirstDisplayedScrollingRowIndex = 0
+            End If
         Catch ex As Exception
             If Not Me.IsDisposed Then
                 MessageBox.Show("Error loading dine-in orders: " & ex.Message, "Database Error",
@@ -47,7 +59,7 @@ Public Class FormDineInOrders
             "LEFT JOIN order_items oi ON oi.OrderID = o.OrderID " &
             "WHERE o.OrderType = 'Dine-in' " &
             "GROUP BY o.OrderID, o.TotalAmount, o.OrderStatus, o.OrderDate, o.OrderTime " &
-            "ORDER BY o.OrderDate DESC, o.OrderTime DESC;"
+            "ORDER BY o.OrderID DESC;"
 
         Using conn As New MySqlConnection(connectionString)
             conn.Open()

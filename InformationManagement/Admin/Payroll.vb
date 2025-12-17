@@ -1,6 +1,14 @@
 Imports MySqlConnector
 
 Public Class Payroll
+    ' Pagination variables
+    Private currentPage As Integer = 1
+    Private pageSize As Integer = 15
+    Private totalRecords As Integer = 0
+    Private totalPages As Integer = 0
+    Private allPayrollData As DataTable
+    Private searchText As String = ""
+
     Private Sub Payroll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Hide the Add New Payroll Record button
         If Me.Controls.Contains(AddNewPayrollRecordbtn) Then
@@ -107,18 +115,96 @@ Public Class Payroll
             cmd.Parameters.AddWithValue("@endDate", endOfMonth)
 
             Dim adapter As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable()
-            adapter.Fill(dt)
+            allPayrollData = New DataTable()
+            adapter.Fill(allPayrollData)
 
-            DataGridView1.Rows.Clear()
+            ' Calculate totals from all data
             Dim totalGross As Decimal = 0
             Dim totalNet As Decimal = 0
-            Dim empCount As Integer = dt.Rows.Count
             Dim sumHours As Decimal = 0
 
-            For Each row As DataRow In dt.Rows
-                Dim rowIndex As Integer = DataGridView1.Rows.Add()
-                Dim newRow As DataGridViewRow = DataGridView1.Rows(rowIndex)
+            For Each row As DataRow In allPayrollData.Rows
+                Dim hours As Decimal = If(row("TotalHours") IsNot DBNull.Value, Convert.ToDecimal(row("TotalHours")), 0)
+                Dim overtime As Decimal = If(row("Overtime") IsNot DBNull.Value, Convert.ToDecimal(row("Overtime")), 0)
+                Dim basicSalary As Decimal = If(row("BasicSalary") IsNot DBNull.Value AndAlso Convert.ToDecimal(row("BasicSalary")) > 0,
+                                                Convert.ToDecimal(row("BasicSalary")),
+                                                hours * If(row("HourlyRate") IsNot DBNull.Value, Convert.ToDecimal(row("HourlyRate")), 0))
+                Dim gross As Decimal = basicSalary + overtime
+                Dim netPay As Decimal = If(row("NetPay") IsNot DBNull.Value, Convert.ToDecimal(row("NetPay")), basicSalary)
+
+                totalGross += If(gross > 0, gross, basicSalary)
+                totalNet += netPay
+                sumHours += hours
+            Next
+
+            ' Update summary labels
+            lblTotalGrossPay.Text = FormatPeso(totalGross)
+            lblTotalNetPay.Text = FormatPeso(totalNet)
+            TotalHours.Text = sumHours.ToString("F2") & " hrs"
+            E.Text = allPayrollData.Rows.Count.ToString()
+
+            ' Store total records and calculate pages
+            ApplySearchFilter()
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading employees: " & ex.Message & vbCrLf & vbCrLf &
+                          "Stack Trace: " & ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            closeConn()
+        End Try
+    End Sub
+
+    Private Sub ApplySearchFilter()
+        If allPayrollData Is Nothing Then Return
+
+        Dim filteredData As DataTable
+
+        If String.IsNullOrWhiteSpace(searchText) Then
+            filteredData = allPayrollData
+        Else
+            filteredData = allPayrollData.Clone()
+            For Each row As DataRow In allPayrollData.Rows
+                Dim employeeName As String = If(row("EmployeeName") IsNot DBNull.Value, row("EmployeeName").ToString().ToLower(), "")
+                Dim position As String = If(row("Position") IsNot DBNull.Value, row("Position").ToString().ToLower(), "")
+                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+
+                If employeeName.Contains(searchText.ToLower()) OrElse
+                   position.Contains(searchText.ToLower()) OrElse
+                   status.Contains(searchText.ToLower()) Then
+                    filteredData.ImportRow(row)
+                End If
+            Next
+        End If
+
+        totalRecords = filteredData.Rows.Count
+        totalPages = If(totalRecords > 0, Math.Ceiling(totalRecords / pageSize), 1)
+
+        ' Load first page of filtered data
+        LoadPage(1, filteredData)
+    End Sub
+
+    Private Sub LoadPage(pageNumber As Integer, Optional dataSource As DataTable = Nothing)
+        If dataSource Is Nothing Then dataSource = allPayrollData
+        If dataSource Is Nothing OrElse dataSource.Rows.Count = 0 Then
+            DataGridView1.Rows.Clear()
+            UpdatePaginationControls()
+            Return
+        End If
+
+        ' Validate page number
+        If pageNumber < 1 Then pageNumber = 1
+        If pageNumber > totalPages Then pageNumber = totalPages
+
+        currentPage = pageNumber
+        Dim startIndex As Integer = (currentPage - 1) * pageSize
+        Dim endIndex As Integer = Math.Min(startIndex + pageSize, dataSource.Rows.Count)
+
+        DataGridView1.Rows.Clear()
+
+        For i As Integer = startIndex To endIndex - 1
+            Dim row As DataRow = dataSource.Rows(i)
+            Dim rowIndex As Integer = DataGridView1.Rows.Add()
+            Dim newRow As DataGridViewRow = DataGridView1.Rows(rowIndex)
 
                 newRow.Cells("Employee").Value = row("EmployeeName").ToString()
                 newRow.Cells("Position").Value = row("Position").ToString()
@@ -186,22 +272,9 @@ Public Class Payroll
                     .CalculatedPay = calculatedPay
                 }
 
-                totalGross += If(gross > 0, gross, calculatedPay)
-                totalNet += netPay
-                sumHours += hours
-            Next
+        Next
 
-            lblTotalGrossPay.Text = FormatPeso(totalGross)
-            lblTotalNetPay.Text = FormatPeso(totalNet)
-            TotalHours.Text = sumHours.ToString("F2") & " hrs"
-            E.Text = empCount.ToString()
-
-        Catch ex As Exception
-            MessageBox.Show("Error loading employees: " & ex.Message & vbCrLf & vbCrLf &
-                          "Stack Trace: " & ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            closeConn()
-        End Try
+        UpdatePaginationControls()
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
@@ -393,5 +466,78 @@ Public Class Payroll
         Finally
             closeConn()
         End Try
+    End Sub
+
+    ' Pagination button handlers
+    Private Sub btnFirstPage_Click(sender As Object, e As EventArgs) Handles btnFirstPage.Click
+        If currentPage > 1 Then
+            ApplySearchFilter() ' Reload from page 1
+        End If
+    End Sub
+
+    Private Sub btnPreviousPage_Click(sender As Object, e As EventArgs) Handles btnPreviousPage.Click
+        If currentPage > 1 Then
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(currentPage - 1, filteredData)
+        End If
+    End Sub
+
+    Private Sub btnNextPage_Click(sender As Object, e As EventArgs) Handles btnNextPage.Click
+        If currentPage < totalPages Then
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(currentPage + 1, filteredData)
+        End If
+    End Sub
+
+    Private Sub btnLastPage_Click(sender As Object, e As EventArgs) Handles btnLastPage.Click
+        If currentPage < totalPages Then
+            Dim filteredData As DataTable = GetFilteredData()
+            LoadPage(totalPages, filteredData)
+        End If
+    End Sub
+
+    Private Function GetFilteredData() As DataTable
+        If allPayrollData Is Nothing Then Return Nothing
+
+        If String.IsNullOrWhiteSpace(searchText) Then
+            Return allPayrollData
+        Else
+            Dim filteredData As DataTable = allPayrollData.Clone()
+            For Each row As DataRow In allPayrollData.Rows
+                Dim employeeName As String = If(row("EmployeeName") IsNot DBNull.Value, row("EmployeeName").ToString().ToLower(), "")
+                Dim position As String = If(row("Position") IsNot DBNull.Value, row("Position").ToString().ToLower(), "")
+                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+
+                If employeeName.Contains(searchText.ToLower()) OrElse
+                   position.Contains(searchText.ToLower()) OrElse
+                   status.Contains(searchText.ToLower()) Then
+                    filteredData.ImportRow(row)
+                End If
+            Next
+            Return filteredData
+        End If
+    End Function
+
+    Private Sub UpdatePaginationControls()
+        ' Update page info label
+        lblPageInfo.Text = $"Page {currentPage} of {totalPages}"
+
+        ' Enable/disable buttons based on current page
+        btnFirstPage.Enabled = (currentPage > 1)
+        btnPreviousPage.Enabled = (currentPage > 1)
+        btnNextPage.Enabled = (currentPage < totalPages)
+        btnLastPage.Enabled = (currentPage < totalPages)
+
+        ' Visual feedback for disabled buttons
+        btnFirstPage.BackColor = If(btnFirstPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnPreviousPage.BackColor = If(btnPreviousPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnNextPage.BackColor = If(btnNextPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+        btnLastPage.BackColor = If(btnLastPage.Enabled, Color.FromArgb(240, 244, 250), Color.FromArgb(230, 230, 230))
+    End Sub
+
+    ' Search functionality
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        searchText = txtSearch.Text.Trim()
+        ApplySearchFilter()
     End Sub
 End Class

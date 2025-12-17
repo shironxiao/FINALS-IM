@@ -505,7 +505,7 @@ Public Class FormOrders
         If Not String.IsNullOrEmpty(search) Then
             sql &= $" AND (o.OrderID LIKE '%{search}%' OR o.ReceiptNumber LIKE '%{search}%' OR o.OrderStatus LIKE '%{search}%')"
         End If
-        sql &= " ORDER BY o.OrderDate DESC, o.OrderTime DESC LIMIT 1000"
+        sql &= " ORDER BY o.OrderID DESC LIMIT 1000"
         Return sql
     End Function
     ' =======================================================================

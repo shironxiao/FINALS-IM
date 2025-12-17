@@ -36,34 +36,34 @@ Public Class ReservationPayment
             End If
 
             Dim query As String =
-            "SELECT 
-                rp.ReservationPaymentID,
-                rp.ReservationID,
-                r.CustomerID,
-                c.FirstName,
-                c.LastName,
-                c.Email,
-                c.ContactNumber AS CustomerContact,
-                r.ContactNumber AS ReservationContact,
-                r.EventType,
-                r.EventDate,
-                rp.PaymentDate,
-                rp.PaymentMethod,
-                rp.PaymentStatus,
-                rp.AmountPaid,
-                rp.PaymentSource,
-                rp.ProofOfPayment,
-                rp.ReceiptFileName,
-                rp.TransactionID,
-                rp.UpdatedDate
-            FROM reservation_payments rp
-            INNER JOIN reservations r ON rp.ReservationID = r.ReservationID
-            INNER JOIN customers c ON r.CustomerID = c.CustomerID"
+        "SELECT 
+            rp.ReservationPaymentID,
+            rp.ReservationID,
+            r.CustomerID,
+            c.FirstName,
+            c.LastName,
+            c.Email,
+            c.ContactNumber AS CustomerContact,
+            r.ContactNumber AS ReservationContact,
+            r.EventType,
+            r.EventDate,
+            rp.PaymentDate,
+            rp.PaymentMethod,
+            rp.PaymentStatus,
+            rp.AmountPaid,
+            rp.PaymentSource,
+            rp.ProofOfPayment,
+            rp.ReceiptFileName,
+            rp.TransactionID,
+            rp.UpdatedDate
+        FROM reservation_payments rp
+        INNER JOIN reservations r ON rp.ReservationID = r.ReservationID
+        INNER JOIN customers c ON r.CustomerID = c.CustomerID"
 
             ' Build count query for pagination
             Dim countQuery As String = "SELECT COUNT(*) FROM reservation_payments rp " &
-                                       "INNER JOIN reservations r ON rp.ReservationID = r.ReservationID " &
-                                       "INNER JOIN customers c ON r.CustomerID = c.CustomerID"
+                                   "INNER JOIN reservations r ON rp.ReservationID = r.ReservationID " &
+                                   "INNER JOIN customers c ON r.CustomerID = c.CustomerID"
 
             If condition <> "" Then
                 query &= " WHERE " & condition
@@ -82,7 +82,8 @@ Public Class ReservationPayment
 
             ' Add pagination
             Dim offset As Integer = (CurrentPage - 1) * RecordsPerPage
-            query &= " ORDER BY rp.PaymentDate DESC"
+            ' FIXED: Sort by PaymentDate first, then ReservationPaymentID to ensure newest is always on top
+            query &= " ORDER BY rp.PaymentDate DESC, rp.ReservationPaymentID DESC"
             query &= $" LIMIT {RecordsPerPage} OFFSET {offset}"
 
             LoadToDGV(query, Reservation, "")
@@ -97,7 +98,7 @@ Public Class ReservationPayment
 
         Catch ex As Exception
             MessageBox.Show("Error loading reservation payments: " & ex.Message & vbCrLf & vbCrLf &
-                          "Stack Trace: " & ex.StackTrace, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                      "Stack Trace: " & ex.StackTrace, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

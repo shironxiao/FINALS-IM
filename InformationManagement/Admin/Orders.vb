@@ -163,7 +163,7 @@ Public Class Orders
             End If
 
             ' Optimized ordering - use indexed columns
-            query &= " ORDER BY o.OrderDate DESC, o.OrderTime DESC, o.OrderID DESC"
+            query &= " ORDER BY o.OrderID DESC"
             query &= $" LIMIT {RecordsPerPage} OFFSET {offset}"
 
             ' Load data with optimized method
@@ -213,9 +213,36 @@ Public Class Orders
 
                         ' Update UI on UI thread
                         If dgv.InvokeRequired Then
-                            dgv.Invoke(Sub() dgv.DataSource = dt)
+                            dgv.Invoke(Sub()
+                                           dgv.DataSource = dt
+
+                                           ' Ensure newest orders appear at the top
+                                           If dgv.Columns.Contains("OrderID") Then
+                                               Try
+                                                   dgv.Columns("OrderID").SortMode = DataGridViewColumnSortMode.Automatic
+                                                   dgv.Sort(dgv.Columns("OrderID"), ComponentModel.ListSortDirection.Descending)
+                                               Catch
+                                                   ' Best-effort: SQL ordering still applies if bound sorting isn't supported.
+                                               End Try
+                                           End If
+                                           If dgv.Rows.Count > 0 Then
+                                               dgv.FirstDisplayedScrollingRowIndex = 0
+                                           End If
+                                       End Sub)
                         Else
                             dgv.DataSource = dt
+
+                            ' Ensure newest orders appear at the top
+                            If dgv.Columns.Contains("OrderID") Then
+                                Try
+                                    dgv.Columns("OrderID").SortMode = DataGridViewColumnSortMode.Automatic
+                                    dgv.Sort(dgv.Columns("OrderID"), ComponentModel.ListSortDirection.Descending)
+                                Catch
+                                End Try
+                            End If
+                            If dgv.Rows.Count > 0 Then
+                                dgv.FirstDisplayedScrollingRowIndex = 0
+                            End If
                         End If
                     End Using
                 End Using

@@ -224,7 +224,7 @@ Public Class Reservations
                 query &= " WHERE " & condition
             End If
 
-            query &= " ORDER BY r.ReservationDate DESC"
+            query &= " ORDER BY r.ReservationID DESC"
 
             ' Add pagination
             Dim offset As Integer = (CurrentPage - 1) * RecordsPerPage
@@ -232,6 +232,18 @@ Public Class Reservations
 
             ' Load results into DGV
             LoadToDGV(query, Reservation)
+
+            ' Ensure newest reservations appear at the top (even if date column is stored as text)
+            If Reservation.Columns.Contains("ReservationID") Then
+                Try
+                    Reservation.Sort(Reservation.Columns("ReservationID"), ComponentModel.ListSortDirection.Descending)
+                Catch
+                    ' Best-effort: SQL ordering still applies if bound sorting isn't supported.
+                End Try
+            End If
+            If Reservation.Rows.Count > 0 Then
+                Reservation.FirstDisplayedScrollingRowIndex = 0
+            End If
 
             ' Update pagination info
             UpdatePaginationInfo()
@@ -537,7 +549,7 @@ Public Class Reservations
          OR c.LastName LIKE @keyword 
          OR r.EventType LIKE @keyword 
          OR r.ReservationStatus LIKE @keyword
-         ORDER BY r.ReservationDate DESC"
+         ORDER BY r.ReservationID DESC"
 
             ' Add pagination
             Dim offset As Integer = (CurrentPage - 1) * RecordsPerPage
@@ -554,6 +566,17 @@ Public Class Reservations
 
             Reservation.DataSource = dt
             closeConn()
+
+            ' Ensure newest reservations appear at the top
+            If Reservation.Columns.Contains("ReservationID") Then
+                Try
+                    Reservation.Sort(Reservation.Columns("ReservationID"), ComponentModel.ListSortDirection.Descending)
+                Catch
+                End Try
+            End If
+            If Reservation.Rows.Count > 0 Then
+                Reservation.FirstDisplayedScrollingRowIndex = 0
+            End If
 
             ' Update pagination info
             UpdatePaginationInfo()

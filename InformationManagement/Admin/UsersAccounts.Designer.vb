@@ -35,6 +35,8 @@ Partial Class UsersAccounts
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.Adduserbtn = New System.Windows.Forms.Button()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.lblSearch = New System.Windows.Forms.Label()
         Me.PaginationPanel = New System.Windows.Forms.Panel()
         Me.btnFirstPage = New System.Windows.Forms.Button()
         Me.btnPreviousPage = New System.Windows.Forms.Button()
@@ -54,7 +56,7 @@ Partial Class UsersAccounts
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(29, 30)
+        Me.Label1.Location = New System.Drawing.Point(31, 7)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(226, 41)
         Me.Label1.TabIndex = 0
@@ -105,7 +107,7 @@ Partial Class UsersAccounts
         Me.UsersAccountData.RowTemplate.Height = 40
         Me.UsersAccountData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.UsersAccountData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.UsersAccountData.Size = New System.Drawing.Size(1051, 250)
+        Me.UsersAccountData.Size = New System.Drawing.Size(1051, 413)
         Me.UsersAccountData.TabIndex = 9
         '
         'txtName
@@ -179,7 +181,7 @@ Partial Class UsersAccounts
         Me.RoundedPane22.Controls.Add(Me.PictureBox5)
         Me.RoundedPane22.CornerRadius = 15
         Me.RoundedPane22.FillColor = System.Drawing.Color.White
-        Me.RoundedPane22.Location = New System.Drawing.Point(28, 80)
+        Me.RoundedPane22.Location = New System.Drawing.Point(30, 57)
         Me.RoundedPane22.Name = "RoundedPane22"
         Me.RoundedPane22.Size = New System.Drawing.Size(280, 90)
         Me.RoundedPane22.TabIndex = 12
@@ -227,12 +229,30 @@ Partial Class UsersAccounts
         Me.Adduserbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Adduserbtn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Adduserbtn.ForeColor = System.Drawing.Color.White
-        Me.Adduserbtn.Location = New System.Drawing.Point(1014, 140)
+        Me.Adduserbtn.Location = New System.Drawing.Point(1014, 152)
         Me.Adduserbtn.Name = "Adduserbtn"
         Me.Adduserbtn.Size = New System.Drawing.Size(65, 45)
         Me.Adduserbtn.TabIndex = 14
         Me.Adduserbtn.Text = "+"
         Me.Adduserbtn.UseVisualStyleBackColor = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(87, 167)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(474, 30)
+        Me.txtSearch.TabIndex = 15
+        '
+        'lblSearch
+        '
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSearch.Location = New System.Drawing.Point(26, 174)
+        Me.lblSearch.Name = "lblSearch"
+        Me.lblSearch.Size = New System.Drawing.Size(65, 23)
+        Me.lblSearch.TabIndex = 16
+        Me.lblSearch.Text = "Search:"
         '
         'PaginationPanel
         '
@@ -242,7 +262,7 @@ Partial Class UsersAccounts
         Me.PaginationPanel.Controls.Add(Me.lblPageInfo)
         Me.PaginationPanel.Controls.Add(Me.btnNextPage)
         Me.PaginationPanel.Controls.Add(Me.btnLastPage)
-        Me.PaginationPanel.Location = New System.Drawing.Point(28, 460)
+        Me.PaginationPanel.Location = New System.Drawing.Point(28, 671)
         Me.PaginationPanel.Name = "PaginationPanel"
         Me.PaginationPanel.Size = New System.Drawing.Size(1051, 50)
         Me.PaginationPanel.TabIndex = 15
@@ -342,7 +362,9 @@ Partial Class UsersAccounts
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(248, Byte), Integer), CType(CType(252, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1121, 553)
+        Me.ClientSize = New System.Drawing.Size(1121, 698)
+        Me.Controls.Add(Me.txtSearch)
+        Me.Controls.Add(Me.lblSearch)
         Me.Controls.Add(Me.PaginationPanel)
         Me.Controls.Add(Me.Adduserbtn)
         Me.Controls.Add(Me.RoundedPane22)
@@ -387,4 +409,6 @@ Partial Class UsersAccounts
     Friend WithEvents btnLastPage As Button
     Friend WithEvents DataGridViewImageColumn1 As DataGridViewImageColumn
     Friend WithEvents DataGridViewImageColumn2 As DataGridViewImageColumn
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents lblSearch As Label
 End Class

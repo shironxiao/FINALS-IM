@@ -30,34 +30,34 @@ Public Class OrderPayment
             CurrentCondition = condition
 
             Dim query As String =
-            "SELECT 
-                p.PaymentID,
-                p.OrderID,
-                o.CustomerID,
-                IFNULL(c.FirstName, '') AS FirstName,
-                IFNULL(c.LastName, '') AS LastName,
-                IFNULL(c.Email, '') AS Email,
-                IFNULL(c.ContactNumber, '') AS CustomerContact,
-                o.ReceiptNumber,
-                o.OrderType,
-                o.TotalAmount AS OrderAmount,
-                p.PaymentDate,
-                p.PaymentMethod,
-                p.PaymentStatus,
-                p.AmountPaid,
-                p.PaymentSource,
-                p.ProofOfPayment,
-                p.ReceiptFileName,
-                p.TransactionID,
-                p.Notes
-             FROM payments p
-             INNER JOIN orders o ON p.OrderID = o.OrderID
-             LEFT JOIN customers c ON o.CustomerID = c.CustomerID"
+        "SELECT 
+            p.PaymentID,
+            p.OrderID,
+            o.CustomerID,
+            IFNULL(c.FirstName, '') AS FirstName,
+            IFNULL(c.LastName, '') AS LastName,
+            IFNULL(c.Email, '') AS Email,
+            IFNULL(c.ContactNumber, '') AS CustomerContact,
+            o.ReceiptNumber,
+            o.OrderType,
+            o.TotalAmount AS OrderAmount,
+            p.PaymentDate,
+            p.PaymentMethod,
+            p.PaymentStatus,
+            p.AmountPaid,
+            p.PaymentSource,
+            p.ProofOfPayment,
+            p.ReceiptFileName,
+            p.TransactionID,
+            p.Notes
+         FROM payments p
+         INNER JOIN orders o ON p.OrderID = o.OrderID
+         LEFT JOIN customers c ON o.CustomerID = c.CustomerID"
 
             Dim countQuery As String =
-            "SELECT COUNT(*) FROM payments p 
-             INNER JOIN orders o ON p.OrderID = o.OrderID
-             LEFT JOIN customers c ON o.CustomerID = c.CustomerID"
+        "SELECT COUNT(*) FROM payments p 
+         INNER JOIN orders o ON p.OrderID = o.OrderID
+         LEFT JOIN customers c ON o.CustomerID = c.CustomerID"
 
             If condition <> "" Then
                 query &= " WHERE " & condition
@@ -75,7 +75,8 @@ Public Class OrderPayment
             End Try
 
             Dim offset As Integer = (CurrentPage - 1) * RecordsPerPage
-            query &= " ORDER BY p.PaymentDate DESC"
+            ' FIXED: Added PaymentID DESC as secondary sort to ensure newest payment is truly on top
+            query &= " ORDER BY p.PaymentDate DESC, p.PaymentID DESC"
             query &= $" LIMIT {RecordsPerPage} OFFSET {offset}"
 
             LoadToDGV(query, Order, "")
