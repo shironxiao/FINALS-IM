@@ -17,9 +17,9 @@ Partial Class UsersAccounts
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UsersAccounts))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UsersAccountData = New System.Windows.Forms.DataGridView()
@@ -34,7 +34,6 @@ Partial Class UsersAccounts
         Me.lblStaffs = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
-        Me.Adduserbtn = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.PaginationPanel = New System.Windows.Forms.Panel()
@@ -72,25 +71,25 @@ Partial Class UsersAccounts
         Me.UsersAccountData.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.UsersAccountData.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.UsersAccountData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.UsersAccountData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.UsersAccountData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.UsersAccountData.ColumnHeadersHeight = 45
         Me.UsersAccountData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.UsersAccountData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.txtName, Me.colUsername, Me.colRole, Me.colStatus, Me.colJoinDate, Me.colEdit, Me.colDelete})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(250, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.UsersAccountData.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(250, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.UsersAccountData.DefaultCellStyle = DataGridViewCellStyle5
         Me.UsersAccountData.EnableHeadersVisualStyles = False
         Me.UsersAccountData.GridColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.UsersAccountData.Location = New System.Drawing.Point(28, 223)
@@ -100,9 +99,9 @@ Partial Class UsersAccounts
         Me.UsersAccountData.RowHeadersVisible = False
         Me.UsersAccountData.RowHeadersWidth = 55
         Me.UsersAccountData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Padding = New System.Windows.Forms.Padding(5)
-        Me.UsersAccountData.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.Padding = New System.Windows.Forms.Padding(5)
+        Me.UsersAccountData.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.UsersAccountData.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White
         Me.UsersAccountData.RowTemplate.Height = 40
         Me.UsersAccountData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -221,34 +220,19 @@ Partial Class UsersAccounts
         Me.PictureBox5.TabIndex = 1
         Me.PictureBox5.TabStop = False
         '
-        'Adduserbtn
-        '
-        Me.Adduserbtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(50, Byte), Integer))
-        Me.Adduserbtn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Adduserbtn.FlatAppearance.BorderSize = 0
-        Me.Adduserbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Adduserbtn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Adduserbtn.ForeColor = System.Drawing.Color.White
-        Me.Adduserbtn.Location = New System.Drawing.Point(1014, 152)
-        Me.Adduserbtn.Name = "Adduserbtn"
-        Me.Adduserbtn.Size = New System.Drawing.Size(65, 45)
-        Me.Adduserbtn.TabIndex = 14
-        Me.Adduserbtn.Text = "+"
-        Me.Adduserbtn.UseVisualStyleBackColor = False
-        '
         'txtSearch
         '
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearch.Location = New System.Drawing.Point(87, 167)
+        Me.txtSearch.Location = New System.Drawing.Point(398, 121)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(474, 30)
+        Me.txtSearch.Size = New System.Drawing.Size(664, 30)
         Me.txtSearch.TabIndex = 15
         '
         'lblSearch
         '
         Me.lblSearch.AutoSize = True
         Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSearch.Location = New System.Drawing.Point(26, 174)
+        Me.lblSearch.Location = New System.Drawing.Point(339, 124)
         Me.lblSearch.Name = "lblSearch"
         Me.lblSearch.Size = New System.Drawing.Size(65, 23)
         Me.lblSearch.TabIndex = 16
@@ -366,7 +350,6 @@ Partial Class UsersAccounts
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.lblSearch)
         Me.Controls.Add(Me.PaginationPanel)
-        Me.Controls.Add(Me.Adduserbtn)
         Me.Controls.Add(Me.RoundedPane22)
         Me.Controls.Add(Me.UsersAccountData)
         Me.Controls.Add(Me.Label1)
@@ -400,7 +383,6 @@ Partial Class UsersAccounts
     Friend WithEvents Label6 As Label
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents lblStaffs As Label
-    Friend WithEvents Adduserbtn As Button
     Friend WithEvents PaginationPanel As Panel
     Friend WithEvents btnFirstPage As Button
     Friend WithEvents btnPreviousPage As Button

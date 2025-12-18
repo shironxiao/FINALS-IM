@@ -10,15 +10,8 @@ Public Class UsersAccounts
     Private searchText As String = ""
     Private initialLoadComplete As Boolean = False
 
-    Private Class AccountCredentialsResult
-        Public Property Result As DialogResult
-        Public Property Username As String
-        Public Property Password As String ' plain text (will be encrypted before saving)
-    End Class
-
     Private Sub UsersAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitializeDataGridView()
-        RoundButton(Adduserbtn)
         RoundPaginationButtons()
         LoadStaffData()
         initialLoadComplete = True
@@ -50,9 +43,6 @@ Public Class UsersAccounts
             Dim statsCardWidth As Integer = Math.Min(300, (formWidth - leftMargin - rightMargin) \ 3)
             RoundedPane22.Width = statsCardWidth
 
-            ' Add User Button (aligned to right)
-            Adduserbtn.Location = New Point(formWidth - rightMargin - Adduserbtn.Width, RoundedPane22.Top + 10)
-
             ' DataGridView - Calculate available space
             Dim gridTop As Integer = RoundedPane22.Bottom + 20
             Dim gridWidth As Integer = formWidth - leftMargin - rightMargin
@@ -83,19 +73,15 @@ Public Class UsersAccounts
             If UsersAccountData.Columns.Count = 0 Then Return
 
             Dim totalWidth As Integer = UsersAccountData.Width - 20 ' Account for scrollbar
-            Dim actionColumnWidth As Integer = 90
 
-            ' Calculate available width for data columns
-            Dim availableWidth As Integer = totalWidth - (actionColumnWidth * 2) ' 2 action columns
-
-            ' Set column widths proportionally
-            UsersAccountData.Columns("txtName").Width = CInt(availableWidth * 0.3) ' 30%
-            UsersAccountData.Columns("colUsername").Width = CInt(availableWidth * 0.25) ' 25%
-            UsersAccountData.Columns("colRole").Width = CInt(availableWidth * 0.2) ' 20%
-            UsersAccountData.Columns("colStatus").Width = CInt(availableWidth * 0.1) ' 10%
-            UsersAccountData.Columns("colJoinDate").Width = CInt(availableWidth * 0.15) ' 15%
-            UsersAccountData.Columns("colEdit").Width = actionColumnWidth
-            UsersAccountData.Columns("colDelete").Width = actionColumnWidth
+            ' Set column widths proportionally based on Designer columns
+            UsersAccountData.Columns("txtName").Width = CInt(totalWidth * 0.2) ' 20% - Name
+            UsersAccountData.Columns("colUsername").Width = CInt(totalWidth * 0.18) ' 18% - Username
+            UsersAccountData.Columns("colRole").Width = CInt(totalWidth * 0.15) ' 15% - Role
+            UsersAccountData.Columns("colStatus").Width = CInt(totalWidth * 0.15) ' 15% - Status
+            UsersAccountData.Columns("colJoinDate").Width = CInt(totalWidth * 0.2) ' 20% - Join Date
+            UsersAccountData.Columns("colEdit").Width = 80 ' Fixed width
+            UsersAccountData.Columns("colDelete").Width = 80 ' Fixed width
 
         Catch ex As Exception
             Debug.WriteLine("Column width adjustment error: " & ex.Message)
@@ -138,29 +124,33 @@ Public Class UsersAccounts
         ' Remove selection highlighting on focus
         UsersAccountData.DefaultCellStyle.SelectionBackColor = Color.FromArgb(240, 244, 250)
         UsersAccountData.DefaultCellStyle.SelectionForeColor = Color.Black
+
+        ' Hide the Edit column
+        If UsersAccountData.Columns.Contains("colEdit") Then
+            UsersAccountData.Columns("colEdit").Visible = False
+        End If
     End Sub
 
     Private Sub LoadStaffData()
         Try
             openConn()
 
-            ' Load only staff members with improved query
+            ' FIXED QUERY: Load only staff members with exact Position match
+            ' Added LIMIT and proper index hints for performance
             Dim query As String = "
                 SELECT 
                     e.EmployeeID as ID,
-                    CONCAT(e.FirstName, ' ', e.LastName) as FullName,
-                    COALESCE(
-                        (SELECT ua.username FROM user_accounts ua WHERE ua.employee_id = e.EmployeeID LIMIT 1),
-                        (SELECT ua.username FROM user_accounts ua WHERE ua.name = CONCAT(e.FirstName, ' ', e.LastName) LIMIT 1)
-                    ) as Username,
-                    e.Position as Role,
-                    e.EmploymentStatus as Status,
+                    e.FirstName,
+                    e.LastName,
                     e.HireDate as DateCreated
                 FROM employee e
-                WHERE e.Position LIKE '%Staff%'
-                ORDER BY e.HireDate DESC"
+                WHERE e.Position = 'Staff'
+                ORDER BY e.HireDate DESC
+                LIMIT 1000"
 
             Dim cmd As New MySqlCommand(query, conn)
+            cmd.CommandTimeout = 30
+
             Dim adapter As New MySqlDataAdapter(cmd)
             allStaffData = New DataTable()
             adapter.Fill(allStaffData)
@@ -175,7 +165,9 @@ Public Class UsersAccounts
             ApplySearchFilter()
 
         Catch ex As MySqlException
-            MessageBox.Show("Database error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Database error: " & ex.Message & vbCrLf & vbCrLf &
+                          "Make sure the 'Position' column contains 'Staff' entries.",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As Exception
             MessageBox.Show("Error loading staff data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
@@ -193,15 +185,11 @@ Public Class UsersAccounts
         Else
             filteredData = allStaffData.Clone()
             For Each row As DataRow In allStaffData.Rows
-                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().ToLower(), "")
-                Dim username As String = If(row("Username") IsNot DBNull.Value, row("Username").ToString().ToLower(), "")
-                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString().ToLower(), "")
-                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+                Dim firstName As String = If(row("FirstName") IsNot DBNull.Value, row("FirstName").ToString().ToLower(), "")
+                Dim lastName As String = If(row("LastName") IsNot DBNull.Value, row("LastName").ToString().ToLower(), "")
 
-                If fullName.Contains(searchText.ToLower()) OrElse
-                   username.Contains(searchText.ToLower()) OrElse
-                   role.Contains(searchText.ToLower()) OrElse
-                   status.Contains(searchText.ToLower()) Then
+                If firstName.Contains(searchText.ToLower()) OrElse
+                   lastName.Contains(searchText.ToLower()) Then
                     filteredData.ImportRow(row)
                 End If
             Next
@@ -217,7 +205,9 @@ Public Class UsersAccounts
     Private Sub LoadPage(pageNumber As Integer, Optional dataSource As DataTable = Nothing)
         If dataSource Is Nothing Then dataSource = allStaffData
         If dataSource Is Nothing OrElse dataSource.Rows.Count = 0 Then
+            UsersAccountData.Rows.Clear()
             UpdatePaginationControls()
+            lblStaffs.Text = "0"
             Return
         End If
 
@@ -238,29 +228,19 @@ Public Class UsersAccounts
             For i As Integer = startIndex To endIndex - 1
                 Dim row As DataRow = dataSource.Rows(i)
 
-                ' Get full name
-                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().Trim(), "N/A")
+                ' Get first name
+                Dim firstName As String = If(row("FirstName") IsNot DBNull.Value, row("FirstName").ToString().Trim(), "N/A")
 
-                ' Get role
-                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString(), "N/A")
+                ' Get last name
+                Dim lastName As String = If(row("LastName") IsNot DBNull.Value, row("LastName").ToString().Trim(), "N/A")
 
-                ' Get username (may be NULL if no account exists yet)
-                Dim loginUsername As String = "N/A"
-                If allStaffData.Columns.Contains("Username") AndAlso row("Username") IsNot DBNull.Value Then
-                    loginUsername = row("Username").ToString().Trim()
-                    If loginUsername = "" Then loginUsername = "N/A"
-                End If
-
-                ' Get status
-                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString(), "N/A")
-
-                ' Format join date
-                Dim joinDate As String = "N/A"
+                ' Format hire date
+                Dim hireDate As String = "N/A"
                 If row("DateCreated") IsNot DBNull.Value Then
                     Try
-                        joinDate = Convert.ToDateTime(row("DateCreated")).ToString("MMMM dd, yyyy")
+                        hireDate = Convert.ToDateTime(row("DateCreated")).ToString("MMMM dd, yyyy")
                     Catch
-                        joinDate = row("DateCreated").ToString()
+                        hireDate = row("DateCreated").ToString()
                     End Try
                 End If
 
@@ -268,13 +248,14 @@ Public Class UsersAccounts
                 Dim rowIndex As Integer = UsersAccountData.Rows.Add()
                 Dim newRow As DataGridViewRow = UsersAccountData.Rows(rowIndex)
 
-                newRow.Cells("txtName").Value = fullName
-                newRow.Cells("colUsername").Value = loginUsername
-                newRow.Cells("colRole").Value = role
-                newRow.Cells("colStatus").Value = status
-                newRow.Cells("colJoinDate").Value = joinDate
+                ' Set cell values (matching Designer column names)
+                newRow.Cells("txtName").Value = firstName & " " & lastName ' Combined name
+                newRow.Cells("colUsername").Value = "N/A" ' Not in database query
+                newRow.Cells("colRole").Value = "Staff" ' All are staff
+                newRow.Cells("colStatus").Value = "Active" ' Default status
+                newRow.Cells("colJoinDate").Value = hireDate
 
-                ' Store ID for edit/delete operations
+                ' Store ID for delete operations
                 newRow.Tag = If(row("ID") IsNot DBNull.Value, Convert.ToInt32(row("ID")), 0)
             Next
 
@@ -308,8 +289,10 @@ Public Class UsersAccounts
         If e.ColumnIndex < 0 Then Return
 
         Dim selectedRow As DataGridViewRow = UsersAccountData.Rows(e.RowIndex)
-        Dim username As String = If(selectedRow.Cells("txtName").Value IsNot Nothing,
-                                    selectedRow.Cells("txtName").Value.ToString(), "Unknown")
+
+        ' Get the full name from the combined Name column
+        Dim fullName As String = If(selectedRow.Cells("txtName").Value IsNot Nothing,
+                                    selectedRow.Cells("txtName").Value.ToString().Trim(), "Unknown")
 
         Dim userID As Integer = If(selectedRow.Tag IsNot Nothing, CInt(selectedRow.Tag), 0)
 
@@ -318,225 +301,30 @@ Public Class UsersAccounts
             Return
         End If
 
-        ' EDIT BUTTON
-        If e.ColumnIndex = UsersAccountData.Columns("colEdit").Index Then
-            EditUserAccountCredentials(userID, username)
-
-            ' DELETE BUTTON
-        ElseIf e.ColumnIndex = UsersAccountData.Columns("colDelete").Index Then
+        ' DELETE BUTTON
+        If e.ColumnIndex = UsersAccountData.Columns("colDelete").Index Then
             Dim result As DialogResult = MessageBox.Show(
-                $"Are you sure you want to delete {username}?{vbNewLine}{vbNewLine}This action cannot be undone.",
+                $"Are you sure you want to delete {fullName}?{vbNewLine}{vbNewLine}This action cannot be undone.",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
             )
 
             If result = DialogResult.Yes Then
-                DeleteStaffMember(userID, username)
+                DeleteStaffMember(userID, fullName)
             End If
         End If
-    End Sub
 
-    Private Sub EditUserAccountCredentials(employeeId As Integer, staffDisplayName As String)
-        Dim accountId As Integer = 0
-        Dim currentUsername As String = ""
-        Dim foundByFallback As Boolean = False
-
-        Try
-            openConn()
-
-            Dim hasEmployeeId As Boolean = UserAccountsHasColumn("employee_id")
-
-            ' 1) Preferred: find account linked to this employee_id (if the column exists)
-            If hasEmployeeId Then
-                Dim lookupSql As String = "SELECT id, username FROM user_accounts WHERE employee_id = @eid LIMIT 1"
-                Using lookupCmd As New MySqlCommand(lookupSql, conn)
-                    lookupCmd.Parameters.AddWithValue("@eid", employeeId)
-                    Using reader As MySqlDataReader = lookupCmd.ExecuteReader()
-                        If reader.Read() Then
-                            accountId = Convert.ToInt32(reader("id"))
-                            currentUsername = reader("username").ToString()
-                        End If
-                    End Using
-                End Using
-            End If
-
-            ' 2) Fallback: older records may not have employee_id set
-            If accountId = 0 Then
-                Dim fallbackSql As String = "SELECT id, username, employee_id FROM user_accounts " &
-                                            "WHERE (name = @name OR username = @name) " &
-                                            "ORDER BY (employee_id IS NULL) DESC, id DESC LIMIT 1"
-                Using fallbackCmd As New MySqlCommand(fallbackSql, conn)
-                    fallbackCmd.Parameters.AddWithValue("@name", staffDisplayName)
-                    Using reader As MySqlDataReader = fallbackCmd.ExecuteReader()
-                        If reader.Read() Then
-                            accountId = Convert.ToInt32(reader("id"))
-                            currentUsername = reader("username").ToString()
-                            foundByFallback = True
-                        End If
-                    End Using
-                End Using
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error looking up account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        Finally
-            closeConn()
-        End Try
-
-        If accountId = 0 Then
-            Dim createNow As DialogResult = MessageBox.Show(
-                $"No account found for {staffDisplayName}.{vbNewLine}{vbNewLine}Do you want to create their login account now?",
-                "No Account",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            )
-
-            If createNow <> DialogResult.Yes Then Return
-
-            Dim suggested As String = staffDisplayName.Replace(" ", "").ToLower()
-            Dim newCreds = PromptCredentials("Create Account", staffDisplayName, suggestedUsername:=suggested, allowBlankPasswordToKeep:=False)
-            If newCreds Is Nothing OrElse newCreds.Result <> DialogResult.OK Then Return
-
-            Try
-                openConn()
-
-                ' Ensure employee_id column exists (older DB)
-                Try
-                    Dim colCheckSql As String = "SELECT COUNT(*) FROM information_schema.COLUMNS " &
-                                                "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'user_accounts' AND COLUMN_NAME = 'employee_id'"
-                    Using colCheckCmd As New MySqlCommand(colCheckSql, conn)
-                        Dim colCount As Integer = Convert.ToInt32(colCheckCmd.ExecuteScalar())
-                        If colCount = 0 Then
-                            Using alterCmd As New MySqlCommand("ALTER TABLE user_accounts ADD COLUMN employee_id INT NULL", conn)
-                                alterCmd.ExecuteNonQuery()
-                            End Using
-                        End If
-                    End Using
-                Catch
-                    ' ignore
-                End Try
-
-                ' Username unique
-                Using existsUserCmd As New MySqlCommand("SELECT COUNT(*) FROM user_accounts WHERE username = @u", conn)
-                    existsUserCmd.Parameters.AddWithValue("@u", newCreds.Username)
-                    Dim cnt As Integer = Convert.ToInt32(existsUserCmd.ExecuteScalar())
-                    If cnt > 0 Then
-                        MessageBox.Show("Username already exists. Please choose another.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        Return
-                    End If
-                End Using
-
-                Dim encPass As String = Encrypt(newCreds.Password)
-                Dim insertSql As String = "INSERT INTO user_accounts (employee_id, name, username, password, type, position, created_at) " &
-                                          "VALUES (@eid, @name, @username, @pass, 1, @pos, NOW())"
-
-                Dim role As String = ""
-                Try
-                    If UsersAccountData.SelectedRows IsNot Nothing AndAlso UsersAccountData.SelectedRows.Count > 0 Then
-                        Dim sr As DataGridViewRow = UsersAccountData.SelectedRows(0)
-                        role = If(sr.Cells("colRole").Value IsNot Nothing, sr.Cells("colRole").Value.ToString(), "")
-                    End If
-                Catch
-                    role = ""
-                End Try
-
-                Using insertCmd As New MySqlCommand(insertSql, conn)
-                    insertCmd.Parameters.AddWithValue("@eid", employeeId)
-                    insertCmd.Parameters.AddWithValue("@name", staffDisplayName)
-                    insertCmd.Parameters.AddWithValue("@username", newCreds.Username)
-                    insertCmd.Parameters.AddWithValue("@pass", encPass)
-                    insertCmd.Parameters.AddWithValue("@pos", role)
-                    insertCmd.ExecuteNonQuery()
-                End Using
-
-                MessageBox.Show("Account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LoadStaffData()
-            Catch ex As Exception
-                MessageBox.Show("Error creating account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Finally
-                closeConn()
-            End Try
-
-            Return
+        ' EDIT BUTTON (Optional - add functionality if needed)
+        If e.ColumnIndex = UsersAccountData.Columns("colEdit").Index Then
+            MessageBox.Show($"Edit functionality for {fullName} coming soon!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
-
-        ' If we found an existing account by name/username match, auto-link it to this employee_id for future edits.
-        If foundByFallback Then
-            Try
-                openConn()
-
-                ' Safety: ensure no other account is already linked to this employee_id
-                If UserAccountsHasColumn("employee_id") Then
-                    Using linkedCmd As New MySqlCommand("SELECT COUNT(*) FROM user_accounts WHERE employee_id = @eid AND id <> @id", conn)
-                        linkedCmd.Parameters.AddWithValue("@eid", employeeId)
-                        linkedCmd.Parameters.AddWithValue("@id", accountId)
-                        Dim cnt As Integer = Convert.ToInt32(linkedCmd.ExecuteScalar())
-                        If cnt = 0 Then
-                            Using linkCmd As New MySqlCommand("UPDATE user_accounts SET employee_id = @eid WHERE id = @id AND (employee_id IS NULL OR employee_id = 0)", conn)
-                                linkCmd.Parameters.AddWithValue("@eid", employeeId)
-                                linkCmd.Parameters.AddWithValue("@id", accountId)
-                                linkCmd.ExecuteNonQuery()
-                            End Using
-                        End If
-                    End Using
-                End If
-            Catch
-                ' Best effort; ignore auto-linking failures
-            Finally
-                closeConn()
-            End Try
-        End If
-
-        Dim creds = PromptCredentials("Edit Account", staffDisplayName, currentUsername, allowBlankPasswordToKeep:=True)
-        If creds Is Nothing OrElse creds.Result <> DialogResult.OK Then Return
-
-        Try
-            openConn()
-
-            ' Validate unique username if changed
-            If Not String.Equals(creds.Username, currentUsername, StringComparison.OrdinalIgnoreCase) Then
-                Dim existsSql As String = "SELECT COUNT(*) FROM user_accounts WHERE username = @u AND id <> @id"
-                Using existsCmd As New MySqlCommand(existsSql, conn)
-                    existsCmd.Parameters.AddWithValue("@u", creds.Username)
-                    existsCmd.Parameters.AddWithValue("@id", accountId)
-                    Dim cnt As Integer = Convert.ToInt32(existsCmd.ExecuteScalar())
-                    If cnt > 0 Then
-                        MessageBox.Show("Username already exists. Please choose another.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        Return
-                    End If
-                End Using
-            End If
-
-            If String.IsNullOrWhiteSpace(creds.Password) Then
-                Using updateCmd As New MySqlCommand("UPDATE user_accounts SET username = @u WHERE id = @id", conn)
-                    updateCmd.Parameters.AddWithValue("@u", creds.Username)
-                    updateCmd.Parameters.AddWithValue("@id", accountId)
-                    updateCmd.ExecuteNonQuery()
-                End Using
-            Else
-                Dim enc As String = Encrypt(creds.Password)
-                Using updateCmd As New MySqlCommand("UPDATE user_accounts SET username = @u, password = @p WHERE id = @id", conn)
-                    updateCmd.Parameters.AddWithValue("@u", creds.Username)
-                    updateCmd.Parameters.AddWithValue("@p", enc)
-                    updateCmd.Parameters.AddWithValue("@id", accountId)
-                    updateCmd.ExecuteNonQuery()
-                End Using
-            End If
-
-            MessageBox.Show("Account updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            LoadStaffData()
-        Catch ex As Exception
-            MessageBox.Show("Error updating account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            closeConn()
-        End Try
     End Sub
 
     Private Sub DeleteStaffMember(userID As Integer, username As String)
         Try
             openConn()
-            Dim query As String = "DELETE FROM employee WHERE EmployeeID = @id"
+            Dim query As String = "DELETE FROM employee WHERE EmployeeID = @id AND Position = 'Staff'"
             Dim cmd As New MySqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@id", userID)
 
@@ -547,7 +335,7 @@ Public Class UsersAccounts
                               "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 LoadStaffData() ' Reload data
             Else
-                MessageBox.Show("No records were deleted.",
+                MessageBox.Show("No records were deleted. Staff member may not exist.",
                               "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
@@ -598,15 +386,11 @@ Public Class UsersAccounts
         Else
             Dim filteredData As DataTable = allStaffData.Clone()
             For Each row As DataRow In allStaffData.Rows
-                Dim fullName As String = If(row("FullName") IsNot DBNull.Value, row("FullName").ToString().ToLower(), "")
-                Dim username As String = If(row("Username") IsNot DBNull.Value, row("Username").ToString().ToLower(), "")
-                Dim role As String = If(row("Role") IsNot DBNull.Value, row("Role").ToString().ToLower(), "")
-                Dim status As String = If(row("Status") IsNot DBNull.Value, row("Status").ToString().ToLower(), "")
+                Dim firstName As String = If(row("FirstName") IsNot DBNull.Value, row("FirstName").ToString().ToLower(), "")
+                Dim lastName As String = If(row("LastName") IsNot DBNull.Value, row("LastName").ToString().ToLower(), "")
 
-                If fullName.Contains(searchText.ToLower()) OrElse
-                   username.Contains(searchText.ToLower()) OrElse
-                   role.Contains(searchText.ToLower()) OrElse
-                   status.Contains(searchText.ToLower()) Then
+                If firstName.Contains(searchText.ToLower()) OrElse
+                   lastName.Contains(searchText.ToLower()) Then
                     filteredData.ImportRow(row)
                 End If
             Next
@@ -619,214 +403,6 @@ Public Class UsersAccounts
         searchText = txtSearch.Text.Trim()
         ApplySearchFilter()
     End Sub
-
-    Private Sub Adduserbtn_Click(sender As Object, e As EventArgs) Handles Adduserbtn.Click
-        ' Create a login account for the selected staff member (links employee_id in user_accounts)
-        If UsersAccountData.SelectedRows Is Nothing OrElse UsersAccountData.SelectedRows.Count = 0 Then
-            MessageBox.Show("Please select a staff member first, then click Add User to create their account.",
-                            "Select Staff",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-            Return
-        End If
-
-        Dim selectedRow As DataGridViewRow = UsersAccountData.SelectedRows(0)
-        Dim employeeId As Integer = If(selectedRow.Tag IsNot Nothing, CInt(selectedRow.Tag), 0)
-        If employeeId <= 0 Then
-            MessageBox.Show("Invalid EmployeeID for the selected staff member.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        Dim staffName As String = If(selectedRow.Cells("txtName").Value IsNot Nothing, selectedRow.Cells("txtName").Value.ToString(), "Unknown")
-        Dim role As String = If(selectedRow.Cells("colRole").Value IsNot Nothing, selectedRow.Cells("colRole").Value.ToString(), "")
-
-        ' If an account already exists, go straight to edit
-        Try
-            openConn()
-            Using existsCmd As New MySqlCommand("SELECT COUNT(*) FROM user_accounts WHERE employee_id = @eid", conn)
-                existsCmd.Parameters.AddWithValue("@eid", employeeId)
-                Dim cnt As Integer = Convert.ToInt32(existsCmd.ExecuteScalar())
-                If cnt > 0 Then
-                    closeConn()
-                    EditUserAccountCredentials(employeeId, staffName)
-                    Return
-                End If
-            End Using
-
-            ' Fallback: if an old account exists but isn't linked yet, link it and edit
-            Using fallbackCmd As New MySqlCommand("SELECT id FROM user_accounts WHERE (name = @name OR username = @name) LIMIT 1", conn)
-                fallbackCmd.Parameters.AddWithValue("@name", staffName)
-                Dim existingIdObj As Object = fallbackCmd.ExecuteScalar()
-                If existingIdObj IsNot Nothing AndAlso existingIdObj IsNot DBNull.Value Then
-                    Dim existingId As Integer = Convert.ToInt32(existingIdObj)
-                    Using linkCmd As New MySqlCommand("UPDATE user_accounts SET employee_id = @eid WHERE id = @id AND (employee_id IS NULL OR employee_id = 0)", conn)
-                        linkCmd.Parameters.AddWithValue("@eid", employeeId)
-                        linkCmd.Parameters.AddWithValue("@id", existingId)
-                        linkCmd.ExecuteNonQuery()
-                    End Using
-
-                    closeConn()
-                    EditUserAccountCredentials(employeeId, staffName)
-                    Return
-                End If
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error checking existing account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        Finally
-            closeConn()
-        End Try
-
-        Dim creds = PromptCredentials("Create Account", staffName, suggestedUsername:=staffName.Replace(" ", "").ToLower(), allowBlankPasswordToKeep:=False)
-        If creds Is Nothing OrElse creds.Result <> DialogResult.OK Then Return
-
-        Try
-            openConn()
-
-            ' Ensure employee_id column exists (older DB)
-            Try
-                Dim colCheckSql As String = "SELECT COUNT(*) FROM information_schema.COLUMNS " &
-                                            "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'user_accounts' AND COLUMN_NAME = 'employee_id'"
-                Using colCheckCmd As New MySqlCommand(colCheckSql, conn)
-                    Dim colCount As Integer = Convert.ToInt32(colCheckCmd.ExecuteScalar())
-                    If colCount = 0 Then
-                        Using alterCmd As New MySqlCommand("ALTER TABLE user_accounts ADD COLUMN employee_id INT NULL", conn)
-                            alterCmd.ExecuteNonQuery()
-                        End Using
-                    End If
-                End Using
-            Catch
-                ' ignore
-            End Try
-
-            ' Username unique
-            Using existsUserCmd As New MySqlCommand("SELECT COUNT(*) FROM user_accounts WHERE username = @u", conn)
-                existsUserCmd.Parameters.AddWithValue("@u", creds.Username)
-                Dim cnt As Integer = Convert.ToInt32(existsUserCmd.ExecuteScalar())
-                If cnt > 0 Then
-                    MessageBox.Show("Username already exists. Please choose another.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Return
-                End If
-            End Using
-
-            Dim encPass As String = Encrypt(creds.Password)
-            Dim insertSql As String = "INSERT INTO user_accounts (employee_id, name, username, password, type, position, created_at) " &
-                                      "VALUES (@eid, @name, @username, @pass, 1, @pos, NOW())"
-            Using insertCmd As New MySqlCommand(insertSql, conn)
-                insertCmd.Parameters.AddWithValue("@eid", employeeId)
-                insertCmd.Parameters.AddWithValue("@name", staffName)
-                insertCmd.Parameters.AddWithValue("@username", creds.Username)
-                insertCmd.Parameters.AddWithValue("@pass", encPass)
-                insertCmd.Parameters.AddWithValue("@pos", role)
-                insertCmd.ExecuteNonQuery()
-            End Using
-
-            MessageBox.Show("Account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Catch ex As Exception
-            MessageBox.Show("Error creating account: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            closeConn()
-        End Try
-    End Sub
-
-    Private Function PromptCredentials(title As String, staffName As String, suggestedUsername As String, allowBlankPasswordToKeep As Boolean) As AccountCredentialsResult
-        Dim result As New AccountCredentialsResult With {.Result = DialogResult.Cancel, .Username = suggestedUsername, .Password = ""}
-
-        Using dlg As New Form()
-            dlg.Text = title
-            dlg.FormBorderStyle = FormBorderStyle.FixedDialog
-            dlg.StartPosition = FormStartPosition.CenterParent
-            dlg.MaximizeBox = False
-            dlg.MinimizeBox = False
-            dlg.ShowInTaskbar = False
-            dlg.Width = 420
-            dlg.Height = 280
-
-            Dim lblInfo As New Label() With {.Left = 12, .Top = 12, .AutoSize = True, .Text = $"Staff: {staffName}"}
-
-            Dim lblUser As New Label() With {.Left = 12, .Top = 52, .AutoSize = True, .Text = "Username"}
-            Dim txtUser As New TextBox() With {.Left = 12, .Top = 72, .Width = 370, .Text = suggestedUsername}
-
-            Dim passHint As String = If(allowBlankPasswordToKeep, "New Password (leave blank to keep current)", "Password")
-            Dim lblPass As New Label() With {.Left = 12, .Top = 106, .AutoSize = True, .Text = passHint}
-            Dim txtPass As New TextBox() With {.Left = 12, .Top = 126, .Width = 370, .UseSystemPasswordChar = True}
-
-            Dim lblConfirm As New Label() With {.Left = 12, .Top = 156, .AutoSize = True, .Text = "Confirm Password"}
-            Dim txtConfirm As New TextBox() With {.Left = 12, .Top = 176, .Width = 370, .UseSystemPasswordChar = True}
-
-            Dim chkShow As New CheckBox() With {.Left = 12, .Top = 204, .AutoSize = True, .Text = "Show password"}
-            AddHandler chkShow.CheckedChanged, Sub()
-                                                   txtPass.UseSystemPasswordChar = Not chkShow.Checked
-                                                   txtConfirm.UseSystemPasswordChar = Not chkShow.Checked
-                                               End Sub
-
-            Dim btnOk As New Button() With {.Text = "Save", .Left = 226, .Top = 228, .Width = 75, .DialogResult = DialogResult.OK}
-            Dim btnCancel As New Button() With {.Text = "Cancel", .Left = 307, .Top = 228, .Width = 75, .DialogResult = DialogResult.Cancel}
-
-            dlg.AcceptButton = btnOk
-            dlg.CancelButton = btnCancel
-
-            dlg.Controls.Add(lblInfo)
-            dlg.Controls.Add(lblUser)
-            dlg.Controls.Add(txtUser)
-            dlg.Controls.Add(lblPass)
-            dlg.Controls.Add(txtPass)
-            dlg.Controls.Add(lblConfirm)
-            dlg.Controls.Add(txtConfirm)
-            dlg.Controls.Add(chkShow)
-            dlg.Controls.Add(btnOk)
-            dlg.Controls.Add(btnCancel)
-
-            ' This form is hosted inside the dashboard panel (TopLevel=False),
-            ' so passing it as an owner can prevent the dialog from showing.
-            Dim dlgResult As DialogResult = dlg.ShowDialog()
-            If dlgResult <> DialogResult.OK Then
-                result.Result = dlgResult
-                Return result
-            End If
-
-            Dim newUsername As String = txtUser.Text.Trim()
-            If String.IsNullOrWhiteSpace(newUsername) Then
-                MessageBox.Show("Username cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                result.Result = DialogResult.Cancel
-                Return result
-            End If
-
-            Dim pass As String = txtPass.Text
-            If Not String.IsNullOrWhiteSpace(pass) Then
-                If pass <> txtConfirm.Text Then
-                    MessageBox.Show("Passwords do not match.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    result.Result = DialogResult.Cancel
-                    Return result
-                End If
-            Else
-                If Not allowBlankPasswordToKeep Then
-                    MessageBox.Show("Password is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    result.Result = DialogResult.Cancel
-                    Return result
-                End If
-            End If
-
-            result.Result = DialogResult.OK
-            result.Username = newUsername
-            result.Password = pass
-            Return result
-        End Using
-    End Function
-
-    Private Function UserAccountsHasColumn(columnName As String) As Boolean
-        Try
-            Dim sql As String = "SELECT COUNT(*) FROM information_schema.COLUMNS " &
-                                "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'user_accounts' AND COLUMN_NAME = @c"
-            Using cmd As New MySqlCommand(sql, conn)
-                cmd.Parameters.AddWithValue("@c", columnName)
-                Dim cnt As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                Return cnt > 0
-            End Using
-        Catch
-            Return False
-        End Try
-    End Function
 
     ' UI Helper Methods
     Private Sub RoundButton(btn As Button)

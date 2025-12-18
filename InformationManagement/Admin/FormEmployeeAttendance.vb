@@ -3,6 +3,8 @@ Imports System.Data
 
 Public Class FormEmployeeAttendance
 
+    Private originalData As DataTable ' Store original data for filtering
+
     Private Sub FormEmployeeAttendance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Setup DataGridView
         SetupDataGridView()
@@ -124,6 +126,9 @@ Public Class FormEmployeeAttendance
 
             adapter.Fill(table)
 
+            ' Store original data
+            originalData = table.Copy()
+
             ' Bind to DataGridView
             DataGridView1.DataSource = table
 
@@ -197,6 +202,55 @@ Public Class FormEmployeeAttendance
 
         Catch ex As Exception
             ' Silent fail for formatting errors
+        End Try
+    End Sub
+
+    '====================================
+    ' SEARCH TEXTBOX TEXT CHANGED
+    '====================================
+    Private Sub TextBoxSearch_TextChanged(sender As Object, e As EventArgs) Handles TextBoxSearch.TextChanged
+        FilterData()
+    End Sub
+
+    '====================================
+    ' FILTER DATA BASED ON SEARCH
+    '====================================
+    Private Sub FilterData()
+        Try
+            If originalData Is Nothing Then Return
+
+            Dim searchText As String = TextBoxSearch.Text.Trim().ToLower()
+
+            If String.IsNullOrEmpty(searchText) Then
+                ' Show all data if search is empty
+                DataGridView1.DataSource = originalData.Copy()
+            Else
+                ' Filter the data
+                Dim filteredView As DataView = originalData.DefaultView
+                filteredView.RowFilter = String.Format(
+                    "EmployeeName LIKE '%{0}%' OR Position LIKE '%{0}%' OR Status LIKE '%{0}%'",
+                    searchText.Replace("'", "''"))
+
+                ' Create a new DataTable from filtered view
+                Dim filteredTable As DataTable = filteredView.ToTable()
+                DataGridView1.DataSource = filteredTable
+            End If
+
+            ' Reapply formatting after filtering
+            FormatDataGridView()
+
+            ' Update label
+            Dim currentCount As Integer = DataGridView1.Rows.Count
+            Dim totalCount As Integer = If(originalData IsNot Nothing, originalData.Rows.Count, 0)
+
+            If String.IsNullOrEmpty(searchText) Then
+                Label1.Text = String.Format("Employee Attendance Report ({0} employees)", totalCount)
+            Else
+                Label1.Text = String.Format("Employee Attendance Report ({0} of {1} employees)", currentCount, totalCount)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error filtering data: " & ex.Message, "Filter Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

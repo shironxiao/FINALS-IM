@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormEmployeeAttendance
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormEmployeeAttendance
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormEmployeeAttendance))
@@ -32,6 +32,8 @@ Partial Class FormEmployeeAttendance
         Me.Absences = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.RoundedPane21 = New InformationManagement.RoundedPane2()
+        Me.TextBoxSearch = New System.Windows.Forms.TextBox()
+        Me.LabelSearch = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,6 +111,8 @@ Partial Class FormEmployeeAttendance
         '
         Me.RoundedPane21.BorderColor = System.Drawing.Color.LightGray
         Me.RoundedPane21.BorderThickness = 1
+        Me.RoundedPane21.Controls.Add(Me.TextBoxSearch)
+        Me.RoundedPane21.Controls.Add(Me.LabelSearch)
         Me.RoundedPane21.Controls.Add(Me.DataGridView1)
         Me.RoundedPane21.Controls.Add(Me.Button1)
         Me.RoundedPane21.Controls.Add(Me.Label1)
@@ -120,6 +124,29 @@ Partial Class FormEmployeeAttendance
         Me.RoundedPane21.Name = "RoundedPane21"
         Me.RoundedPane21.Size = New System.Drawing.Size(1595, 705)
         Me.RoundedPane21.TabIndex = 0
+        '
+        'TextBoxSearch
+        '
+        Me.TextBoxSearch.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBoxSearch.ForeColor = System.Drawing.Color.Gray
+        Me.TextBoxSearch.Location = New System.Drawing.Point(33, 95)
+        Me.TextBoxSearch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBoxSearch.Name = "TextBoxSearch"
+        Me.TextBoxSearch.Size = New System.Drawing.Size(350, 29)
+        Me.TextBoxSearch.TabIndex = 12
+        '
+        'LabelSearch
+        '
+        Me.LabelSearch.AutoSize = True
+        Me.LabelSearch.BackColor = System.Drawing.Color.Transparent
+        Me.LabelSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelSearch.ForeColor = System.Drawing.Color.Gray
+        Me.LabelSearch.Location = New System.Drawing.Point(29, 71)
+        Me.LabelSearch.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LabelSearch.Name = "LabelSearch"
+        Me.LabelSearch.Size = New System.Drawing.Size(253, 20)
+        Me.LabelSearch.TabIndex = 11
+        Me.LabelSearch.Text = "Search by Employee, Position or Status"
         '
         'Button1
         '
@@ -174,4 +201,6 @@ Partial Class FormEmployeeAttendance
     Friend WithEvents OvertimeHours As DataGridViewTextBoxColumn
     Friend WithEvents Absences As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents LabelSearch As Label
+    Friend WithEvents TextBoxSearch As TextBox
 End Class
